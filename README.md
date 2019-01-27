@@ -3,8 +3,8 @@
 Support for:
 * Custom type printers via reflection macros
 * Builtin types
-  * Arithmetic types
-  * C-style arrays
+  * Arithmetic types (i.e. `std::is_arithmetic_v<T> == true`)
+  * C-style arrays (e.g. int[10])
 * Containers:
   * `std::array`
   * `std::vector`
