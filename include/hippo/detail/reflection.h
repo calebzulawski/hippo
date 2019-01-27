@@ -3,42 +3,6 @@
 
 #include "base.h"
 
-namespace hippo::detail {
-
-template <typename T>
-void print_member(const char *name, const T &value,
-                  std::vector<std::string> &lines, std::uint64_t indent,
-                  std::uint64_t current_indent) {
-  std::string header(current_indent, ' ');
-  header.append(name);
-  if constexpr (::hippo::has_stringifier<T>::value) {
-    header.push_back(' ');
-    header.append(::hippo::stringifier<T>::stringify(value));
-    lines.emplace_back(std::move(header));
-  } else {
-    if constexpr (::hippo::has_prefix_v<T>) {
-      header.push_back(' ');
-      auto prefix = ::hippo::printer<T>::prefix();
-      if (prefix.size() > 0)
-        header.append(prefix);
-    }
-    lines.emplace_back(std::move(header));
-    auto sublines =
-        ::hippo::printer<T>::print(value, indent, current_indent + indent);
-    lines.insert(lines.end(), std::begin(sublines), std::end(sublines));
-    if constexpr (::hippo::has_suffix_v<T>) {
-      auto suffix = ::hippo::printer<T>::suffix();
-      if (suffix.size() > 0) {
-        std::string footer(current_indent, ' ');
-        footer.append(suffix);
-        lines.emplace_back(std::move(footer));
-      }
-    }
-  }
-}
-
-} // namespace hippo::detail
-
 #define HIPPO_BEGIN(Type)                                                      \
   namespace hippo {                                                            \
   template <> struct printer<Type> {                                           \
@@ -46,7 +10,8 @@ void print_member(const char *name, const T &value,
       return ::hippo::detail::type_name<Type>().append(" {");                  \
     }                                                                          \
     static std::string suffix() { return "}"; }                                \
-    static std::vector<std::string> print(const Type &object, std::uint64_t indent, \
+    static std::vector<std::string> print(const Type &object,                  \
+                                          std::uint64_t indent,                \
                                           std::uint64_t current_indent) {      \
       std::vector<std::string> lines;
 
@@ -60,8 +25,8 @@ void print_member(const char *name, const T &value,
 #define HIPPO_MEMBER_EXPR(Name, Expression)                                    \
   {                                                                            \
     using Type = decltype(Expression);                                         \
-    ::hippo::detail::print_member(#Name ":", (Expression), lines, indent,      \
-                                  current_indent);                             \
+    ::hippo::detail::print_with_prefix(#Name ":", (Expression), lines, indent, \
+                                       current_indent);                        \
   }
 
 #define HIPPO_MEMBER(Name) HIPPO_MEMBER_EXPR(Name, object.Name)

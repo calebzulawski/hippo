@@ -38,7 +38,7 @@ HIPPO_MEMBER(b)
 HIPPO_END()
 
 struct Top {
-  Middle1 a;
+  std::map<int, Middle1> a{{0, Middle1()}, {1, Middle1()}};
   std::vector<Middle2> b = std::vector<Middle2>(3);
 };
 

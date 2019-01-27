@@ -63,6 +63,47 @@ std::vector<std::string> split_and_indent(const std::string &s,
   return lines;
 }
 
+template <typename T>
+void print_with_prefix(const char *name, const T &value,
+                       std::vector<std::string> &lines, std::uint64_t indent,
+                       std::uint64_t current_indent) {
+  std::string header(current_indent, ' ');
+  if (name)
+    header.append(name);
+  if constexpr (::hippo::has_stringifier<T>::value) {
+    if (name)
+      header.push_back(' ');
+    header.append(::hippo::stringifier<T>::stringify(value));
+    lines.emplace_back(std::move(header));
+  } else {
+    if constexpr (::hippo::has_prefix_v<T>) {
+      if (name)
+        header.push_back(' ');
+      auto prefix = ::hippo::printer<T>::prefix();
+      if (prefix.size() > 0)
+        header.append(prefix);
+    }
+    lines.emplace_back(std::move(header));
+    auto sublines =
+        ::hippo::printer<T>::print(value, indent, current_indent + indent);
+    lines.insert(lines.end(), std::begin(sublines), std::end(sublines));
+    if constexpr (::hippo::has_suffix_v<T>) {
+      auto suffix = ::hippo::printer<T>::suffix();
+      if (suffix.size() > 0) {
+        std::string footer(current_indent, ' ');
+        footer.append(suffix);
+        lines.emplace_back(std::move(footer));
+      }
+    }
+  }
+}
+
+template <typename T>
+void print_with_prefix(const T &value, std::vector<std::string> &lines,
+                       std::uint64_t indent, std::uint64_t current_indent) {
+  print_with_prefix(nullptr, value, lines, indent, current_indent);
+}
+
 } // namespace detail
 
 template <typename T>
