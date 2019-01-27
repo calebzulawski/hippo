@@ -52,12 +52,6 @@ template <typename T> inline constexpr bool has_suffix_v = has_suffix<T>::value;
 
 namespace detail {
 
-template <typename T>
-std::vector<std::string> deduce_print(const T &t, std::uint64_t indent,
-                                      std::uint64_t current_indent) {
-  return ::hippo::printer<T>::print(t, indent, current_indent);
-}
-
 std::vector<std::string> split_and_indent(const std::string &s,
                                           std::uint64_t current_indent) {
   std::istringstream ss(s);
@@ -80,7 +74,7 @@ std::vector<std::string> print(const T &t, std::uint64_t indent) {
     lines.emplace_back(::hippo::printer<T>::prefix());
   }
 
-  auto contains = detail::deduce_print(t, indent, current_indent);
+  auto contains = ::hippo::printer<T>::print(t, indent, current_indent);
   lines.insert(lines.end(), contains.begin(), contains.end());
 
   if constexpr (::hippo::has_suffix_v<T>) {

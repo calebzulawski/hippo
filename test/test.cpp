@@ -2,7 +2,7 @@
 #include <iostream>
 
 struct Bottom1 {
-  int a = 1;
+  int a[4] = {1, 2, 3, 4};
 };
 
 HIPPO_BEGIN(Bottom1)
@@ -39,7 +39,7 @@ HIPPO_END()
 
 struct Top {
   Middle1 a;
-  Middle2 b;
+  std::vector<Middle2> b = std::vector<Middle2>(3);
 };
 
 HIPPO_BEGIN(Top)

@@ -17,13 +17,14 @@ void print_member(const char *name, const T &value,
     lines.emplace_back(std::move(header));
   } else {
     if constexpr (::hippo::has_prefix_v<T>) {
+      header.push_back(' ');
       auto prefix = ::hippo::printer<T>::prefix();
       if (prefix.size() > 0)
         header.append(prefix);
     }
     lines.emplace_back(std::move(header));
     auto sublines =
-        ::hippo::detail::deduce_print(value, indent, current_indent + indent);
+        ::hippo::printer<T>::print(value, indent, current_indent + indent);
     lines.insert(lines.end(), std::begin(sublines), std::end(sublines));
     if constexpr (::hippo::has_suffix_v<T>) {
       auto suffix = ::hippo::printer<T>::suffix();
