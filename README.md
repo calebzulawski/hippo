@@ -11,6 +11,7 @@ Support for:
   * `std::list`, `std::forward_list`
   * `std::deque`
   * `std::set`, `std::multiset`, `std::unordered_set`, `std::unordered_multiset`
+  * `std::map`, `std::multimap`, `std::unordered_map`, `std::unordered_multimap`
   
 ## Defining a custom type printer
 Custom types can be made printable with the reflection helper macros `HIPPO_BEGIN`, `HIPPO_MEMBER`, `HIPPO_MEMBER_EXPR`, and `HIPPO_END`.
