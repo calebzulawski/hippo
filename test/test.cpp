@@ -11,12 +11,12 @@ HIPPO_END()
 
 struct Bottom2 {
   int a = 1;
-  int b = 2;
+  int b = -2;
 };
 
 HIPPO_BEGIN(Bottom2)
 HIPPO_MEMBER(a)
-HIPPO_MEMBER(b)
+HIPPO_MEMBER_EXPR(b, object.b < 0 ? -object.b : object.b)
 HIPPO_END()
 
 struct Middle1 {

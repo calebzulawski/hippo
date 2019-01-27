@@ -46,7 +46,7 @@ void print_member(const char *name, const T &value,
       return ::hippo::detail::type_name<Type>().append(" {");                  \
     }                                                                          \
     static std::string suffix() { return "}"; }                                \
-    static std::vector<std::string> print(const Type &t, std::uint64_t indent, \
+    static std::vector<std::string> print(const Type &object, std::uint64_t indent, \
                                           std::uint64_t current_indent) {      \
       std::vector<std::string> lines;
 
@@ -64,6 +64,6 @@ void print_member(const char *name, const T &value,
                                   current_indent);                             \
   }
 
-#define HIPPO_MEMBER(Name) HIPPO_MEMBER_EXPR(Name, t.Name)
+#define HIPPO_MEMBER(Name) HIPPO_MEMBER_EXPR(Name, object.Name)
 
 #endif // HIPPO_DETAIL_REFLECTION_H_
