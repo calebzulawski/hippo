@@ -40,11 +40,13 @@ HIPPO_END()
 struct Top {
   std::map<int, Middle1> a{{0, Middle1()}, {1, Middle1()}};
   std::vector<Middle2> b = std::vector<Middle2>(3);
+  std::string c = "hello\nworld";
 };
 
 HIPPO_BEGIN(Top)
 HIPPO_MEMBER(a)
 HIPPO_MEMBER(b)
+HIPPO_MEMBER(c)
 HIPPO_END()
 
 int main() {

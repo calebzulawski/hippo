@@ -62,17 +62,6 @@ template <typename T> inline constexpr bool has_suffix_v = has_suffix<T>::value;
 
 namespace detail {
 
-std::vector<std::string> split_and_indent(const std::string &s,
-                                          std::uint64_t current_indent) {
-  std::istringstream ss(s);
-  std::string line;
-  std::vector<std::string> lines;
-  while (std::getline(ss, line)) {
-    lines.emplace_back(line.insert(0, current_indent, ' '));
-  }
-  return lines;
-}
-
 template <typename T>
 std::vector<::hippo::line> print_with_prefix(const char *name, const T &value,
                                              std::uint64_t current_indent) {

@@ -4,5 +4,6 @@
 #include "hippo/detail/containers.h"
 #include "hippo/detail/numbers.h"
 #include "hippo/detail/reflection.h"
+#include "hippo/detail/string.h"
 
 #endif // HIPPO_HIPPO_H_

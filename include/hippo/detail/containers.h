@@ -17,7 +17,6 @@ namespace hippo {
 namespace detail {
 
 template <typename Container> struct arraylike_base {
-
   static std::string suffix() { return "]"; }
   static std::vector<::hippo::line> print(const Container &c,
                                           std::uint64_t current_indent) {
@@ -32,7 +31,6 @@ template <typename Container> struct arraylike_base {
 };
 
 template <typename Container> struct maplike_base {
-
   static std::string suffix() { return "]"; }
   static std::vector<::hippo::line> print(const Container &c,
                                           std::uint64_t current_indent) {
