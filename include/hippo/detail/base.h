@@ -11,6 +11,17 @@
 
 namespace hippo {
 
+// line
+struct line {
+  line() = delete;
+  line(std::uint64_t indent) : indent(indent) {}
+  line(std::uint64_t indent, std::string string)
+      : indent(indent), string(string) {}
+
+  std::string string;
+  std::uint64_t indent;
+};
+
 // stringifier
 template <typename T, typename U = T> struct stringifier;
 
@@ -27,8 +38,7 @@ template <typename T>
 inline constexpr bool has_stringifier_v = has_stringifier<T>::value;
 
 // printer
-template <typename T, typename U = std::enable_if_t<!has_stringifier_v<T>, T>>
-struct printer;
+template <typename T, typename U = T> struct printer;
 
 // has_prefix
 template <typename, typename = void> struct has_prefix : std::false_type {};
@@ -64,65 +74,52 @@ std::vector<std::string> split_and_indent(const std::string &s,
 }
 
 template <typename T>
-void print_with_prefix(const char *name, const T &value,
-                       std::vector<std::string> &lines, std::uint64_t indent,
-                       std::uint64_t current_indent) {
-  std::string header(current_indent, ' ');
-  if (name)
-    header.append(name);
+std::vector<::hippo::line> print_with_prefix(const char *name, const T &value,
+                                             std::uint64_t current_indent) {
+  std::vector<::hippo::line> lines;
   if constexpr (::hippo::has_stringifier<T>::value) {
-    if (name)
-      header.push_back(' ');
-    header.append(::hippo::stringifier<T>::stringify(value));
-    lines.emplace_back(std::move(header));
+    ::hippo::line line(current_indent);
+    if (name) {
+      line.string.append(name);
+      line.string.push_back(' ');
+    }
+    line.string.append(::hippo::stringifier<T>::stringify(value));
+    lines.emplace_back(std::move(line));
   } else {
     if constexpr (::hippo::has_prefix_v<T>) {
-      if (name)
-        header.push_back(' ');
-      auto prefix = ::hippo::printer<T>::prefix();
-      if (prefix.size() > 0)
-        header.append(prefix);
+      ::hippo::line header(current_indent);
+      if (name) {
+        header.string.append(name);
+        header.string.push_back(' ');
+      }
+      header.string.append(::hippo::printer<T>::prefix());
+      lines.emplace_back(std::move(header));
     }
-    lines.emplace_back(std::move(header));
-    auto sublines =
-        ::hippo::printer<T>::print(value, indent, current_indent + indent);
+    auto sublines = ::hippo::printer<T>::print(value, current_indent + 1);
     lines.insert(lines.end(), std::begin(sublines), std::end(sublines));
     if constexpr (::hippo::has_suffix_v<T>) {
-      auto suffix = ::hippo::printer<T>::suffix();
-      if (suffix.size() > 0) {
-        std::string footer(current_indent, ' ');
-        footer.append(suffix);
-        lines.emplace_back(std::move(footer));
-      }
+      lines.emplace_back(current_indent, ::hippo::printer<T>::suffix());
     }
   }
+  return lines;
 }
 
 template <typename T>
-void print_with_prefix(const T &value, std::vector<std::string> &lines,
-                       std::uint64_t indent, std::uint64_t current_indent) {
-  print_with_prefix(nullptr, value, lines, indent, current_indent);
+std::vector<::hippo::line> print_with_prefix(const T &value,
+                                             std::uint64_t current_indent) {
+  return print_with_prefix(nullptr, value, current_indent);
 }
 
 } // namespace detail
 
 template <typename T>
-std::vector<std::string> print(const T &t, std::uint64_t indent) {
-  std::uint64_t current_indent = 0;
-  std::vector<std::string> lines;
-  if constexpr (::hippo::has_prefix_v<T>) {
-    current_indent += indent;
-    lines.emplace_back(::hippo::printer<T>::prefix());
-  }
-
-  auto contains = ::hippo::printer<T>::print(t, indent, current_indent);
-  lines.insert(lines.end(), contains.begin(), contains.end());
-
-  if constexpr (::hippo::has_suffix_v<T>) {
-    lines.emplace_back(::hippo::printer<T>::suffix());
-  }
-
-  return lines;
+std::vector<std::string> print(const T &t, std::uint64_t indent = 2) {
+  auto lines = ::hippo::detail::print_with_prefix(t, 0);
+  std::vector<std::string> output;
+  for (const auto &line : lines)
+    output.emplace_back(
+        std::string(indent * line.indent, ' ').append(line.string));
+  return output;
 }
 
 } // namespace hippo

@@ -10,10 +10,9 @@
       return ::hippo::detail::type_name<Type>().append(" {");                  \
     }                                                                          \
     static std::string suffix() { return "}"; }                                \
-    static std::vector<std::string> print(const Type &object,                  \
-                                          std::uint64_t indent,                \
-                                          std::uint64_t current_indent) {      \
-      std::vector<std::string> lines;
+    static std::vector<::hippo::line> print(const Type &object,                \
+                                            std::uint64_t current_indent) {    \
+      std::vector<::hippo::line> lines;
 
 #define HIPPO_END()                                                            \
   return lines;                                                                \
@@ -25,8 +24,9 @@
 #define HIPPO_MEMBER_EXPR(Name, Expression)                                    \
   {                                                                            \
     using Type = decltype(Expression);                                         \
-    ::hippo::detail::print_with_prefix(#Name ":", (Expression), lines, indent, \
-                                       current_indent);                        \
+    auto sublines = ::hippo::detail::print_with_prefix(                        \
+        #Name ":", (Expression), current_indent);                              \
+    lines.insert(lines.end(), sublines.begin(), sublines.end());               \
   }
 
 #define HIPPO_MEMBER(Name) HIPPO_MEMBER_EXPR(Name, object.Name)

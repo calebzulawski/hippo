@@ -19,13 +19,14 @@ namespace detail {
 template <typename Container> struct arraylike_base {
 
   static std::string suffix() { return "]"; }
-  static std::vector<std::string> print(const Container &c,
-                                        std::uint64_t indent,
-                                        std::uint64_t current_indent) {
-    std::vector<std::string> lines;
-    for (const auto &element : c)
-      ::hippo::detail::print_with_prefix(element, lines, indent,
-                                         current_indent);
+  static std::vector<::hippo::line> print(const Container &c,
+                                          std::uint64_t current_indent) {
+    std::vector<::hippo::line> lines;
+    for (const auto &element : c) {
+      auto sublines =
+          ::hippo::detail::print_with_prefix(element, current_indent);
+      lines.insert(lines.end(), sublines.begin(), sublines.end());
+    }
     return lines;
   }
 };
@@ -33,21 +34,18 @@ template <typename Container> struct arraylike_base {
 template <typename Container> struct maplike_base {
 
   static std::string suffix() { return "]"; }
-  static std::vector<std::string> print(const Container &c,
-                                        std::uint64_t indent,
-                                        std::uint64_t current_indent) {
-    std::vector<std::string> lines;
+  static std::vector<::hippo::line> print(const Container &c,
+                                          std::uint64_t current_indent) {
+    std::vector<::hippo::line> lines;
     for (const auto &[key, value] : c) {
-      std::string header(current_indent, ' ');
-      header.push_back('(');
-      lines.emplace_back(header);
-      ::hippo::detail::print_with_prefix("key:", key, lines, indent,
-                                         current_indent + indent);
-      ::hippo::detail::print_with_prefix("value:", value, lines, indent,
-                                         current_indent + indent);
-      std::string footer(current_indent, ' ');
-      footer.push_back(')');
-      lines.emplace_back(footer);
+      lines.emplace_back(current_indent, "(");
+      auto key_sublines =
+          ::hippo::detail::print_with_prefix("key:", key, current_indent + 1);
+      auto value_sublines = ::hippo::detail::print_with_prefix(
+          "value:", value, current_indent + 1);
+      lines.insert(lines.end(), key_sublines.begin(), key_sublines.end());
+      lines.insert(lines.end(), value_sublines.begin(), value_sublines.end());
+      lines.emplace_back(current_indent, ")");
     }
     return lines;
   }
