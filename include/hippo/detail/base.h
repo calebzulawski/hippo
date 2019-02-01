@@ -40,6 +40,8 @@ std::vector<std::string> print(const T &t,
 
 void condense(std::list<::hippo::line> &lines,
               const ::hippo::configuration &config) {
+  if (config.width == 0)
+    return;
   std::uint64_t condensed_width = lines.front().indent * config.indent +
                                   lines.size() - 1; // indent and spaces
   for (const auto &line : lines)
