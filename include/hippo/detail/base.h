@@ -30,6 +30,7 @@ template <typename T>
 std::vector<std::string> print(const T &t,
                                const ::hippo::configuration &config) {
   auto lines = ::hippo::printer<T>::print(t, 0, config);
+  condense(lines, config);
   std::vector<std::string> output;
   output.reserve(lines.size());
   for (const auto &line : lines)

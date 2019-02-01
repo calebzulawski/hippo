@@ -27,9 +27,10 @@ template <typename Container, typename Base> struct arraylike_base {
     for (const auto &element : c) {
       auto sublines = ::hippo::printer<std::decay_t<decltype(element)>>::print(
           element, current_indent + 1, config);
-      lines.splice(lines.end(), sublines);
       if (--size != 0)
-        lines.back().string += ",";
+        sublines.back().string += ",";
+      condense(sublines, config);
+      lines.splice(lines.end(), sublines);
     }
     lines.emplace_back(current_indent, "]");
     return lines;
