@@ -5,6 +5,7 @@ Support for:
 * Builtin types
   * Arithmetic types (i.e. `std::is_arithmetic_v<T> == true`)
   * C-style arrays (e.g. `int [10]`)
+* Strings (`std::string`, `const char *`)
 * Containers:
   * `std::array`
   * `std::vector`
