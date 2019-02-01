@@ -35,8 +35,7 @@ struct B {
 // Make A printable
 HIPPO_BEGIN(A)
 HIPPO_MEMBER(a1)
-HIPPO_MEMBER_EXPR(a2,
-                  int(object.a2)) // custom expressions are allowed
+HIPPO_MEMBER_EXPR(a2, int(object.a2)) // custom expressions are allowed
 HIPPO_END()
 
 // Make B printable
