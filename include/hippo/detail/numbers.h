@@ -9,7 +9,8 @@ namespace hippo {
 template <typename T>
 struct printer<T, std::enable_if_t<std::is_arithmetic<T>::value, T>> {
   static std::list<::hippo::line> print(const T &t,
-                                        std::uint64_t current_indent) {
+                                        std::uint64_t current_indent,
+                                        const ::hippo::configuration &) {
     return {{current_indent, std::to_string(t)}};
   }
 };

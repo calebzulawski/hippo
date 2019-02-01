@@ -51,7 +51,7 @@ HIPPO_END()
 
 int main() {
   Top t;
-  auto lines = hippo::print(t, 2);
+  auto lines = hippo::print(t, ::hippo::configuration());
   for (const auto &line : lines)
     std::cout << line << std::endl;
   return 0;

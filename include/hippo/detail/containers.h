@@ -19,13 +19,17 @@ namespace detail {
 
 template <typename Container, typename Base> struct arraylike_base {
   static std::list<::hippo::line> print(const Container &c,
-                                        std::uint64_t current_indent) {
+                                        std::uint64_t current_indent,
+                                        const ::hippo::configuration &config) {
     std::list<::hippo::line> lines;
     lines.emplace_back(current_indent, Base::prefix);
+    auto size = std::size(c);
     for (const auto &element : c) {
       auto sublines = ::hippo::printer<std::decay_t<decltype(element)>>::print(
-          element, current_indent + 1);
+          element, current_indent + 1, config);
       lines.splice(lines.end(), sublines);
+      if (--size != 0)
+        lines.back().string += ",";
     }
     lines.emplace_back(current_indent, "]");
     return lines;
@@ -34,25 +38,41 @@ template <typename Container, typename Base> struct arraylike_base {
 
 template <typename Container, typename Base> struct maplike_base {
   static std::list<::hippo::line> print(const Container &c,
-                                        std::uint64_t current_indent) {
+                                        std::uint64_t current_indent,
+                                        const ::hippo::configuration &config) {
     std::list<::hippo::line> lines;
     lines.emplace_back(current_indent, Base::prefix);
+    auto size = std::size(c);
     for (const auto &[key, value] : c) {
-      lines.emplace_back(current_indent + 1, "(");
+      std::list<::hippo::line> sublines;
+      sublines.emplace_back(current_indent + 1, "(");
+
+      // key
       auto key_sublines = ::hippo::printer<std::decay_t<decltype(key)>>::print(
-          key, current_indent + 2);
+          key, current_indent + 2, config);
+      ::hippo::line key_front(current_indent + 2,
+                              "key: " + key_sublines.front().string);
+      key_sublines.pop_front();
+      key_sublines.push_front(key_front);
+      key_sublines.back().string += ',';
+      condense(key_sublines, config);
+      sublines.splice(sublines.end(), key_sublines);
+
+      // value
       auto value_sublines =
           ::hippo::printer<std::decay_t<decltype(value)>>::print(
-              value, current_indent + 2);
-      lines.emplace_back(current_indent + 2,
-                         "key: " + key_sublines.front().string);
-      key_sublines.pop_front();
-      lines.splice(lines.end(), key_sublines);
-      lines.emplace_back(current_indent + 2,
-                         "value: " + value_sublines.front().string);
+              value, current_indent + 2, config);
+      ::hippo::line value_front(current_indent + 2,
+                                "value: " + value_sublines.front().string);
       value_sublines.pop_front();
-      lines.splice(lines.end(), value_sublines);
-      lines.emplace_back(current_indent + 1, ")");
+      value_sublines.push_front(value_front);
+      condense(value_sublines, config);
+      sublines.splice(sublines.end(), value_sublines);
+
+      // wrap up
+      sublines.emplace_back(current_indent + 1, (--size == 0) ? ")" : "),");
+      condense(sublines, config);
+      lines.splice(lines.end(), sublines);
     }
     lines.emplace_back(current_indent, "]");
     return lines;

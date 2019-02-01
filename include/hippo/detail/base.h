@@ -21,15 +21,38 @@ struct line {
 
 template <typename T, typename U = T> struct printer;
 
+struct configuration {
+  std::uint64_t indent = 2;
+  std::uint64_t width = 60;
+};
+
 template <typename T>
-std::vector<std::string> print(const T &t, std::uint64_t indent = 2) {
-  auto lines = ::hippo::printer<T>::print(t, 0);
+std::vector<std::string> print(const T &t,
+                               const ::hippo::configuration &config) {
+  auto lines = ::hippo::printer<T>::print(t, 0, config);
   std::vector<std::string> output;
   output.reserve(lines.size());
   for (const auto &line : lines)
     output.emplace_back(
-        std::string(indent * line.indent, ' ').append(line.string));
+        std::string(config.indent * line.indent, ' ').append(line.string));
   return output;
+}
+
+void condense(std::list<::hippo::line> &lines,
+              const ::hippo::configuration &config) {
+  std::uint64_t condensed_width = lines.front().indent * config.indent +
+                                  lines.size() - 1; // indent and spaces
+  for (const auto &line : lines)
+    condensed_width += line.string.size();
+  if (condensed_width > config.width)
+    return;
+  ::hippo::line condensed = lines.front();
+  lines.pop_front();
+  for (const auto &line : lines) {
+    condensed.string += " " + line.string;
+  }
+  lines.clear();
+  lines.emplace_back(condensed);
 }
 
 } // namespace hippo

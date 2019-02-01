@@ -10,7 +10,8 @@ namespace hippo {
 
 template <> struct printer<std::string> {
   static std::list<::hippo::line> print(const std::string &s,
-                                        std::uint64_t current_indent) {
+                                        std::uint64_t current_indent,
+                                        const ::hippo::configuration &) {
     std::list<::hippo::line> lines;
     lines.emplace_back(current_indent, "<--");
     std::istringstream ss(s);
