@@ -23,6 +23,15 @@ template <> struct printer<std::string> {
   }
 };
 
+template <> struct printer<const char *> {
+  static std::list<::hippo::line> print(const char *s,
+                                        std::uint64_t current_indent,
+                                        const ::hippo::configuration &config) {
+    return ::hippo::printer<std::string>::print(std::string(s), current_indent,
+                                                config);
+  }
+};
+
 } // namespace hippo
 
 #endif // HIPPO_DETAIL_STRING_H_
