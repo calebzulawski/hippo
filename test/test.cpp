@@ -27,14 +27,13 @@ HIPPO_BEGIN(Middle1)
 HIPPO_MEMBER(a)
 HIPPO_END()
 
-struct Middle2 {
-  Bottom1 a;
-  Bottom2 b;
+struct Middle2 : Bottom1 {
+  Bottom2 a;
 };
 
 HIPPO_BEGIN(Middle2)
+HIPPO_BASE(Bottom1)
 HIPPO_MEMBER(a)
-HIPPO_MEMBER(b)
 HIPPO_END()
 
 struct Top {

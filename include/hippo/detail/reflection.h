@@ -4,6 +4,7 @@
 #include "base.h"
 #include "type_name.h"
 #include <list>
+#include <type_traits>
 
 #define HIPPO_BEGIN(Type)                                                      \
   namespace hippo {                                                            \
@@ -28,6 +29,19 @@
   }                                                                            \
   }                                                                            \
   ;                                                                            \
+  }
+
+#define HIPPO_BASE(Type)                                                       \
+  {                                                                            \
+    static_assert(std::is_base_of_v<Type, std::decay_t<decltype(object)>>);    \
+    auto sublines =                                                            \
+        ::hippo::printer<Type>::print(object, current_indent + 1, config);     \
+    ::hippo::line new_front(current_indent + 1,                                \
+                            "Base " + sublines.front().string);                \
+    sublines.pop_front();                                                      \
+    sublines.push_front(new_front);                                            \
+    condense(sublines, config);                                                \
+    members.emplace_back(std::move(sublines));                                 \
   }
 
 #define HIPPO_MEMBER_EXPR(Name, Expression)                                    \
