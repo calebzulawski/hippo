@@ -10,7 +10,7 @@ HIPPO_MEMBER(a)
 HIPPO_END()
 
 struct Bottom2 {
-  int a = 1;
+  bool a = true;
   int b = -2;
 };
 
