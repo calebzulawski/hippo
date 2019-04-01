@@ -46,7 +46,8 @@
 
 #define HIPPO_MEMBER_EXPR(Name, Expression)                                    \
   {                                                                            \
-    using Type = decltype(Expression);                                         \
+    using Type =                                                               \
+        std::remove_cv_t<std::remove_reference_t<decltype(Expression)>>;       \
     auto sublines = ::hippo::printer<Type>::print((Expression),                \
                                                   current_indent + 1, config); \
     ::hippo::line new_front(current_indent + 1,                                \
