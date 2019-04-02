@@ -12,15 +12,17 @@ HIPPO_END()
 struct Bottom2 {
   bool a = true;
   int b = -2;
+  std::optional<int> c;
 };
 
 HIPPO_BEGIN(Bottom2)
 HIPPO_MEMBER(a)
 HIPPO_MEMBER_EXPR(b, object.b < 0 ? -object.b : object.b)
+HIPPO_MEMBER(c)
 HIPPO_END()
 
 struct Middle1 {
-  Bottom2 a;
+  std::optional<Bottom2> a{Bottom2{}};
 };
 
 HIPPO_BEGIN(Middle1)
