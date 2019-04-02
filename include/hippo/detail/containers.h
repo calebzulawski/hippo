@@ -18,65 +18,62 @@ namespace hippo {
 namespace detail {
 
 template <typename Container, typename Base> struct arraylike_base {
-  static std::list<::hippo::line> print(const Container &c,
-                                        std::uint64_t current_indent,
-                                        const ::hippo::configuration &config) {
-    std::list<::hippo::line> lines;
-    lines.emplace_back(current_indent, Base::prefix);
+  static ::hippo::object print(const Container &c, std::uint64_t current_indent,
+                               const ::hippo::configuration &config) {
+    std::list<::hippo::object> objects;
+    objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
+                         Base::prefix);
     auto size = std::size(c);
     for (const auto &element : c) {
-      auto sublines = ::hippo::printer<std::decay_t<decltype(element)>>::print(
-          element, current_indent + 1, config);
+      objects.push_back(
+          ::hippo::printer<std::remove_cv_t<std::remove_reference_t<decltype(
+              element)>>>::print(element, current_indent + 1, config));
       if (--size != 0)
-        sublines.back().string += ",";
-      condense(sublines, config);
-      lines.splice(lines.end(), sublines);
+        std::visit(::hippo::append_visitor{","}, objects.back());
     }
-    lines.emplace_back(current_indent, "]");
-    return lines;
+    objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
+                         "]");
+    return condense(objects, config);
   }
 };
 
 template <typename Container, typename Base> struct maplike_base {
-  static std::list<::hippo::line> print(const Container &c,
-                                        std::uint64_t current_indent,
-                                        const ::hippo::configuration &config) {
-    std::list<::hippo::line> lines;
-    lines.emplace_back(current_indent, Base::prefix);
+  static ::hippo::object print(const Container &c, std::uint64_t current_indent,
+                               const ::hippo::configuration &config) {
+    std::list<::hippo::object> objects;
+    objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
+                         Base::prefix);
     auto size = std::size(c);
     for (const auto &[key, value] : c) {
-      std::list<::hippo::line> sublines;
-      sublines.emplace_back(current_indent + 1, "(");
+      std::list<::hippo::object> subobjects;
+      subobjects.emplace_back(std::in_place_type<::hippo::line>,
+                              current_indent + 1, "(");
 
       // key
-      auto key_sublines = ::hippo::printer<std::decay_t<decltype(key)>>::print(
-          key, current_indent + 2, config);
-      ::hippo::line key_front(current_indent + 2,
-                              "key: " + key_sublines.front().string);
-      key_sublines.pop_front();
-      key_sublines.push_front(key_front);
-      key_sublines.back().string += ',';
-      condense(key_sublines, config);
-      sublines.splice(sublines.end(), key_sublines);
+      auto key_subobject = ::hippo::printer<std::remove_cv_t<
+          std::remove_reference_t<decltype(key)>>>::print(key,
+                                                          current_indent + 2,
+                                                          config);
+      std::visit(::hippo::prepend_visitor{"key :"}, key_subobject);
+      std::visit(::hippo::append_visitor{","}, key_subobject);
+      subobjects.push_back(key_subobject);
 
       // value
-      auto value_sublines =
-          ::hippo::printer<std::decay_t<decltype(value)>>::print(
-              value, current_indent + 2, config);
-      ::hippo::line value_front(current_indent + 2,
-                                "value: " + value_sublines.front().string);
-      value_sublines.pop_front();
-      value_sublines.push_front(value_front);
-      condense(value_sublines, config);
-      sublines.splice(sublines.end(), value_sublines);
+      auto value_subobject = ::hippo::printer<std::remove_cv_t<
+          std::remove_reference_t<decltype(value)>>>::print(value,
+                                                            current_indent + 2,
+                                                            config);
+      std::visit(::hippo::prepend_visitor{"value: "}, value_subobject);
+      subobjects.push_back(value_subobject);
 
       // wrap up
-      sublines.emplace_back(current_indent + 1, (--size == 0) ? ")" : "),");
-      condense(sublines, config);
-      lines.splice(lines.end(), sublines);
+      subobjects.emplace_back(std::in_place_type<::hippo::line>,
+                              current_indent + 1, (--size == 0) ? ")" : "),");
+      objects.push_back(condense(subobjects, config));
     }
-    lines.emplace_back(current_indent, "]");
-    return lines;
+    objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
+                         "]");
+    return condense(objects, config);
   }
 };
 
