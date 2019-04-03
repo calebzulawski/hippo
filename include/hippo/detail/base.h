@@ -84,8 +84,8 @@ std::vector<std::string> print(const T &t,
                     ::hippo::printer<T>::print(t, 0, config));
 }
 
-::hippo::object condense(const std::list<::hippo::object> &objects,
-                         const ::hippo::configuration &config) {
+inline ::hippo::object condense(const std::list<::hippo::object> &objects,
+                                const ::hippo::configuration &config) {
   std::list<::hippo::line> lines;
   bool condensable = true;
   for (const auto &o : objects) {
