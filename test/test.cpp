@@ -13,12 +13,16 @@ struct Bottom2 {
   bool a = true;
   int b = -2;
   std::optional<int> c;
+  std::pair<int, std::optional<int>> d;
+  std::tuple<int, std::optional<int>> e;
 };
 
 HIPPO_BEGIN(Bottom2)
 HIPPO_MEMBER(a)
 HIPPO_MEMBER_EXPR(b, object.b < 0 ? -object.b : object.b)
 HIPPO_MEMBER(c)
+HIPPO_MEMBER(d)
+HIPPO_MEMBER(e)
 HIPPO_END()
 
 struct Middle1 {

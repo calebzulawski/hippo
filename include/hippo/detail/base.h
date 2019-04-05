@@ -39,12 +39,18 @@ struct append_visitor {
   std::string suffix;
 };
 
-template <typename T, typename U = T> struct printer;
-
 struct configuration {
   std::uint64_t indent = 2;
   std::uint64_t width = 60;
 };
+
+template <typename T, typename U = T> struct printer;
+
+template <typename T>
+::hippo::object print_type(const T &object, std::uint64_t current_indent,
+                           const ::hippo::configuration &config) {
+  return ::hippo::printer<T>::print(object, current_indent, config);
+}
 
 namespace detail {
 struct print_visitor {

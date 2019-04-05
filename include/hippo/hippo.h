@@ -3,8 +3,9 @@
 
 #include "hippo/detail/containers.h"
 #include "hippo/detail/numbers.h"
+#include "hippo/detail/optional.h"
 #include "hippo/detail/reflection.h"
 #include "hippo/detail/string.h"
-#include "hippo/detail/optional.h"
+#include "hippo/detail/tuple.h"
 
 #endif // HIPPO_HIPPO_H_
