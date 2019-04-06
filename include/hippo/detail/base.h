@@ -90,6 +90,28 @@ std::vector<std::string> print(const T &t,
                     ::hippo::printer<T>::print(t, 0, config));
 }
 
+inline ::hippo::object condense(const std::list<::hippo::line> &lines,
+                                const ::hippo::configuration &config) {
+  if (config.width == 0)
+    return lines;
+
+  std::uint64_t condensed_width = lines.front().indent * config.indent +
+                                  lines.size() - 1; // indent and spaces
+  for (const auto &line : lines)
+    condensed_width += line.string.size();
+  if (condensed_width <= config.width) {
+    ::hippo::line condensed = lines.front();
+    auto it = lines.begin();
+    auto end = lines.end();
+    if (it != end)
+      ++it;
+    for (; it != end; ++it)
+      condensed.string += " " + it->string;
+    return condensed;
+  }
+  return lines;
+}
+
 inline ::hippo::object condense(const std::list<::hippo::object> &objects,
                                 const ::hippo::configuration &config) {
   std::list<::hippo::line> lines;
@@ -100,25 +122,7 @@ inline ::hippo::object condense(const std::list<::hippo::object> &objects,
     lines.splice(lines.end(), this_lines);
     condensable &= this_condense;
   }
-  if (config.width == 0)
-    condensable = false;
-
-  if (condensable) {
-    std::uint64_t condensed_width = lines.front().indent * config.indent +
-                                    lines.size() - 1; // indent and spaces
-    for (const auto &line : lines)
-      condensed_width += line.string.size();
-    if (condensed_width <= config.width) {
-      ::hippo::line condensed = lines.front();
-      lines.pop_front();
-      for (const auto &line : lines) {
-        condensed.string += " " + line.string;
-      }
-      return condensed;
-    }
-  }
-
-  return lines;
+  return condensable ? condense(lines, config) : lines;
 }
 
 } // namespace hippo
