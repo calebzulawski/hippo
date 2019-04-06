@@ -1,11 +1,18 @@
-SRCS=$(wildcard *.cpp)
-TARGETS=$(patsubst %.cpp,%,$(SRCS))
+BUILD_DIR=build
 
 .PHONY: all clean
 
-all: $(TARGETS)
-clean:
-	rm -f $(TARGETS)
+all: test
 
-%: %.cpp
-	$(CXX) -std=c++17 $< -o $@ -I ../include
+${BUILD_DIR}:
+	mkdir build
+
+${BUILD_DIR}/%.o: %.cpp ${BUILD_DIR}
+	$(CXX) -std=c++17 -I ../include -c -o $@ $<
+
+test: $(patsubst %.cpp,${BUILD_DIR}/%.o,$(wildcard *.cpp))
+	$(CXX) -o $@ $^
+
+clean:
+	rm -rf ${BUILD_DIR}
+	rm -f test
