@@ -6,7 +6,41 @@
 #include <list>
 #include <type_traits>
 
-#define HIPPO_BEGIN(Type)                                                      \
+namespace hippo::detail {
+constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
+  if (auto pos = sv.find_last_of(':'); pos != std::string_view::npos)
+    sv.remove_prefix(pos + 1);
+  return sv;
+}
+} // namespace hippo::detail
+
+#define HIPPO_ENUM_BEGIN(Type)                                                 \
+  namespace hippo {                                                            \
+  template <> struct printer<Type> {                                           \
+    static ::hippo::object print(const Type &object,                           \
+                                 std::uint64_t current_indent,                 \
+                                 const ::hippo::configuration &) {             \
+      std::string enum_type =                                                  \
+          "enum " + ::hippo::detail::type_name<                                \
+                        std::remove_cv_t<std::remove_reference_t<Type>>>();    \
+      switch (object) {
+
+#define HIPPO_ENUM_VALUE(Value)                                                \
+  case Value: {                                                                \
+    constexpr auto name = ::hippo::detail::remove_enum_namespace(#Value);      \
+    return ::hippo::line{current_indent,                                       \
+                         enum_type + " [" + std::string(name) + "]"};          \
+  }
+
+#define HIPPO_ENUM_END()                                                       \
+  }                                                                            \
+  return ::hippo::line{current_indent, enum_type + " [unknown value]"};        \
+  }                                                                            \
+  }                                                                            \
+  ;                                                                            \
+  }
+
+#define HIPPO_CLASS_BEGIN(Type)                                                \
   namespace hippo {                                                            \
   template <> struct printer<Type> {                                           \
     static ::hippo::object print(const Type &object,                           \
@@ -14,7 +48,7 @@
                                  const ::hippo::configuration &config) {       \
       std::list<::hippo::object> objects;
 
-#define HIPPO_END()                                                            \
+#define HIPPO_CLASS_END()                                                      \
   auto size = objects.size();                                                  \
   for (auto &o : objects) {                                                    \
     if (--size != 0) {                                                         \

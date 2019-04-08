@@ -13,17 +13,17 @@ struct B {
 };
 
 // Make A printable
-HIPPO_BEGIN(A)
+HIPPO_CLASS_BEGIN(A)
 HIPPO_MEMBER(a1)
 HIPPO_MEMBER_EXPR(a2,
                   int(object.a2)) // custom expressions are allowed
-HIPPO_END()
+HIPPO_CLASS_END()
 
 // Make B printable
-HIPPO_BEGIN(B)
+HIPPO_CLASS_BEGIN(B)
 HIPPO_MEMBER(b1) // std::vector<A> is automatically printable because A is
 HIPPO_MEMBER(b2)
-HIPPO_END()
+HIPPO_CLASS_END()
 
 int main() {
   B b{{{0, 1.5}, {1, 2.5}}, 3};

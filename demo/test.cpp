@@ -5,9 +5,9 @@ struct Bottom1 {
   int a[4] = {1, 2, 3, 4};
 };
 
-HIPPO_BEGIN(Bottom1)
+HIPPO_CLASS_BEGIN(Bottom1)
 HIPPO_MEMBER(a)
-HIPPO_END()
+HIPPO_CLASS_END()
 
 struct Bottom2 {
   bool a = true;
@@ -17,30 +17,30 @@ struct Bottom2 {
   std::tuple<int, std::optional<int>> e;
 };
 
-HIPPO_BEGIN(Bottom2)
+HIPPO_CLASS_BEGIN(Bottom2)
 HIPPO_MEMBER(a)
 HIPPO_MEMBER_EXPR(b, object.b < 0 ? -object.b : object.b)
 HIPPO_MEMBER(c)
 HIPPO_MEMBER(d)
 HIPPO_MEMBER(e)
-HIPPO_END()
+HIPPO_CLASS_END()
 
 struct Middle1 {
   std::optional<Bottom2> a{Bottom2{}};
 };
 
-HIPPO_BEGIN(Middle1)
+HIPPO_CLASS_BEGIN(Middle1)
 HIPPO_MEMBER(a)
-HIPPO_END()
+HIPPO_CLASS_END()
 
 struct Middle2 : Bottom1 {
   Bottom2 a;
 };
 
-HIPPO_BEGIN(Middle2)
+HIPPO_CLASS_BEGIN(Middle2)
 HIPPO_BASE(Bottom1)
 HIPPO_MEMBER(a)
-HIPPO_END()
+HIPPO_CLASS_END()
 
 struct Top {
   std::map<int, Middle1> a{{0, Middle1()}, {1, Middle1()}};
@@ -49,12 +49,12 @@ struct Top {
   const char *d = "c-style\nstring";
 };
 
-HIPPO_BEGIN(Top)
+HIPPO_CLASS_BEGIN(Top)
 HIPPO_MEMBER(a)
 HIPPO_MEMBER(b)
 HIPPO_MEMBER(c)
 HIPPO_MEMBER(d)
-HIPPO_END()
+HIPPO_CLASS_END()
 
 int main() {
   Top t;
