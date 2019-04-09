@@ -81,10 +81,10 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
 
 #define HIPPO_MEMBER_EXPR(Name, Expression)                                    \
   {                                                                            \
-    using Type =                                                               \
-        std::remove_cv_t<std::remove_reference_t<decltype(Expression)>>;       \
-    auto subobject = ::hippo::printer<Type>::print(                            \
-        (Expression), current_indent + 1, config);                             \
+    auto &&exprval = Expression;                                               \
+    using Type = std::remove_cv_t<std::remove_reference_t<decltype(exprval)>>; \
+    auto subobject =                                                           \
+        ::hippo::printer<Type>::print(exprval, current_indent + 1, config);    \
     std::visit(::hippo::prepend_visitor{#Name ": "}, subobject);               \
     objects.emplace_back(std::move(subobject));                                \
   }

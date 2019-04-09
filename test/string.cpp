@@ -8,7 +8,7 @@ TEST_CASE("string") {
     std::string s;
     std::vector<std::string> expected_string{{"std::string [empty]"}};
     std::vector<std::string> expected_cstr{{"char array [empty]"}};
-    SECTION("full") {
+    SECTION("expanded") {
       config.width = 0;
       REQUIRE(hippo::print(s, config) == expected_string);
       REQUIRE(hippo::print(s.c_str(), config) == expected_cstr);
@@ -21,7 +21,7 @@ TEST_CASE("string") {
   }
   SECTION("single line") {
     std::string s("line");
-    SECTION("full") {
+    SECTION("expanded") {
       config.width = 0;
       std::vector<std::string> expected_string{
           {"std::string [", "  line", "]"}};
@@ -43,7 +43,7 @@ TEST_CASE("string") {
         {"std::string [", "  line 1", "  line 2", "]"}};
     std::vector<std::string> expected_cstr{
         {"char array [", "  line 1", "  line 2", "]"}};
-    SECTION("full") {
+    SECTION("expanded") {
       config.width = 0;
       REQUIRE(hippo::print(s, config) == expected_string);
       REQUIRE(hippo::print(s.c_str(), config) == expected_cstr);

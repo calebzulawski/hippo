@@ -73,3 +73,42 @@ TEST_CASE("enum not in namespace") {
                 std::vector{"enum UnscopedEnumType [unknown value]"s}});
   REQUIRE(hippo::print(enum_value, config) == expected);
 }
+
+namespace foo {
+struct bar {
+  int member1 = 1;
+  std::string member2 = "2";
+  int member3 = 3;
+  const int member4 = 4;
+};
+} // namespace foo
+
+HIPPO_CLASS_BEGIN(foo::bar)
+HIPPO_MEMBER(member1)
+HIPPO_MEMBER(member2)
+HIPPO_MEMBER_EXPR(lvalue, object.member3)
+HIPPO_MEMBER_EXPR(clvalue, object.member4)
+HIPPO_MEMBER_EXPR(rvalue, std::string("5"));
+HIPPO_MEMBER_EXPR(lambda, []() { return 6; }())
+HIPPO_CLASS_END()
+
+TEST_CASE("struct") {
+  hippo::configuration config;
+  foo::bar o;
+  SECTION("expanded") {
+    config.width = 0;
+    REQUIRE(hippo::print(o, config) ==
+            std::vector{"foo::bar {"s, "  member1: 1,"s,
+                        "  member2: std::string ["s, "    2"s, "  ],"s,
+                        "  lvalue: 3,"s, "  clvalue: 4,"s,
+                        "  rvalue: std::string ["s, "    5"s, "  ],"s,
+                        "  lambda: 6"s, "}"s});
+  }
+  SECTION("condensed") {
+    config.width = 200;
+    REQUIRE(
+        hippo::print(o, config) ==
+        std::vector{
+            "foo::bar { member1: 1, member2: std::string [ 2 ], lvalue: 3, clvalue: 4, rvalue: std::string [ 5 ], lambda: 6 }"s});
+  }
+}
