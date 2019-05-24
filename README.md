@@ -13,7 +13,7 @@ Support for:
   * `std::deque`
   * `std::set`, `std::multiset`, `std::unordered_set`, `std::unordered_multiset`
   * `std::map`, `std::multimap`, `std::unordered_map`, `std::unordered_multimap`
-* `std::optional`
+* `std::optional`, `std::variant`
   
 ## Defining a custom type printer
 Custom class types can be made printable with the reflection helper macros `HIPPO_CLASS_BEGIN`, `HIPPO_MEMBER`, `HIPPO_MEMBER_EXPR`, and `HIPPO_CLASS_END`.
