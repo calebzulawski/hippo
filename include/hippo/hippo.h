@@ -7,5 +7,6 @@
 #include "hippo/detail/reflection.h"
 #include "hippo/detail/string.h"
 #include "hippo/detail/tuple.h"
+#include "hippo/detail/variant.h"
 
 #endif // HIPPO_HIPPO_H_
