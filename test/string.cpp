@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "hippo/hippo.h"
+#include "hippo/std/string.h"
 
 TEST_CASE("string") {
   hippo::configuration config;

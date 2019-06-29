@@ -1,5 +1,6 @@
+#include "hippo/std/variant.h"
 #include "catch.hpp"
-#include "hippo/hippo.h"
+#include "hippo/std/string.h"
 
 struct immovable {
   immovable() {}

@@ -1,5 +1,6 @@
 #include "catch.hpp"
 #include "hippo/hippo.h"
+#include "hippo/std/string.h"
 
 using namespace std::literals::string_literals;
 

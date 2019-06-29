@@ -1,7 +1,7 @@
-#ifndef HIPPO_DETAIL_OPTIONAL_H_
-#define HIPPO_DETAIL_OPTIONAL_H_
+#ifndef HIPPO_STD_OPTIONAL_H_
+#define HIPPO_STD_OPTIONAL_H_
 
-#include "base.h"
+#include "../hippo.h"
 #include <list>
 #include <optional>
 
@@ -29,4 +29,4 @@ template <typename T> struct printer<std::optional<T>> {
 
 } // namespace hippo
 
-#endif // HIPPO_DETAIL_OPTIONAL_H_
+#endif // HIPPO_STD_OPTIONAL_H_

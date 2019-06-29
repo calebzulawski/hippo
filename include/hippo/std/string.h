@@ -1,7 +1,7 @@
-#ifndef HIPPO_DETAIL_STRING_H_
-#define HIPPO_DETAIL_STRING_H_
+#ifndef HIPPO_STD_STRING_H_
+#define HIPPO_STD_STRING_H_
 
-#include "base.h"
+#include "../hippo.h"
 #include <list>
 #include <sstream>
 #include <string>
@@ -53,4 +53,4 @@ template <> struct printer<const char *> {
 
 } // namespace hippo
 
-#endif // HIPPO_DETAIL_STRING_H_
+#endif // HIPPO_STD_STRING_H_

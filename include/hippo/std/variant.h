@@ -1,7 +1,7 @@
-#ifndef HIPPO_DETAIL_VARIANT_H_
-#define HIPPO_DETAIL_VARIANT_H_
+#ifndef HIPPO_STD_VARIANT_H_
+#define HIPPO_STD_VARIANT_H_
 
-#include "base.h"
+#include "../hippo.h"
 #include <variant>
 
 namespace hippo {
@@ -30,4 +30,4 @@ template <typename... T> struct printer<std::variant<T...>> {
 
 } // namespace hippo
 
-#endif // HIPPO_DETAIL_VARIANT_H_
+#endif // HIPPO_STD_VARIANT_H_
