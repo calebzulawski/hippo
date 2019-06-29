@@ -33,12 +33,13 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
   }
 
 #define HIPPO_ENUM_END()                                                       \
-  }                                                                            \
-  return ::hippo::line{current_indent, enum_type + " [unknown value]"};        \
-  }                                                                            \
-  }                                                                            \
-  ;                                                                            \
-  }
+  default:                                                                     \
+    return ::hippo::line{current_indent, enum_type + " [unknown value]"};      \
+    }                                                                          \
+    }                                                                          \
+    }                                                                          \
+    ;                                                                          \
+    }
 
 #define HIPPO_CLASS_BEGIN(Type)                                                \
   namespace hippo {                                                            \
