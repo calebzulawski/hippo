@@ -1,7 +1,7 @@
-#ifndef HIPPO_DETAIL_NUMBERS_H_
-#define HIPPO_DETAIL_NUMBERS_H_
+#ifndef HIPPO_DETAIL_BUILTIN_NUMBERS_H_
+#define HIPPO_DETAIL_BUILTIN_NUMBERS_H_
 
-#include "base.h"
+#include "../base.h"
 #include <type_traits>
 
 namespace hippo {

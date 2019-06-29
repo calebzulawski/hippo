@@ -1,8 +1,8 @@
-#ifndef HIPPO_DETAIL_REFLECTION_H_
-#define HIPPO_DETAIL_REFLECTION_H_
+#ifndef HIPPO_DETAIL_BUILTIN_REFLECTION_H_
+#define HIPPO_DETAIL_BUILTIN_REFLECTION_H_
 
-#include "base.h"
-#include "type_name.h"
+#include "../base.h"
+#include "../type_name.h"
 #include <list>
 #include <type_traits>
 
@@ -92,4 +92,4 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
 
 #define HIPPO_MEMBER(Name) HIPPO_MEMBER_EXPR(Name, object.Name)
 
-#endif // HIPPO_DETAIL_REFLECTION_H_
+#endif // HIPPO_DETAIL_BUILTIN_REFLECTION_H_
