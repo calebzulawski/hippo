@@ -16,10 +16,12 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
 
 #define HIPPO_ENUM_BEGIN(Type)                                                 \
   namespace hippo {                                                            \
+  using format_type = ::hippo::no_format;                                      \
   template <> struct printer<Type> {                                           \
     static ::hippo::object print(const Type &object,                           \
                                  std::uint64_t current_indent,                 \
-                                 const ::hippo::configuration &) {             \
+                                 const ::hippo::configuration &,               \
+                                 const format_type &format = format_type()) {  \
       std::string enum_type =                                                  \
           "enum " + ::hippo::detail::type_name<                                \
                         std::remove_cv_t<std::remove_reference_t<Type>>>();    \
@@ -44,9 +46,11 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
 #define HIPPO_CLASS_BEGIN(Type)                                                \
   namespace hippo {                                                            \
   template <> struct printer<Type> {                                           \
+    using format_type = ::hippo::no_format;                                    \
     static ::hippo::object print(const Type &object,                           \
                                  std::uint64_t current_indent,                 \
-                                 const ::hippo::configuration &config) {       \
+                                 const ::hippo::configuration &config,         \
+                                 const format_type &format = format_type()) {  \
       std::list<::hippo::object> objects;
 
 #define HIPPO_CLASS_END()                                                      \

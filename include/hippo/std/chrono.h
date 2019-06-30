@@ -9,11 +9,23 @@
 
 namespace hippo {
 
+template <typename T, typename Enable = void> struct duration_format;
+template <typename T>
+struct duration_format<T, std::enable_if_t<std::is_integral_v<T>>> {
+  integer_format number_format;
+};
+template <typename T>
+struct duration_format<T, std::enable_if_t<std::is_floating_point_v<T>>> {
+  float_format number_format;
+};
+
 template <typename Rep, typename Period>
 struct printer<std::chrono::duration<Rep, Period>> {
+  using format_type = typename ::hippo::duration_format<Rep>;
   static ::hippo::object print(const std::chrono::duration<Rep, Period> &o,
                                std::uint64_t current_indent,
-                               const ::hippo::configuration &config) {
+                               const ::hippo::configuration &config,
+                               const format_type &format = format_type()) {
     std::list<::hippo::object> objects;
 
     std::string unit;
@@ -46,7 +58,7 @@ struct printer<std::chrono::duration<Rep, Period>> {
     objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
                          "std::chrono::duration containing [");
     std::ostringstream ss;
-    ss << o.count() << unit;
+    ss << ::hippo::apply_format(o.count(), format.number_format) << unit;
     objects.emplace_back(std::in_place_type<::hippo::line>, current_indent + 1,
                          ss.str());
     objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,

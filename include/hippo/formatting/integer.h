@@ -17,7 +17,6 @@ struct integer_format {
   base_type base = base_type::dec;
 };
 
-namespace detail {
 template <typename T>
 std::enable_if_t<std::is_integral_v<T>, std::string>
 apply_format(T value, const integer_format &fmt) {
@@ -36,7 +35,6 @@ apply_format(T value, const integer_format &fmt) {
   ss << value;
   return ss.str();
 }
-} // namespace detail
 
 } // namespace hippo
 

@@ -20,7 +20,6 @@ struct float_format {
   std::optional<std::size_t> precision;
 };
 
-namespace detail {
 template <typename T>
 std::enable_if_t<std::is_floating_point_v<T>, std::string>
 apply_format(T value, const float_format &fmt) {
@@ -41,7 +40,6 @@ apply_format(T value, const float_format &fmt) {
   ss << value;
   return ss.str();
 }
-} // namespace detail
 
 } // namespace hippo
 

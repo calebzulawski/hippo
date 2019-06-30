@@ -7,17 +7,9 @@
 
 namespace hippo {
 
-template <typename T, typename Enable = void> struct formatter;
+struct no_format {};
 
-template <typename T>
-struct formatter<
-    T, std::void_t<
-           typename ::hippo::printer<T>::format_type,
-           decltype(::hippo::printer<T>::print(
-               std::declval<T>(), std::uint64_t(),
-               std::declval<::hippo::configuration>(),
-               std::declval<typename ::hippo::printer<T>::format_type>()))>> {
-
+template <typename T> struct formatter {
   using value_type = T;
   using format_type = typename ::hippo::printer<T>::format_type;
 
@@ -33,7 +25,7 @@ struct formatter<
 private:
   const value_type &value;
   const format_type &format;
-}; // namespace hippo
+};
 
 template <typename T>
 formatter(const T &, const typename ::hippo::printer<T>::format_type &)

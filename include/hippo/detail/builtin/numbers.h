@@ -16,7 +16,7 @@ struct printer<
                                const ::hippo::configuration &,
                                const format_type &format = format_type()) {
     return ::hippo::object{std::in_place_type<::hippo::line>, current_indent,
-                           ::hippo::detail::apply_format(t, format)};
+                           ::hippo::apply_format(t, format)};
   }
 };
 
@@ -27,7 +27,7 @@ struct printer<T, std::enable_if_t<std::is_floating_point_v<T>, T>> {
                                const ::hippo::configuration &,
                                const format_type &format = format_type()) {
     return ::hippo::object{std::in_place_type<::hippo::line>, current_indent,
-                           ::hippo::detail::apply_format(t, format)};
+                           ::hippo::apply_format(t, format)};
   }
 };
 

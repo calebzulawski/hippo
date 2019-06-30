@@ -8,9 +8,11 @@
 namespace hippo {
 
 template <std::size_t N> struct printer<std::bitset<N>> {
+  using format_type = ::hippo::no_format;
   static ::hippo::object print(const std::bitset<N> &o,
                                std::uint64_t current_indent,
-                               const ::hippo::configuration &config) {
+                               const ::hippo::configuration &config,
+                               const format_type &format = format_type()) {
     std::list<::hippo::object> objects;
     objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
                          "std::bitset containing [");

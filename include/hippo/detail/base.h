@@ -46,12 +46,6 @@ struct configuration {
 
 template <typename T, typename U = T> struct printer;
 
-template <typename T>
-::hippo::object print_type(const T &object, std::uint64_t current_indent,
-                           const ::hippo::configuration &config) {
-  return ::hippo::printer<T>::print(object, current_indent, config);
-}
-
 namespace detail {
 struct print_visitor {
   std::vector<std::string> operator()(const ::hippo::line &line) {
