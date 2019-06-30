@@ -81,16 +81,22 @@ struct bar {
   std::string member2 = "2";
   int member3 = 3;
   const int member4 = 4;
+  const int member20 = 20;
 };
 } // namespace foo
+
+static const hippo::integer_format hex_int_format{
+    hippo::integer_format::base_type::hex,
+};
 
 HIPPO_CLASS_BEGIN(foo::bar)
 HIPPO_MEMBER(member1)
 HIPPO_MEMBER(member2)
 HIPPO_MEMBER_EXPR(lvalue, object.member3)
 HIPPO_MEMBER_EXPR(clvalue, object.member4)
-HIPPO_MEMBER_EXPR(rvalue, std::string("5"));
+HIPPO_MEMBER_EXPR(rvalue, std::string("5"))
 HIPPO_MEMBER_EXPR(lambda, []() { return 6; }())
+HIPPO_MEMBER_EXPR(format, ::hippo::formatter(object.member20, hex_int_format))
 HIPPO_CLASS_END()
 
 TEST_CASE("struct") {
@@ -103,13 +109,13 @@ TEST_CASE("struct") {
                         "  member2: std::string ["s, "    2"s, "  ],"s,
                         "  lvalue: 3,"s, "  clvalue: 4,"s,
                         "  rvalue: std::string ["s, "    5"s, "  ],"s,
-                        "  lambda: 6"s, "}"s});
+                        "  lambda: 6,"s, "  format: 0x14"s, "}"s});
   }
   SECTION("condensed") {
     config.width = 200;
     REQUIRE(
         hippo::print(o, config) ==
         std::vector{
-            "foo::bar { member1: 1, member2: std::string [ 2 ], lvalue: 3, clvalue: 4, rvalue: std::string [ 5 ], lambda: 6 }"s});
+            "foo::bar { member1: 1, member2: std::string [ 2 ], lvalue: 3, clvalue: 4, rvalue: std::string [ 5 ], lambda: 6, format: 0x14 }"s});
   }
 }
