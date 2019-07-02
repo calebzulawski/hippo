@@ -1,5 +1,5 @@
 BUILD_DIR=build
-SOURCE_DIRS=base std
+SOURCE_DIRS=base formatting std
 
 OS=$(shell uname -s)
 ifeq ($(OS),Linux)
