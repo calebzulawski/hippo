@@ -9,7 +9,7 @@ ifeq ($(OS),Darwin)
 	LD_FLAGS += -all_load
 endif
 
-CXX_FLAGS += -std=c++17 -I ../include -I catch
+CXX_FLAGS += -std=c++17 -I ../include -I catch -I helpers
 
 .PHONY: all clean
 
