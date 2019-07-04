@@ -1,9 +1,10 @@
 #ifndef HIPPO_FORMATTING_POINTER_H_
 #define HIPPO_FORMATTING_POINTER_H_
 
-#include "../hippo.h"
+#include "../detail/base.h"
 #include <memory>
 #include <optional>
+#include <sstream>
 #include <type_traits>
 #include <variant>
 #include <vector>

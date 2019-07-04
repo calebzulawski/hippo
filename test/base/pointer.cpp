@@ -4,8 +4,9 @@
 TEST_CASE("pointers") {
   hippo::configuration config;
   config.indent = 2;
-  hippo::integer_format fmt;
-  fmt.base = hippo::integer_format::base_type::hex;
+  hippo::pointer_format<int> fmt = hippo::standard_pointer_format<int>();
+  std::get<hippo::standard_pointer_format<int>>(fmt).format.base =
+      hippo::integer_format::base_type::hex;
   SECTION("nullptr") {
     int *ptr = nullptr;
     SECTION("expanded") {
