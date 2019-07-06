@@ -5,6 +5,7 @@ Support for:
 * Builtin types
   * Arithmetic types (i.e. `std::is_arithmetic_v<T> == true`)
   * C-style arrays (e.g. `int [10]`)
+  * Pointers
 * Strings (`std::string`, `const char *`)
 * Containers:
   * `std::array`
@@ -13,7 +14,11 @@ Support for:
   * `std::deque`
   * `std::set`, `std::multiset`, `std::unordered_set`, `std::unordered_multiset`
   * `std::map`, `std::multimap`, `std::unordered_map`, `std::unordered_multimap`
+* Pointers, including dynamic types (`*`, `std::unique_ptr`, `std::shared_ptr`, `std::weak_ptr`)
+* `std::complex`
 * `std::optional`, `std::variant`
+* `std::chrono::duration`
+* `std::bitset`
   
 ## Defining a custom type printer
 Custom class types can be made printable with the reflection helper macros `HIPPO_CLASS_BEGIN`, `HIPPO_MEMBER`, `HIPPO_MEMBER_EXPR`, and `HIPPO_CLASS_END`.
