@@ -11,10 +11,10 @@ jobs:
         - gcc
         include:
         - build: llvm
-          setup: bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+          setup: sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
           cxx: clang++
         - build: gcc
-          setup: sudo add-apt-repository ppa:ubuntu-toolchain-r/test && sudo apt update && sudo apt install gcc-9
+          setup: sudo add-apt-repository ppa:ubuntu-toolchain-r/test && sudo apt-get update && sudo apt-get install gcc-9
           cxx: g++-9
     steps:
     - name: Checkout repository
