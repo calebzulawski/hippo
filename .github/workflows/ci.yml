@@ -1,0 +1,38 @@
+name: Continuous Integration
+on: [push]
+jobs:
+  test:
+    name: Linux
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        build:
+        - llvm
+        - gcc
+        include:
+        - build: llvm
+          setup: bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+          cxx: clang++
+        - build: gcc
+          setup: sudo add-apt-repository ppa:ubuntu-toolchain-r/test && sudo apt update && sudo apt install gcc-9
+          cxx: g++-9
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v1
+    - name: Install toolchain
+      run: ${{ matrix.setup }}
+    - name: Build
+      run: CXX=${{ matrix.cxx }} make -C test
+    - name: Test
+      run: test/test
+jobs:
+  test:
+    name: macOS
+    runs-on: macOS-10.14
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v1
+    - name: Build
+      run: make -C test
+    - name: Test
+      run: test/test
