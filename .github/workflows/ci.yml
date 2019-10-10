@@ -15,12 +15,12 @@ jobs:
             sudo add-apt-repository 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main' && \
             sudo apt-get update && \
             sudo apt-get install clang-9
-          cxx: clang++
+          cxx: clang++-9
         - build: gcc
           setup: |
             sudo add-apt-repository ppa:ubuntu-toolchain-r/test && \
             sudo apt-get update && \
-            sudo apt-get install gcc-9
+            sudo apt-get install g++-9
           cxx: g++-9
     steps:
     - name: Checkout repository
