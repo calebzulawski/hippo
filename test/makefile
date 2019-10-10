@@ -3,7 +3,7 @@ SOURCE_DIRS=base formatting std
 
 OS=$(shell uname -s)
 ifeq ($(OS),Linux)
-	LD_FLAGS += --whole-archive
+	LD_FLAGS += -Wl,--whole-archive
 endif
 ifeq ($(OS),Darwin)
 	LD_FLAGS += -all_load
