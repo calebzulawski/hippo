@@ -1,7 +1,7 @@
 name: Continuous Integration
 on: [push]
 jobs:
-  test:
+  linux:
     name: Linux
     runs-on: ubuntu-latest
     strategy:
@@ -25,8 +25,7 @@ jobs:
       run: CXX=${{ matrix.cxx }} make -C test
     - name: Test
       run: test/test
-jobs:
-  test:
+  macos:
     name: macOS
     runs-on: macOS-10.14
     steps:
