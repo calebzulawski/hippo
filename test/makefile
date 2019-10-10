@@ -4,6 +4,7 @@ SOURCE_DIRS=base formatting std
 OS=$(shell uname -s)
 ifeq ($(OS),Linux)
 	LD_FLAGS += -Wl,--whole-archive
+	LD_FLAGS_END += -Wl,--no-whole-archive
 endif
 ifeq ($(OS),Darwin)
 	LD_FLAGS += -all_load
@@ -34,7 +35,7 @@ endef
 $(foreach srcdir,$(SOURCE_DIRS),$(eval $(call BUILD_RULES,$(srcdir))))
 
 test: $(patsubst %,$(BUILD_DIR)/%.a,$(SOURCE_DIRS))
-	$(CXX) $(LD_FLAGS) -o $@ $^
+	$(CXX) $(LD_FLAGS) -o $@ $^ $(LD_FLAGS_END)
 
 clean:
 	rm -rf $(BUILD_DIR)
