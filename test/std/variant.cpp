@@ -9,8 +9,8 @@ struct immovable {
   immovable &operator=(immovable &&) { throw 0; }
 };
 
-HIPPO_CLASS_BEGIN(immovable);
-HIPPO_CLASS_END();
+HIPPO_CLASS_BEGIN(immovable)
+HIPPO_CLASS_END()
 
 TEST_CASE("variant") {
   hippo::configuration config;
