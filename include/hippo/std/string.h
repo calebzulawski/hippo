@@ -40,7 +40,7 @@ template <> struct printer<std::string> {
   static ::hippo::object print(const std::string &s,
                                std::uint64_t current_indent,
                                const ::hippo::configuration &config,
-                               const format_type &format = format_type()) {
+                               const format_type & = format_type()) {
     return detail::print_impl(s, current_indent, config, "std::string");
   }
 };
@@ -49,7 +49,7 @@ template <> struct printer<const char *> {
   using format_type = ::hippo::no_format;
   static ::hippo::object print(const char *s, std::uint64_t current_indent,
                                const ::hippo::configuration &config,
-                               const format_type &format = format_type()) {
+                               const format_type & = format_type()) {
     return detail::print_impl(std::string(s), current_indent, config,
                               "char array");
   }

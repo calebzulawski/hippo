@@ -21,7 +21,7 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
     static ::hippo::object print(const Type &object,                           \
                                  std::uint64_t current_indent,                 \
                                  const ::hippo::configuration &,               \
-                                 const format_type &format = format_type()) {  \
+                                 const format_type & = format_type()) {        \
       std::string enum_type =                                                  \
           "enum " + ::hippo::detail::type_name<                                \
                         std::remove_cv_t<std::remove_reference_t<Type>>>();    \
@@ -50,7 +50,7 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
     static ::hippo::object print(const Type &object,                           \
                                  std::uint64_t current_indent,                 \
                                  const ::hippo::configuration &config,         \
-                                 const format_type &format = format_type()) {  \
+                                 const format_type & = format_type()) {        \
       std::list<::hippo::object> objects;
 
 #define HIPPO_CLASS_END()                                                      \

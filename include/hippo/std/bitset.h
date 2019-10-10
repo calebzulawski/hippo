@@ -12,7 +12,7 @@ template <std::size_t N> struct printer<std::bitset<N>> {
   static ::hippo::object print(const std::bitset<N> &o,
                                std::uint64_t current_indent,
                                const ::hippo::configuration &config,
-                               const format_type &format = format_type()) {
+                               const format_type & = format_type()) {
     std::list<::hippo::object> objects;
     objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
                          "std::bitset containing [");

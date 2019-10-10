@@ -14,6 +14,8 @@ namespace hippo {
 template <typename Base> struct base_type_printer {
   virtual std::optional<::hippo::object>
   print(const Base *, std::uint64_t, const ::hippo::configuration &) = 0;
+
+  virtual ~base_type_printer() = default;
 };
 
 template <typename Base, typename Derived>

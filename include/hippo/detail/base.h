@@ -17,8 +17,8 @@ struct line {
   line(std::uint64_t indent, std::string string)
       : indent(indent), string(string) {}
 
-  std::string string;
   std::uint64_t indent;
+  std::string string;
 };
 
 using object = std::variant<::hippo::line, std::list<::hippo::line>>;

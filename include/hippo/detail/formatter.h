@@ -21,7 +21,7 @@ template <typename T> struct formatter {
   formatter(const value_type &value, const format_type &format)
       : value(value), format(format) {}
 
-  friend class ::hippo::printer<formatter>;
+  friend struct ::hippo::printer<formatter>;
 
 private:
   const value_type &value;
@@ -40,7 +40,7 @@ template <typename T> struct formatter<T *> {
   formatter(const value_type *value, const format_type &format)
       : value(value), format(format) {}
 
-  friend class ::hippo::printer<formatter>;
+  friend struct ::hippo::printer<formatter>;
 
 private:
   const value_type *value;
