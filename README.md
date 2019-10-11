@@ -1,4 +1,6 @@
 # Hippo (Hierarchical Information Pretty-Printer Objects)
+[![Actions Status](https://github.com/calebzulawski/hippo/workflows/Continuous%20Integration/badge.svg)](https://github.com/calebzulawski/hippo/actions)
+![GitHub](https://img.shields.io/github/license/calebzulawski/hippo)
 
 Support for:
 * Custom type printers via reflection macros (`class`/`struct` and `enum`/`enum class`)
