@@ -1,3 +1,4 @@
+//!\file
 #ifndef HIPPO_FORMATTING_FLOAT_H_
 #define HIPPO_FORMATTING_FLOAT_H_
 
@@ -9,17 +10,20 @@
 
 namespace hippo {
 
+//! Format for floating-point values
 struct float_format {
+  //! Notation format description
   enum class format_type {
-    standard,
-    fixed,
-    scientific,
+    standard,   //!< Format with `std::defaultfloat`
+    fixed,      //!< Format with `std::fixed`
+    scientific, //!< Format with `std::scientific`
   };
 
-  format_type format = format_type::standard;
-  std::optional<std::size_t> precision;
+  format_type format = format_type::standard; //!< Notation format
+  std::optional<std::size_t> precision; //!< Precision for `std::setprecision`
 };
 
+//! Apply format `fmt` to floating-point `value`
 template <typename T>
 std::enable_if_t<std::is_floating_point_v<T>, std::string>
 apply_format(T value, const float_format &fmt) {

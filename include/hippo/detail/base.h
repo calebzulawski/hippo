@@ -1,9 +1,11 @@
+//! \file
 #ifndef HIPPO_DETAIL_BASE_H_
 #define HIPPO_DETAIL_BASE_H_
 
 #include "type_name.h"
 #include <cstdint>
 #include <list>
+#include <ostream>
 #include <string>
 #include <utility>
 #include <variant>
@@ -11,39 +13,52 @@
 
 namespace hippo {
 
+//! Describes a printed line of text
 struct line {
   line() = delete;
+
+  //! Construct an empty line with the given indentation level
   line(std::uint64_t indent) : indent(indent) {}
+
+  //! Construct a line with the given indentation level and string
   line(std::uint64_t indent, std::string string)
       : indent(indent), string(string) {}
 
-  std::uint64_t indent;
-  std::string string;
+  std::uint64_t indent; //!< The indentation level of the line
+  std::string string;   //!< The contents of the line
 };
 
+//! Describes the printed output of any object, either as a single or multiple
+//! lines
 using object = std::variant<::hippo::line, std::list<::hippo::line>>;
 
+//! Visitor over `object`s that prepends a string to the first line
 struct prepend_visitor {
   void operator()(::hippo::line &line) { line.string = prefix + line.string; }
   void operator()(std::list<::hippo::line> &lines) {
     lines.front().string = prefix + lines.front().string;
   }
-  std::string prefix;
+  std::string prefix; //!< The string to prepend
 };
 
+//! Visitor over `object`s that appends a string to the last line
 struct append_visitor {
   void operator()(::hippo::line &line) { line.string += suffix; }
   void operator()(std::list<::hippo::line> &lines) {
     lines.back().string += suffix;
   }
-  std::string suffix;
+  std::string suffix; //!< The string to append
 };
 
+//! Global configuration values applied to all printers
 struct configuration {
-  std::uint64_t indent = 2;
-  std::uint64_t width = 60;
+  std::uint64_t indent = 2; //!< The number of spaces to indent for each
+                            //!< indentation level (defaults to 0)
+  std::uint64_t width = 60; //!< The number of output columns, not a hard limit
+                            //!< but best-effort (defaults to 60)
 };
 
+//! The core pretty-printer type
 template <typename T, typename U = T> struct printer;
 
 namespace detail {
@@ -77,6 +92,7 @@ struct condense_visitor {
 };
 } // namespace detail
 
+//! Print any printable value `t` with configuration `config`
 template <typename T>
 std::vector<std::string> print(const T &t,
                                const ::hippo::configuration &config) {
@@ -84,6 +100,20 @@ std::vector<std::string> print(const T &t,
                     ::hippo::printer<T>::print(t, 0, config));
 }
 
+//! Print any printable value `t` with configuration `config` to the specified
+//! `std::ostream`
+template <typename T>
+std::ostream &print_to(std::ostream &os, const T &t,
+                       const ::hippo::configuration &config) {
+  auto v = print(t, config);
+  for (const auto &s : v)
+    os << s << std::endl;
+  return os;
+}
+
+//! Condense a collection of `line`s into a single `object`.
+//! Multiple lines will be condensed into one if the indented result is less
+//! than the configured output width.
 inline ::hippo::object condense(const std::list<::hippo::line> &lines,
                                 const ::hippo::configuration &config) {
   if (config.width == 0)
@@ -106,6 +136,10 @@ inline ::hippo::object condense(const std::list<::hippo::line> &lines,
   return lines;
 }
 
+//! Condense a collection of `object`s into a single `object`.
+//! If any of the input `object`s are multiline, the output is not condensed,
+//! otherwise the lines will condensed if the indented result is less than the
+//! configured output width.
 inline ::hippo::object condense(const std::list<::hippo::object> &objects,
                                 const ::hippo::configuration &config) {
   std::list<::hippo::line> lines;

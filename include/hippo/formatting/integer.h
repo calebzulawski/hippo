@@ -7,16 +7,19 @@
 
 namespace hippo {
 
+//! Format for integer values
 struct integer_format {
+  //! Integer base description
   enum class base_type {
-    oct,
-    dec,
-    hex,
+    oct, //!< Octal
+    dec, //!< Decimal
+    hex, //!< Hexadecimal
   };
 
-  base_type base = base_type::dec;
+  base_type base = base_type::dec; //<! Base format
 };
 
+//! Apply format `fmt` to integer `value`
 template <typename T>
 std::enable_if_t<std::is_integral_v<T>, std::string>
 apply_format(T value, const integer_format &fmt) {

@@ -1,4 +1,4 @@
-# Hippo (Hierarchical Information Pretty-Printer Objects)
+# Hippo (Hierarchical Information Pretty-Printed Objects)
 [![Actions Status](https://github.com/calebzulawski/hippo/workflows/Continuous%20Integration/badge.svg)](https://github.com/calebzulawski/hippo/actions)
 ![GitHub](https://img.shields.io/github/license/calebzulawski/hippo)
 

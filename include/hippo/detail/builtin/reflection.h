@@ -1,3 +1,4 @@
+//!\file
 #ifndef HIPPO_DETAIL_BUILTIN_REFLECTION_H_
 #define HIPPO_DETAIL_BUILTIN_REFLECTION_H_
 
@@ -14,6 +15,7 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
 }
 } // namespace hippo::detail
 
+//! Begin the definition of a printer specialization for an enum `Type`
 #define HIPPO_ENUM_BEGIN(Type)                                                 \
   namespace hippo {                                                            \
   using format_type = ::hippo::no_format;                                      \
@@ -27,6 +29,7 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
                         std::remove_cv_t<std::remove_reference_t<Type>>>();    \
       switch (object) {
 
+//! Register an enum value named `Value`
 #define HIPPO_ENUM_VALUE(Value)                                                \
   case Value: {                                                                \
     constexpr auto name = ::hippo::detail::remove_enum_namespace(#Value);      \
@@ -34,6 +37,7 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
                          enum_type + " [" + std::string(name) + "]"};          \
   }
 
+//! End the definition of a printer specialization for an enum
 #define HIPPO_ENUM_END()                                                       \
   default:                                                                     \
     return ::hippo::line{current_indent, enum_type + " [unknown value]"};      \
@@ -43,6 +47,7 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
     ;                                                                          \
     }
 
+//! Begin the definition of a printer specialization for a class `Type`
 #define HIPPO_CLASS_BEGIN(Type)                                                \
   namespace hippo {                                                            \
   template <> struct printer<Type> {                                           \
@@ -53,6 +58,7 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
                                  const format_type & = format_type()) {        \
       std::list<::hippo::object> objects;
 
+//! End the definition of a printer specialization for a class
 #define HIPPO_CLASS_END()                                                      \
   auto size = objects.size();                                                  \
   for (auto &o : objects) {                                                    \
@@ -73,6 +79,7 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
   ;                                                                            \
   }
 
+//! Register `Type` as a base class in a class printer specialization
 #define HIPPO_BASE(Type)                                                       \
   {                                                                            \
     static_assert(                                                             \
@@ -84,6 +91,8 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
     objects.push_back(std::move(subobject));                                   \
   }
 
+//! Register `Name` as a member, printed as `Expression`, in a class printer
+//! specialization
 #define HIPPO_MEMBER_EXPR(Name, Expression)                                    \
   {                                                                            \
     auto &&exprval = Expression;                                               \
@@ -94,6 +103,7 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
     objects.emplace_back(std::move(subobject));                                \
   }
 
+//! Register `Name` as a member in a class printer specialization
 #define HIPPO_MEMBER(Name) HIPPO_MEMBER_EXPR(Name, object.Name)
 
 #endif // HIPPO_DETAIL_BUILTIN_REFLECTION_H_
