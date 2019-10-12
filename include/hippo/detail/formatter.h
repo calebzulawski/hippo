@@ -65,9 +65,11 @@ formatter(const T &, const typename formatter<T>::format_type &)->formatter<T>;
 
 //! Printer for a `formatter`
 template <typename T> struct printer<formatter<T>> {
+  using format_type = ::hippo::no_format;
   static ::hippo::object print(const formatter<T> &o,
                                std::uint64_t current_indent,
-                               const ::hippo::configuration &config) {
+                               const ::hippo::configuration &config,
+                               const format_type & = format_type()) {
     return formatter<T>::printer_type::print(o.value, current_indent, config,
                                              o.format);
   }

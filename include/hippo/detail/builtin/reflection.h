@@ -18,8 +18,8 @@ constexpr inline std::string_view remove_enum_namespace(std::string_view sv) {
 //! Begin the definition of a printer specialization for an enum `Type`
 #define HIPPO_ENUM_BEGIN(Type)                                                 \
   namespace hippo {                                                            \
-  using format_type = ::hippo::no_format;                                      \
   template <> struct printer<Type> {                                           \
+    using format_type = ::hippo::no_format;                                    \
     static ::hippo::object print(const Type &object,                           \
                                  std::uint64_t current_indent,                 \
                                  const ::hippo::configuration &,               \
