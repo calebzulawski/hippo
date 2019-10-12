@@ -37,9 +37,11 @@ private:
 
 //! Specialization of `formatter` for pointer types
 template <typename T> struct formatter<T *> {
-  using value_type = std::remove_const_t<std::decay_t<T>>;
-  using printer_type = ::hippo::printer<value_type *>;
-  using format_type = typename printer_type::format_type;
+  using value_type =
+      std::remove_const_t<std::decay_t<T>>;            //!< The type to format
+  using printer_type = ::hippo::printer<value_type *>; //!< The printer for `T`
+  using format_type =
+      typename printer_type::format_type; //!< The format configuration for `T`
 
   formatter() = delete;
   formatter(const formatter &) = delete;
@@ -63,7 +65,7 @@ private:
 template <typename T>
 formatter(const T &, const typename formatter<T>::format_type &)->formatter<T>;
 
-//! Printer for a `formatter`
+//!\cond
 template <typename T> struct printer<formatter<T>> {
   using format_type = ::hippo::no_format;
   static ::hippo::object print(const formatter<T> &o,
@@ -74,6 +76,7 @@ template <typename T> struct printer<formatter<T>> {
                                              o.format);
   }
 };
+//!\endcond
 
 } // namespace hippo
 

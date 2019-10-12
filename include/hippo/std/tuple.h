@@ -10,7 +10,7 @@ namespace detail {
 template <typename Tuple, typename Format, std::size_t... I>
 ::hippo::object tuple_print_impl(const Tuple &t, std::uint64_t current_indent,
                                  const ::hippo::configuration &config,
-                                 const Format &format,
+                                 const Format &formats,
                                  std::index_sequence<I...>) {
   std::list<::hippo::object> objects;
   objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
@@ -20,7 +20,7 @@ template <typename Tuple, typename Format, std::size_t... I>
         using printer_type = ::hippo::printer<std::remove_cv_t<
             std::remove_reference_t<decltype(std::get<I>(t))>>>;
         objects.push_back(
-            printer_type::print(std::get<I>(t), current_indent + 1, config, std::get<I>(format.element_formats));
+            printer_type::print(std::get<I>(t), current_indent + 1, config, std::get<I>(formats));
         std::visit(::hippo::prepend_visitor{std::to_string(I) + ": "},
                    objects.back());
         if (I < sizeof...(I) - 1)
@@ -32,10 +32,11 @@ template <typename Tuple, typename Format, std::size_t... I>
 }
 } // namespace detail
 
-template <typename... T> struct tuple_format {
-  std::tuple<::hippo::printer<T>::format_type...> element_formats;
-};
+//! Format for `std::tuple`
+template <typename... T>
+using tuple_format = std::tuple<::hippo::printer<T>::format_type...>;
 
+//!\cond
 template <typename... T> struct printer<std::tuple<T...>> {
   using format_type = tuple_format<T...>;
   static ::hippo::object print(const std::tuple<T...> &t,
@@ -46,6 +47,7 @@ template <typename... T> struct printer<std::tuple<T...>> {
                                     std::make_index_sequence<sizeof...(T)>{});
   }
 };
+//!\endcond
 
 } // namespace hippo
 

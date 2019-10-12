@@ -8,6 +8,7 @@
 
 namespace hippo {
 
+//!\cond
 namespace detail {
 inline ::hippo::object print_impl(const std::string &s,
                                   std::uint64_t current_indent,
@@ -54,6 +55,7 @@ template <> struct printer<const char *> {
                               "char array");
   }
 };
+//!\endcond
 
 } // namespace hippo
 

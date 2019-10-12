@@ -6,6 +6,7 @@
 
 namespace hippo {
 
+//!\cond
 template <typename... T>
 struct printer<std::unordered_map<T...>>
     : detail::maplike_base<std::unordered_map<T...>,
@@ -19,6 +20,7 @@ struct printer<std::unordered_multimap<T...>>
                            printer<std::unordered_multimap<T...>>> {
   constexpr static const char *prefix = "std::unordered_multimap [";
 };
+//!\endcond
 
 } // namespace hippo
 

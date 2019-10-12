@@ -6,6 +6,7 @@
 
 namespace hippo {
 
+//!\cond
 template <typename T, typename Deleter>
 struct printer<std::unique_ptr<T, Deleter>> {
   using value_type = std::remove_const_t<T>;
@@ -76,6 +77,7 @@ template <typename T> struct printer<std::weak_ptr<T>> {
     }
   }
 };
+//!\endcond
 
 } // namespace hippo
 

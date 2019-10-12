@@ -7,11 +7,10 @@
 
 namespace hippo {
 
-//! Printer specialization for pointers to `T`
+//!\cond
 template <typename T> struct printer<T *> {
-  using value_type = std::remove_const_t<T>; //<! Printer specialization of `T`
-  using format_type =
-      ::hippo::pointer_format<value_type>; //<! Format type for `T`
+  using value_type = std::remove_const_t<T>;
+  using format_type = ::hippo::pointer_format<value_type>;
   static ::hippo::object print(const value_type *o,
                                std::uint64_t current_indent,
                                const ::hippo::configuration &config,
@@ -31,6 +30,7 @@ template <typename T> struct printer<T *> {
     }
   }
 };
+//!\endcond
 
 } // namespace hippo
 

@@ -16,7 +16,7 @@ struct integer_format {
     hex, //!< Hexadecimal
   };
 
-  base_type base = base_type::dec; //<! Base format
+  base_type base = base_type::dec; //!< Numeric base
 };
 
 //! Apply format `fmt` to integer `value`

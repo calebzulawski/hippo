@@ -7,6 +7,7 @@
 
 namespace hippo {
 
+//!\cond
 template <typename T> struct printer<std::optional<T>> {
   using printer_type = ::hippo::printer<T>;
   using format_type = printer_type::format_type;
@@ -29,6 +30,7 @@ template <typename T> struct printer<std::optional<T>> {
     }
   }
 };
+//!\endcond
 
 } // namespace hippo
 

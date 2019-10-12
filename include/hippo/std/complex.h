@@ -11,6 +11,7 @@ namespace hippo {
 
 // technically not supported by the standard, but many implementations allow
 // integer complex types
+//!\cond
 template <typename T>
 struct printer<std::complex<T>, std::enable_if_t<std::is_integral_v<T> &&
                                                      !std::is_same_v<T, bool>,
@@ -43,6 +44,7 @@ struct printer<std::complex<T>,
             ::hippo::apply_format(std::abs(t.imag()), format) + "i"};
   }
 };
+//!\endcond
 
 } // namespace hippo
 

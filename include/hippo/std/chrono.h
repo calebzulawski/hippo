@@ -9,16 +9,22 @@
 
 namespace hippo {
 
+//! Format for durations
 template <typename T, typename Enable = void> struct duration_format;
+
+//! Format for integer durations
 template <typename T>
 struct duration_format<T, std::enable_if_t<std::is_integral_v<T>>> {
-  integer_format number_format;
-};
-template <typename T>
-struct duration_format<T, std::enable_if_t<std::is_floating_point_v<T>>> {
-  float_format number_format;
+  integer_format number_format; //!< Integer format configuration
 };
 
+//! Format for floating-point durations
+template <typename T>
+struct duration_format<T, std::enable_if_t<std::is_floating_point_v<T>>> {
+  float_format number_format; //!< Floating-point format configuration
+};
+
+//!\cond
 template <typename Rep, typename Period>
 struct printer<std::chrono::duration<Rep, Period>> {
   using format_type = typename ::hippo::duration_format<Rep>;
@@ -66,6 +72,7 @@ struct printer<std::chrono::duration<Rep, Period>> {
     return ::hippo::condense(objects, config);
   }
 };
+//!\endcond
 
 } // namespace hippo
 

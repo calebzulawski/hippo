@@ -67,8 +67,8 @@ Polymorphic types can be printed by use of :cpp:struct:`hippo::derived_type_prin
      dyn_fmt.printers.push_back(std::make_shared<hippo::derived_type_printer<Foo, Baz>>());
      hippo::pointer_format<Foo> fmt = std::move(dyn_fmt);
      hippo::print_to(std::cout, hippo::formatter(foo, fmt), hippo::configuration());
-     hippo::print_to(std::cout, hippo::formatter(foo, fmt), bar, hippo::configuration());
-     hippo::print_to(std::cout, hippo::formatter(foo, fmt), baz, hippo::configuration());
+     hippo::print_to(std::cout, hippo::formatter(bar, fmt), hippo::configuration());
+     hippo::print_to(std::cout, hippo::formatter(baz, fmt), hippo::configuration());
    }  
 
 Once ``Bar`` and ``Baz`` are registered with the pointer format, the printer is able to use RTTI to determine which printer to use.
@@ -84,6 +84,8 @@ Interface
 ---------
 
 .. doxygenstruct:: hippo::formatter
+   :members:
+.. doxygenstruct:: hippo::formatter< T * >
    :members:
 .. doxygenstruct:: hippo::no_format
    :members:

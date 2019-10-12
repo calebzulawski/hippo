@@ -59,6 +59,7 @@ html_static_path = ['_static']
 
 html_logo = 'logo-white.svg'
 html_favicon = 'favicon.png'
+html_show_sourcelink = False
 
 # Run doxygen
 

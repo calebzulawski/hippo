@@ -6,6 +6,7 @@
 
 namespace hippo {
 
+//!\cond
 template <typename... T>
 struct printer<std::unordered_set<T...>>
     : detail::arraylike_base<std::unordered_set<T...>,
@@ -19,6 +20,7 @@ struct printer<std::unordered_multiset<T...>>
                              printer<std::unordered_multiset<T...>>> {
   constexpr static const char *prefix = "std::unordered_multiset [";
 };
+//!\endcond
 
 } // namespace hippo
 

@@ -34,7 +34,10 @@ using object = std::variant<::hippo::line, std::list<::hippo::line>>;
 
 //! Visitor over `object`s that prepends a string to the first line
 struct prepend_visitor {
+  //! Prepend to a single line
   void operator()(::hippo::line &line) { line.string = prefix + line.string; }
+
+  //! Prepend to the beginning of many lines
   void operator()(std::list<::hippo::line> &lines) {
     lines.front().string = prefix + lines.front().string;
   }
@@ -43,7 +46,10 @@ struct prepend_visitor {
 
 //! Visitor over `object`s that appends a string to the last line
 struct append_visitor {
+  //! Append to a single line
   void operator()(::hippo::line &line) { line.string += suffix; }
+
+  //! Append to the end of many lines
   void operator()(std::list<::hippo::line> &lines) {
     lines.back().string += suffix;
   }

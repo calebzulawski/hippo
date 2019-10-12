@@ -8,7 +8,7 @@
 
 namespace hippo {
 
-//! Printer specialization for integer values
+//!\cond
 template <typename T>
 struct printer<
     T, std::enable_if_t<std::is_integral_v<T> && !std::is_same_v<T, bool>, T>> {
@@ -21,7 +21,6 @@ struct printer<
   }
 };
 
-//! Printer specialization for floating-point values
 template <typename T>
 struct printer<T, std::enable_if_t<std::is_floating_point_v<T>, T>> {
   using format_type = ::hippo::float_format;
@@ -33,7 +32,6 @@ struct printer<T, std::enable_if_t<std::is_floating_point_v<T>, T>> {
   }
 };
 
-//! Printer specialization for `bool`
 template <> struct printer<bool> {
   static ::hippo::object print(const bool &b, std::uint64_t current_indent,
                                const ::hippo::configuration &) {
@@ -41,6 +39,7 @@ template <> struct printer<bool> {
                            b ? "true" : "false"};
   }
 };
+//!\endcond
 
 } // namespace hippo
 

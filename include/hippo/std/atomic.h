@@ -7,6 +7,7 @@
 
 namespace hippo {
 
+//!\cond
 template <typename T> struct printer<std::atomic<T>> {
   using printer_type = ::hippo::printer<T>;
   using format_type = typename printer_type::format_type;
@@ -24,6 +25,7 @@ template <typename T> struct printer<std::atomic<T>> {
     return ::hippo::condense(objects, config);
   }
 };
+//!\endcond
 
 } // namespace hippo
 

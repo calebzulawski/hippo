@@ -7,6 +7,7 @@
 
 namespace hippo {
 
+//!\cond
 template <std::size_t N> struct printer<std::bitset<N>> {
   using format_type = ::hippo::no_format;
   static ::hippo::object print(const std::bitset<N> &o,
@@ -23,6 +24,7 @@ template <std::size_t N> struct printer<std::bitset<N>> {
     return ::hippo::condense(objects, config);
   }
 };
+//!\endcond
 
 } // namespace hippo
 
