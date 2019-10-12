@@ -1,7 +1,14 @@
-# Hippo (Hierarchical Information Pretty-Printed Objects)
-[![Actions Status](https://github.com/calebzulawski/hippo/workflows/Continuous%20Integration/badge.svg)](https://github.com/calebzulawski/hippo/actions)
-![GitHub](https://img.shields.io/github/license/calebzulawski/hippo)
+<div align="center">
+  <img src="logo-colored.svg" width="50%" height="auto">
 
+[![CI Status](https://github.com/calebzulawski/hippo/workflows/Continuous%20Integration/badge.svg)](https://github.com/calebzulawski/hippo)
+[![Documentation Status](https://github.com/calebzulawski/hippo/workflows/Documentation/badge.svg)](https://calebzulawski.github.io/hippo)
+![GitHub](https://img.shields.io/github/license/calebzulawski/hippo)
+[![GitHub release](https://img.shields.io/github/v/release/calebzulawski/hippo?include_prereleases&sort=semver)](https://github.com/calebzulawski/hippo/releases)
+
+</div>
+
+## Features
 Support for:
 * Custom type printers via reflection macros (`class`/`struct` and `enum`/`enum class`)
 * Builtin types
@@ -111,3 +118,6 @@ B {
 Fully condensed:
 B { b1: std::vector [ A { a1: 0, a2: 1 }, A { a1: 1, a2: 2 } ], b2: 3 }
 ```
+
+## Logo
+"[hippo](https://thenounproject.com/edharrison89/collection/kingdom-animalia-icons/?i=198549)" by [Ed Harrison](http://edharrisondesign.com/) licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
