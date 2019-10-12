@@ -1,5 +1,6 @@
 <div align="center">
   <img src="logo-colored.svg" width="50%" height="auto">
+  <br><br>
 
 [![CI Status](https://github.com/calebzulawski/hippo/workflows/Continuous%20Integration/badge.svg)](https://github.com/calebzulawski/hippo)
 [![Documentation Status](https://github.com/calebzulawski/hippo/workflows/Documentation/badge.svg)](https://calebzulawski.github.io/hippo)
