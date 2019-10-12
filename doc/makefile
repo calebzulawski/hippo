@@ -1,7 +1,7 @@
 .PHONY: all clean
 
 all:
-	sphinx-build -b html source build
+	python3 -m sphinx -b html source build
 
 clean:
 	rm -rf build doxygen
