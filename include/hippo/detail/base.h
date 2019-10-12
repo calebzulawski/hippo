@@ -94,22 +94,18 @@ struct condense_visitor {
 
 //! Print any printable value `t` with configuration `config`
 template <typename T>
-std::vector<std::string>
-print(const T &t, const ::hippo::configuration &config,
-      const typename ::hippo::printer<T>::format_type &fmt =
-          typename ::hippo::printer<T>::format_type()) {
+std::vector<std::string> print(const T &t,
+                               const ::hippo::configuration &config) {
   return std::visit(detail::print_visitor{config},
-                    ::hippo::printer<T>::print(t, 0, config, fmt));
+                    ::hippo::printer<T>::print(t, 0, config));
 }
 
 //! Print any printable value `t` with configuration `config` to the specified
 //! `std::ostream`
 template <typename T>
 std::ostream &print_to(std::ostream &os, const T &t,
-                       const ::hippo::configuration &config,
-                       const typename ::hippo::printer<T>::format_type &fmt =
-                           typename ::hippo::printer<T>::format_type()) {
-  auto v = print(t, config, fmt);
+                       const ::hippo::configuration &config) {
+  auto v = print(t, config);
   for (const auto &s : v)
     os << s << std::endl;
   return os;
