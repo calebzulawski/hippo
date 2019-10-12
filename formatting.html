@@ -148,8 +148,6 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/formatting.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -222,8 +220,8 @@ Formatting is applied with the <code class="xref cpp cpp-struct docutils literal
   <span class="n">dyn_fmt</span><span class="p">.</span><span class="n">printers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">hippo</span><span class="o">::</span><span class="n">derived_type_printer</span><span class="o">&lt;</span><span class="n">Foo</span><span class="p">,</span> <span class="n">Baz</span><span class="o">&gt;&gt;</span><span class="p">());</span>
   <span class="n">hippo</span><span class="o">::</span><span class="n">pointer_format</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span> <span class="n">fmt</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">dyn_fmt</span><span class="p">);</span>
   <span class="n">hippo</span><span class="o">::</span><span class="n">print_to</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">formatter</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">fmt</span><span class="p">),</span> <span class="n">hippo</span><span class="o">::</span><span class="n">configuration</span><span class="p">());</span>
-  <span class="n">hippo</span><span class="o">::</span><span class="n">print_to</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">formatter</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">fmt</span><span class="p">),</span> <span class="n">bar</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">configuration</span><span class="p">());</span>
-  <span class="n">hippo</span><span class="o">::</span><span class="n">print_to</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">formatter</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">fmt</span><span class="p">),</span> <span class="n">baz</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">configuration</span><span class="p">());</span>
+  <span class="n">hippo</span><span class="o">::</span><span class="n">print_to</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">formatter</span><span class="p">(</span><span class="n">bar</span><span class="p">,</span> <span class="n">fmt</span><span class="p">),</span> <span class="n">hippo</span><span class="o">::</span><span class="n">configuration</span><span class="p">());</span>
+  <span class="n">hippo</span><span class="o">::</span><span class="n">print_to</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">formatter</span><span class="p">(</span><span class="n">baz</span><span class="p">,</span> <span class="n">fmt</span><span class="p">),</span> <span class="n">hippo</span><span class="o">::</span><span class="n">configuration</span><span class="p">());</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -274,6 +272,42 @@ std::shared_ptr containing [ Baz { Base Foo { } } ]
 </dd></dl>
 
 <dl class="class">
+<dt id="_CPPv4I0EN5hippo9formatterIP1TEE">
+<span id="_CPPv3I0EN5hippo9formatterIP1TEE"></span><span id="_CPPv2I0EN5hippo9formatterIP1TEE"></span><span class="target" id="structhippo_1_1formatter_3_01_t_01_5_01_4"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><em class="property">struct </em><code class="sig-name descname">formatter</code>&lt;<a class="reference internal" href="#_CPPv4I0EN5hippo9formatterIP1TEE" title="hippo::formatter&lt;T *&gt;::T">T</a> *&gt;<a class="headerlink" href="#_CPPv4I0EN5hippo9formatterIP1TEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Specialization of <code class="docutils literal notranslate"><span class="pre">formatter</span></code> for pointer types. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Types</p>
+<dl class="type">
+<dt id="_CPPv4IEN5hippo9formatterIP1TE10value_typeE">
+<span id="_CPPv3IEN5hippo9formatterIP1TE10value_typeE"></span><span id="_CPPv2IEN5hippo9formatterIP1TE10value_typeE"></span>template&lt;&gt;<br /><span class="target" id="structhippo_1_1formatter_3_01_t_01_5_01_4_1a110a31d24bc6b75707429c327924069c"></span><em class="property">using </em><code class="sig-name descname">value_type</code> = std::remove_const_t&lt;std::decay_t&lt;T&gt;&gt;<a class="headerlink" href="#_CPPv4IEN5hippo9formatterIP1TE10value_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The type to format. </p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv4IEN5hippo9formatterIP1TE12printer_typeE">
+<span id="_CPPv3IEN5hippo9formatterIP1TE12printer_typeE"></span><span id="_CPPv2IEN5hippo9formatterIP1TE12printer_typeE"></span>template&lt;&gt;<br /><span class="target" id="structhippo_1_1formatter_3_01_t_01_5_01_4_1af6fc149a6df2aec2ee5129101c88c27c"></span><em class="property">using </em><code class="sig-name descname">printer_type</code> = hippo::printer&lt;<a class="reference internal" href="#_CPPv4IEN5hippo9formatterIP1TE10value_typeE" title="hippo::formatter&lt;T *&gt;::value_type">value_type</a> *&gt;<a class="headerlink" href="#_CPPv4IEN5hippo9formatterIP1TE12printer_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The printer for <code class="docutils literal notranslate"><span class="pre">T</span></code> </p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv4IEN5hippo9formatterIP1TE11format_typeE">
+<span id="_CPPv3IEN5hippo9formatterIP1TE11format_typeE"></span><span id="_CPPv2IEN5hippo9formatterIP1TE11format_typeE"></span>template&lt;&gt;<br /><span class="target" id="structhippo_1_1formatter_3_01_t_01_5_01_4_1a47bd95dc15ecb49daf7d1449dcc76329"></span><em class="property">using </em><code class="sig-name descname">format_type</code> = <em class="property">typename</em> <a class="reference internal" href="#_CPPv4IEN5hippo9formatterIP1TE12printer_typeE" title="hippo::formatter&lt;T *&gt;::printer_type">printer_type</a>::format_type<a class="headerlink" href="#_CPPv4IEN5hippo9formatterIP1TE11format_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The format configuration for <code class="docutils literal notranslate"><span class="pre">T</span></code> </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N5hippo9formatter9formatterEPK10value_typeRK11format_type">
+<span id="_CPPv3N5hippo9formatter9formatterEPK10value_typeRK11format_type"></span><span id="_CPPv2N5hippo9formatter9formatterEPK10value_typeRK11format_type"></span><span id="hippo::formatter::formatter__value_typeCP.format_typeCR"></span><span class="target" id="structhippo_1_1formatter_3_01_t_01_5_01_4_1a0feecabd63261d500997b66b4c4728fc"></span><code class="sig-name descname">formatter</code><span class="sig-paren">(</span><em class="property">const</em> value_type *<em>value</em>, <em class="property">const</em> format_type &amp;<em>format</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5hippo9formatter9formatterEPK10value_typeRK11format_type" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a <code class="docutils literal notranslate"><span class="pre">formatter</span></code> that prints <code class="docutils literal notranslate"><span class="pre">value</span></code> with the format described by <code class="docutils literal notranslate"><span class="pre">format</span></code>. The constructed <code class="docutils literal notranslate"><span class="pre">formatter</span></code> does not own <code class="docutils literal notranslate"><span class="pre">value</span></code> or <code class="docutils literal notranslate"><span class="pre">format</span></code>, so both must remain in scope for the lifetime of the <code class="docutils literal notranslate"><span class="pre">formatter</span></code>. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="class">
 <dt id="_CPPv4N5hippo9no_formatE">
 <span id="_CPPv3N5hippo9no_formatE"></span><span id="_CPPv2N5hippo9no_formatE"></span><span id="hippo::no_format"></span><span class="target" id="structhippo_1_1no__format"></span><em class="property">struct </em><code class="sig-name descname">no_format</code><a class="headerlink" href="#_CPPv4N5hippo9no_formatE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Format for non-formattable types. </p>
@@ -310,6 +344,15 @@ std::shared_ptr containing [ Baz { Base Foo { } } ]
 <dd><p>Hexadecimal. </p>
 </dd></dl>
 
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv4N5hippo14integer_format4baseE">
+<span id="_CPPv3N5hippo14integer_format4baseE"></span><span id="_CPPv2N5hippo14integer_format4baseE"></span><span id="hippo::integer_format::base__base_type"></span><span class="target" id="structhippo_1_1integer__format_1a69341897c8c9bc2a10430d8589f57ed2"></span><a class="reference internal" href="#_CPPv4N5hippo14integer_format9base_typeE" title="hippo::integer_format::base_type">base_type</a> <code class="sig-name descname">base</code><a class="headerlink" href="#_CPPv4N5hippo14integer_format4baseE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Numeric base. </p>
 </dd></dl>
 
 </div>
