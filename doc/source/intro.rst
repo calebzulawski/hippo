@@ -36,3 +36,12 @@ This example will print:
 .. code-block:: none
 
    std::vector [0, 1, 2]
+
+Interface
+---------
+
+.. doxygenstruct:: hippo::configuration
+   :members:
+
+.. doxygenfunction:: hippo::print
+.. doxygenfunction:: hippo::print_to

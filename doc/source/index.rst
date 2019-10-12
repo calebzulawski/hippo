@@ -14,7 +14,7 @@ For more information on a specific feature, see the pages below:
 
    intro
    reflection
-   api
+   formatting
 
 Indices and tables
 ==================
