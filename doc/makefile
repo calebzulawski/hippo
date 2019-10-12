@@ -1,10 +1,7 @@
 .PHONY: all clean
 
-all: doxygen/xml
+all:
 	sphinx-build -b html source build
 
 clean:
 	rm -rf build doxygen
-
-doxygen/xml:
-	doxygen

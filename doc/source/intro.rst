@@ -1,6 +1,11 @@
 Introduction
 ============
 
+Using Hippo
+-----------
+
+Hippo is a header-only library, so install the headers however you'd like.
+
 To begin using Hippo, include the following:
 
 .. code-block:: cpp
@@ -31,12 +36,3 @@ This example will print:
 .. code-block:: none
 
    std::vector [0, 1, 2]
-
-API reference
--------------
-
-.. doxygenstruct:: hippo::configuration
-   :members:
-
-.. doxygenfunction:: hippo::print
-.. doxygenfunction:: hippo::print_to

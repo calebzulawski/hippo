@@ -97,20 +97,3 @@ This is accomplished by using the :c:macro:`HIPPO_MEMBER_EXPR` macro, which allo
    HIPPO_CLASS_BEGIN(Foo)
      HIPPO_MEMBER_EXPR(bar, object.get_bar())
    HIPPO_CLASS_END()
-
-API reference
--------------
-
-Class reflection
-^^^^^^^^^^^^^^^^
-.. doxygendefine:: HIPPO_CLASS_BEGIN
-.. doxygendefine:: HIPPO_CLASS_END
-.. doxygendefine:: HIPPO_BASE
-.. doxygendefine:: HIPPO_MEMBER
-.. doxygendefine:: HIPPO_MEMBER_EXPR
-
-Enum reflection
-^^^^^^^^^^^^^^^
-.. doxygendefine:: HIPPO_ENUM_BEGIN
-.. doxygendefine:: HIPPO_ENUM_END
-.. doxygendefine:: HIPPO_ENUM_VALUE

@@ -1,5 +1,9 @@
-Hippo: The Hierarchical Information Pretty-Printed Objects
-==========================================================
+=======
+ Hippo
+=======
+-------------------------------------------------
+ Hierarchical Information Pretty-Printed Objects
+-------------------------------------------------
 
 Hippo is a header-only library that provides facilities for pretty-printing user-defined types.
 
@@ -10,6 +14,7 @@ For more information on a specific feature, see the pages below:
 
    intro
    reflection
+   api
 
 Indices and tables
 ==================
