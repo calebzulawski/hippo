@@ -7,9 +7,9 @@
 namespace hippo {
 
 //! Format configuration for `std::pair`
-template <typename First, Second>
+template <typename First, typename Second>
 using pair_format = std::pair<typename hippo::printer<First>::format_type,
-                              typename hippo::printer<Second>>;
+                              typename hippo::printer<Second>::format_type>;
 
 //!\cond
 template <typename First, typename Second>
