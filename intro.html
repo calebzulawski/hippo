@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction &mdash; Hippo 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Printing user-defined types via reflection" href="reflection.html" />
+    <link rel="prev" title="Hippo" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo-white.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-hippo">Using Hippo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#printing-a-value">Printing a value</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interface">Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reflection.html">Printing user-defined types via reflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formatting.html">Formatting</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Hippo</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Introduction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/intro.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="using-hippo">
+<h2>Using Hippo<a class="headerlink" href="#using-hippo" title="Permalink to this headline">¶</a></h2>
+<p>Hippo is a header-only library, so install the headers however you’d like.</p>
+<p>To begin using Hippo, include the following:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;hippo/hippo.h&quot;</span><span class="cp"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="printing-a-value">
+<h2>Printing a value<a class="headerlink" href="#printing-a-value" title="Permalink to this headline">¶</a></h2>
+<p>Printing values is performed by the <a class="reference internal" href="#_CPPv4I0EN5hippo5printENSt6vectorINSt6stringEEERK1TRKN5hippo13configurationE" title="hippo::print"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hippo::print()</span></code></a> or <a class="reference internal" href="#_CPPv4I0EN5hippo8print_toERNSt7ostreamERNSt7ostreamERK1TRKN5hippo13configurationE" title="hippo::print_to"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">hippo::print_to()</span></code></a> functions.
+Both functions take a value and a <a class="reference internal" href="#_CPPv4N5hippo13configurationE" title="hippo::configuration"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">hippo::configuration</span></code></a> and produce a pretty-printed output.</p>
+<p>A simple example of printing a vector:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;hippo/hippo.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;hippo/std/vector.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
+  <span class="n">hippo</span><span class="o">::</span><span class="n">print_to</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">configuration</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This example will print:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>std::vector [0, 1, 2]
+</pre></div>
+</div>
+</div>
+<div class="section" id="interface">
+<h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4N5hippo13configurationE">
+<span id="_CPPv3N5hippo13configurationE"></span><span id="_CPPv2N5hippo13configurationE"></span><span id="hippo::configuration"></span><span class="target" id="structhippo_1_1configuration"></span><em class="property">struct </em><code class="sig-name descname">configuration</code><a class="headerlink" href="#_CPPv4N5hippo13configurationE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Global configuration values applied to all printers. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv4N5hippo13configuration6indentE">
+<span id="_CPPv3N5hippo13configuration6indentE"></span><span id="_CPPv2N5hippo13configuration6indentE"></span><span id="hippo::configuration::indent__std::uint64_t"></span><span class="target" id="structhippo_1_1configuration_1af7809fe94483d4bc89b162c2d2838aab"></span>std::uint64_t <code class="sig-name descname">indent</code><a class="headerlink" href="#_CPPv4N5hippo13configuration6indentE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The number of spaces to indent for each indentation level (defaults to 0) </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N5hippo13configuration5widthE">
+<span id="_CPPv3N5hippo13configuration5widthE"></span><span id="_CPPv2N5hippo13configuration5widthE"></span><span id="hippo::configuration::width__std::uint64_t"></span><span class="target" id="structhippo_1_1configuration_1aeba1618e2d6a78563d16bb3090426666"></span>std::uint64_t <code class="sig-name descname">width</code><a class="headerlink" href="#_CPPv4N5hippo13configuration5widthE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The number of output columns, not a hard limit but best-effort (defaults to 60) </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0EN5hippo5printENSt6vectorINSt6stringEEERK1TRKN5hippo13configurationE">
+<span id="_CPPv3I0EN5hippo5printERK1TRKN5hippo13configurationE"></span><span id="_CPPv2I0EN5hippo5printERK1TRKN5hippo13configurationE"></span><span class="target" id="base_8h_1a2a178d44940a8b0b6ee780f74a2f7605"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br />std::vector&lt;std::string&gt; <code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">print</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN5hippo5printENSt6vectorINSt6stringEEERK1TRKN5hippo13configurationE" title="hippo::print::T">T</a> &amp;<em>t</em>, <em class="property">const</em> hippo::<a class="reference internal" href="#_CPPv4N5hippo13configurationE" title="hippo::configuration">configuration</a> &amp;<em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN5hippo5printENSt6vectorINSt6stringEEERK1TRKN5hippo13configurationE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Print any printable value <code class="docutils literal notranslate"><span class="pre">t</span></code> with configuration <code class="docutils literal notranslate"><span class="pre">config</span></code> </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0EN5hippo8print_toERNSt7ostreamERNSt7ostreamERK1TRKN5hippo13configurationE">
+<span id="_CPPv3I0EN5hippo8print_toERNSt7ostreamERK1TRKN5hippo13configurationE"></span><span id="_CPPv2I0EN5hippo8print_toERNSt7ostreamERK1TRKN5hippo13configurationE"></span><span class="target" id="base_8h_1ab9dc851b3ef8cfe52ea3bf3eb4367012"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br />std::ostream &amp;<code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">print_to</code><span class="sig-paren">(</span>std::ostream &amp;<em>os</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN5hippo8print_toERNSt7ostreamERNSt7ostreamERK1TRKN5hippo13configurationE" title="hippo::print_to::T">T</a> &amp;<em>t</em>, <em class="property">const</em> hippo::<a class="reference internal" href="#_CPPv4N5hippo13configurationE" title="hippo::configuration">configuration</a> &amp;<em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN5hippo8print_toERNSt7ostreamERNSt7ostreamERK1TRKN5hippo13configurationE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Print any printable value <code class="docutils literal notranslate"><span class="pre">t</span></code> with configuration <code class="docutils literal notranslate"><span class="pre">config</span></code> to the specified <code class="docutils literal notranslate"><span class="pre">std::ostream</span></code> </p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="reflection.html" class="btn btn-neutral float-right" title="Printing user-defined types via reflection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Hippo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Caleb Zulawski
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+    <br>
+    "<a href="https://thenounproject.com/term/hippo/198549/">hippo</a>" by <a href="https://thenounproject.com/edharrison89/">Ed Harrison</a> is licensed under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

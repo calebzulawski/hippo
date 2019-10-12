@@ -1,0 +1,549 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Formatting &mdash; Hippo 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Printing user-defined types via reflection" href="reflection.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo-white.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reflection.html">Printing user-defined types via reflection</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Formatting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#formatting-numbers">Formatting numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-formatting-to-print-polymorphic-types">Using formatting to print polymorphic types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interface">Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#number-format-configurations">Number format configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pointer-configurations">Pointer configurations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Hippo</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Formatting</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/formatting.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="formatting">
+<h1>Formatting<a class="headerlink" href="#formatting" title="Permalink to this headline">¶</a></h1>
+<p>Some printable types support formatting.
+Formatting is applied with the <code class="xref cpp cpp-struct docutils literal notranslate"><span class="pre">hippo::formatter</span></code> adapter, which itself is a printable type that applies a format to its contents.</p>
+<div class="section" id="formatting-numbers">
+<h2>Formatting numbers<a class="headerlink" href="#formatting-numbers" title="Permalink to this headline">¶</a></h2>
+<p>The following example shows how numbers can be formatted for a user-defined type:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">Foo</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">bar</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">baz</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="k">static</span> <span class="n">hippo</span><span class="o">::</span><span class="n">integer_format</span> <span class="n">int_fmt</span> <span class="p">{</span>
+  <span class="n">hippo</span><span class="o">::</span><span class="n">integer_format</span><span class="o">::</span><span class="n">base_type</span><span class="o">::</span><span class="n">hex</span>
+<span class="p">};</span>
+
+<span class="k">const</span> <span class="k">static</span> <span class="n">hippo</span><span class="o">::</span><span class="n">float_format</span> <span class="n">float_fmt</span> <span class="p">{</span>
+  <span class="n">hippo</span><span class="o">::</span><span class="n">float_format</span><span class="o">::</span><span class="n">format_type</span><span class="o">::</span><span class="n">scientific</span>
+<span class="p">};</span>
+
+<span class="n">HIPPO_CLASS_BEGIN</span><span class="p">(</span><span class="n">Foo</span><span class="p">)</span>
+  <span class="n">HIPPO_CLASS_MEMBER_EXPR</span><span class="p">(</span><span class="n">Foo</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">formatter</span><span class="p">(</span><span class="n">object</span><span class="p">.</span><span class="n">bar</span><span class="p">,</span> <span class="n">int_fmt</span><span class="p">))</span>
+  <span class="n">HIPPO_CLASS_MEMBER_EXPR</span><span class="p">(</span><span class="n">Foo</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">formatter</span><span class="p">(</span><span class="n">object</span><span class="p">.</span><span class="n">baz</span><span class="p">,</span> <span class="n">float_fmt</span><span class="p">))</span>
+<span class="n">HIPPO_CLASS_END</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-formatting-to-print-polymorphic-types">
+<h2>Using formatting to print polymorphic types<a class="headerlink" href="#using-formatting-to-print-polymorphic-types" title="Permalink to this headline">¶</a></h2>
+<p>Polymorphic types can be printed by use of <code class="xref cpp cpp-struct docutils literal notranslate"><span class="pre">hippo::derived_type_printer</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;hippo/hippo.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;hippo/std/memory.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+<span class="k">struct</span> <span class="n">Foo</span> <span class="p">{</span>
+  <span class="k">virtual</span> <span class="o">~</span><span class="n">Foo</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="nl">Bar</span> <span class="p">:</span> <span class="n">Foo</span> <span class="p">{};</span>
+<span class="k">struct</span> <span class="nl">Baz</span> <span class="p">:</span> <span class="n">Foo</span> <span class="p">{};</span>
+
+<span class="n">HIPPO_CLASS_BEGIN</span><span class="p">(</span><span class="n">Foo</span><span class="p">)</span>
+<span class="n">HIPPO_CLASS_END</span><span class="p">()</span>
+
+<span class="n">HIPPO_CLASS_BEGIN</span><span class="p">(</span><span class="n">Bar</span><span class="p">)</span>
+  <span class="n">HIPPO_BASE</span><span class="p">(</span><span class="n">Foo</span><span class="p">)</span>
+<span class="n">HIPPO_CLASS_END</span><span class="p">()</span>
+
+<span class="n">HIPPO_CLASS_BEGIN</span><span class="p">(</span><span class="n">Baz</span><span class="p">)</span>
+  <span class="n">HIPPO_BASE</span><span class="p">(</span><span class="n">Foo</span><span class="p">)</span>
+<span class="n">HIPPO_CLASS_END</span><span class="p">()</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span> <span class="n">foo</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span> <span class="n">bar</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Bar</span><span class="o">&gt;</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span> <span class="n">baz</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Baz</span><span class="o">&gt;</span><span class="p">();</span>
+  <span class="n">hippo</span><span class="o">::</span><span class="n">dynamic_type_format</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span> <span class="n">dyn_fmt</span><span class="p">;</span>
+  <span class="n">dyn_fmt</span><span class="p">.</span><span class="n">printers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">hippo</span><span class="o">::</span><span class="n">derived_type_printer</span><span class="o">&lt;</span><span class="n">Foo</span><span class="p">,</span> <span class="n">Bar</span><span class="o">&gt;&gt;</span><span class="p">());</span>
+  <span class="n">dyn_fmt</span><span class="p">.</span><span class="n">printers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">hippo</span><span class="o">::</span><span class="n">derived_type_printer</span><span class="o">&lt;</span><span class="n">Foo</span><span class="p">,</span> <span class="n">Baz</span><span class="o">&gt;&gt;</span><span class="p">());</span>
+  <span class="n">hippo</span><span class="o">::</span><span class="n">pointer_format</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span> <span class="n">fmt</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">dyn_fmt</span><span class="p">);</span>
+  <span class="n">hippo</span><span class="o">::</span><span class="n">print_to</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">formatter</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">fmt</span><span class="p">),</span> <span class="n">hippo</span><span class="o">::</span><span class="n">configuration</span><span class="p">());</span>
+  <span class="n">hippo</span><span class="o">::</span><span class="n">print_to</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">formatter</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">fmt</span><span class="p">),</span> <span class="n">bar</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">configuration</span><span class="p">());</span>
+  <span class="n">hippo</span><span class="o">::</span><span class="n">print_to</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">formatter</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">fmt</span><span class="p">),</span> <span class="n">baz</span><span class="p">,</span> <span class="n">hippo</span><span class="o">::</span><span class="n">configuration</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Once <code class="docutils literal notranslate"><span class="pre">Bar</span></code> and <code class="docutils literal notranslate"><span class="pre">Baz</span></code> are registered with the pointer format, the printer is able to use RTTI to determine which printer to use.
+The following is printed:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>std::shared_ptr containing [ Foo { } ]
+std::shared_ptr containing [ Bar { Base Foo { } } ]
+std::shared_ptr containing [ Baz { Base Foo { } } ]
+</pre></div>
+</div>
+</div>
+<div class="section" id="interface">
+<h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4I0EN5hippo9formatterE">
+<span id="_CPPv3I0EN5hippo9formatterE"></span><span id="_CPPv2I0EN5hippo9formatterE"></span><span class="target" id="structhippo_1_1formatter"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><em class="property">struct </em><code class="sig-name descname">formatter</code><a class="headerlink" href="#_CPPv4I0EN5hippo9formatterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A printable type that applies formats to other printable types. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Types</p>
+<dl class="type">
+<dt id="_CPPv4IEN5hippo9formatterI1TE10value_typeE">
+<span id="_CPPv3IEN5hippo9formatterI1TE10value_typeE"></span><span id="_CPPv2IEN5hippo9formatterI1TE10value_typeE"></span>template&lt;&gt;<br /><span class="target" id="structhippo_1_1formatter_1a66f6798ae141aff7efd4a0b245ea92fa"></span><em class="property">using </em><code class="sig-name descname">value_type</code> = std::remove_const_t&lt;T&gt;<a class="headerlink" href="#_CPPv4IEN5hippo9formatterI1TE10value_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The type to format. </p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv4IEN5hippo9formatterI1TE12printer_typeE">
+<span id="_CPPv3IEN5hippo9formatterI1TE12printer_typeE"></span><span id="_CPPv2IEN5hippo9formatterI1TE12printer_typeE"></span>template&lt;&gt;<br /><span class="target" id="structhippo_1_1formatter_1a5f8d7e54ca0255f0f473938db5c0e8ea"></span><em class="property">using </em><code class="sig-name descname">printer_type</code> = hippo::printer&lt;<a class="reference internal" href="#_CPPv4IEN5hippo9formatterI1TE10value_typeE" title="hippo::formatter&lt;T&gt;::value_type">value_type</a>&gt;<a class="headerlink" href="#_CPPv4IEN5hippo9formatterI1TE12printer_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The printer for <code class="docutils literal notranslate"><span class="pre">T</span></code> </p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv4IEN5hippo9formatterI1TE11format_typeE">
+<span id="_CPPv3IEN5hippo9formatterI1TE11format_typeE"></span><span id="_CPPv2IEN5hippo9formatterI1TE11format_typeE"></span>template&lt;&gt;<br /><span class="target" id="structhippo_1_1formatter_1a39ce652397a05484992fc303cc60a584"></span><em class="property">using </em><code class="sig-name descname">format_type</code> = <em class="property">typename</em> <a class="reference internal" href="#_CPPv4IEN5hippo9formatterI1TE12printer_typeE" title="hippo::formatter&lt;T&gt;::printer_type">printer_type</a>::format_type<a class="headerlink" href="#_CPPv4IEN5hippo9formatterI1TE11format_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The format configuration for <code class="docutils literal notranslate"><span class="pre">T</span></code> </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N5hippo9formatter9formatterERK10value_typeRK11format_type">
+<span id="_CPPv3N5hippo9formatter9formatterERK10value_typeRK11format_type"></span><span id="_CPPv2N5hippo9formatter9formatterERK10value_typeRK11format_type"></span><span id="hippo::formatter::formatter__value_typeCR.format_typeCR"></span><span class="target" id="structhippo_1_1formatter_1a7619729462385b918b29f21eb39eeb81"></span><code class="sig-name descname">formatter</code><span class="sig-paren">(</span><em class="property">const</em> value_type &amp;<em>value</em>, <em class="property">const</em> format_type &amp;<em>format</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5hippo9formatter9formatterERK10value_typeRK11format_type" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a <code class="docutils literal notranslate"><span class="pre">formatter</span></code> that prints <code class="docutils literal notranslate"><span class="pre">value</span></code> with the format described by <code class="docutils literal notranslate"><span class="pre">format</span></code>. The constructed <code class="docutils literal notranslate"><span class="pre">formatter</span></code> does not own <code class="docutils literal notranslate"><span class="pre">value</span></code> or <code class="docutils literal notranslate"><span class="pre">format</span></code>, so both must remain in scope for the lifetime of the <code class="docutils literal notranslate"><span class="pre">formatter</span></code>. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv4N5hippo9no_formatE">
+<span id="_CPPv3N5hippo9no_formatE"></span><span id="_CPPv2N5hippo9no_formatE"></span><span id="hippo::no_format"></span><span class="target" id="structhippo_1_1no__format"></span><em class="property">struct </em><code class="sig-name descname">no_format</code><a class="headerlink" href="#_CPPv4N5hippo9no_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format for non-formattable types. </p>
+</dd></dl>
+
+<div class="section" id="number-format-configurations">
+<h3>Number format configurations<a class="headerlink" href="#number-format-configurations" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv4N5hippo14integer_formatE">
+<span id="_CPPv3N5hippo14integer_formatE"></span><span id="_CPPv2N5hippo14integer_formatE"></span><span id="hippo::integer_format"></span><span class="target" id="structhippo_1_1integer__format"></span><em class="property">struct </em><code class="sig-name descname">integer_format</code><a class="headerlink" href="#_CPPv4N5hippo14integer_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format for integer values. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Types</p>
+<dl class="enum">
+<dt id="_CPPv4N5hippo14integer_format9base_typeE">
+<span id="_CPPv3N5hippo14integer_format9base_typeE"></span><span id="_CPPv2N5hippo14integer_format9base_typeE"></span><span class="target" id="structhippo_1_1integer__format_1a4cf9641c00cc6cc1152bcac0d8e0289b"></span><em class="property">enum </em><code class="sig-name descname">base_type</code><a class="headerlink" href="#_CPPv4N5hippo14integer_format9base_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Integer base description. </p>
+<p><em>Values:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv4N5hippo14integer_format3octE">
+<span id="_CPPv3N5hippo14integer_format3octE"></span><span id="_CPPv2N5hippo14integer_format3octE"></span><span class="target" id="structhippo_1_1integer__format_1a4cf9641c00cc6cc1152bcac0d8e0289ba1cdbdf89f2d1bd3dd9e698b2b320cb86"></span><code class="sig-name descname">oct</code><a class="headerlink" href="#_CPPv4N5hippo14integer_format3octE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Octal. </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv4N5hippo14integer_format3decE">
+<span id="_CPPv3N5hippo14integer_format3decE"></span><span id="_CPPv2N5hippo14integer_format3decE"></span><span class="target" id="structhippo_1_1integer__format_1a4cf9641c00cc6cc1152bcac0d8e0289ba1feea25ecb958229287f885aebe7c49b"></span><code class="sig-name descname">dec</code><a class="headerlink" href="#_CPPv4N5hippo14integer_format3decE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Decimal. </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv4N5hippo14integer_format3hexE">
+<span id="_CPPv3N5hippo14integer_format3hexE"></span><span id="_CPPv2N5hippo14integer_format3hexE"></span><span class="target" id="structhippo_1_1integer__format_1a4cf9641c00cc6cc1152bcac0d8e0289bab8d1b43eae73587ba56baef574709ecb"></span><code class="sig-name descname">hex</code><a class="headerlink" href="#_CPPv4N5hippo14integer_format3hexE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Hexadecimal. </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv4N5hippo12float_formatE">
+<span id="_CPPv3N5hippo12float_formatE"></span><span id="_CPPv2N5hippo12float_formatE"></span><span id="hippo::float_format"></span><span class="target" id="structhippo_1_1float__format"></span><em class="property">struct </em><code class="sig-name descname">float_format</code><a class="headerlink" href="#_CPPv4N5hippo12float_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format for floating-point values. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Types</p>
+<dl class="enum">
+<dt id="_CPPv4N5hippo12float_format11format_typeE">
+<span id="_CPPv3N5hippo12float_format11format_typeE"></span><span id="_CPPv2N5hippo12float_format11format_typeE"></span><span class="target" id="structhippo_1_1float__format_1a26475543dcdc00eceb96862494c2a031"></span><em class="property">enum </em><code class="sig-name descname">format_type</code><a class="headerlink" href="#_CPPv4N5hippo12float_format11format_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Notation format description. </p>
+<p><em>Values:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv4N5hippo12float_format8standardE">
+<span id="_CPPv3N5hippo12float_format8standardE"></span><span id="_CPPv2N5hippo12float_format8standardE"></span><span class="target" id="structhippo_1_1float__format_1a26475543dcdc00eceb96862494c2a031ac00f0c4675b91fb8b918e4079a0b1bac"></span><code class="sig-name descname">standard</code><a class="headerlink" href="#_CPPv4N5hippo12float_format8standardE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format with <code class="docutils literal notranslate"><span class="pre">std::defaultfloat</span></code> </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv4N5hippo12float_format5fixedE">
+<span id="_CPPv3N5hippo12float_format5fixedE"></span><span id="_CPPv2N5hippo12float_format5fixedE"></span><span class="target" id="structhippo_1_1float__format_1a26475543dcdc00eceb96862494c2a031acec315e3d0975e5cc2811d5d8725f149"></span><code class="sig-name descname">fixed</code><a class="headerlink" href="#_CPPv4N5hippo12float_format5fixedE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format with <code class="docutils literal notranslate"><span class="pre">std::fixed</span></code> </p>
+</dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv4N5hippo12float_format10scientificE">
+<span id="_CPPv3N5hippo12float_format10scientificE"></span><span id="_CPPv2N5hippo12float_format10scientificE"></span><span class="target" id="structhippo_1_1float__format_1a26475543dcdc00eceb96862494c2a031a55a95650a66b53ecbb960b53d985b964"></span><code class="sig-name descname">scientific</code><a class="headerlink" href="#_CPPv4N5hippo12float_format10scientificE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format with <code class="docutils literal notranslate"><span class="pre">std::scientific</span></code> </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv4N5hippo12float_format6formatE">
+<span id="_CPPv3N5hippo12float_format6formatE"></span><span id="_CPPv2N5hippo12float_format6formatE"></span><span id="hippo::float_format::format__format_type"></span><span class="target" id="structhippo_1_1float__format_1a715a85cd46c5a6ffc562455eee12550d"></span><a class="reference internal" href="#_CPPv4N5hippo12float_format11format_typeE" title="hippo::float_format::format_type">format_type</a> <code class="sig-name descname">format</code><a class="headerlink" href="#_CPPv4N5hippo12float_format6formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Notation format. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N5hippo12float_format9precisionE">
+<span id="_CPPv3N5hippo12float_format9precisionE"></span><span id="_CPPv2N5hippo12float_format9precisionE"></span><span id="hippo::float_format::precision__std::optional:std::s:"></span><span class="target" id="structhippo_1_1float__format_1aff6e946387354c2172d1ec4bb5b4b78f"></span>std::optional&lt;std::size_t&gt; <code class="sig-name descname">precision</code><a class="headerlink" href="#_CPPv4N5hippo12float_format9precisionE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Precision for <code class="docutils literal notranslate"><span class="pre">std::setprecision</span></code> </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="pointer-configurations">
+<h3>Pointer configurations<a class="headerlink" href="#pointer-configurations" title="Permalink to this headline">¶</a></h3>
+<dl class="type">
+<dt id="_CPPv4N5hippo14pointer_formatE">
+<span id="_CPPv3N5hippo14pointer_formatE"></span><span id="_CPPv2N5hippo14pointer_formatE"></span><span class="target" id="formatting_2pointer_8h_1aa8d98e082cc1ccdcf389285e84dbf6fe"></span><em class="property">using </em><code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">pointer_format</code> = std::variant&lt;standard_pointer_format&lt;T&gt;, <a class="reference internal" href="#_CPPv4N5hippo14address_formatE" title="hippo::address_format">address_format</a>, dynamic_type_format&lt;T&gt;&gt;<a class="headerlink" href="#_CPPv4N5hippo14pointer_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format for printing a pointer. </p>
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv4I0EN5hippo23standard_pointer_formatE">
+<span id="_CPPv3I0EN5hippo23standard_pointer_formatE"></span><span id="_CPPv2I0EN5hippo23standard_pointer_formatE"></span><span class="target" id="structhippo_1_1standard__pointer__format"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><em class="property">struct </em><code class="sig-name descname">standard_pointer_format</code><a class="headerlink" href="#_CPPv4I0EN5hippo23standard_pointer_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format option for non-polymorphic pointers. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Types</p>
+<dl class="type">
+<dt id="_CPPv4IEN5hippo23standard_pointer_formatI1TE11format_typeE">
+<span id="_CPPv3IEN5hippo23standard_pointer_formatI1TE11format_typeE"></span><span id="_CPPv2IEN5hippo23standard_pointer_formatI1TE11format_typeE"></span>template&lt;&gt;<br /><span class="target" id="structhippo_1_1standard__pointer__format_1a623b4c2412ff72ec5d7dd006d6b43e5e"></span><em class="property">using </em><code class="sig-name descname">format_type</code> = <em class="property">typename</em> hippo::printer::format_type<a class="headerlink" href="#_CPPv4IEN5hippo23standard_pointer_formatI1TE11format_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format type of <code class="docutils literal notranslate"><span class="pre">T</span></code> </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv4N5hippo23standard_pointer_format6formatE">
+<span id="_CPPv3N5hippo23standard_pointer_format6formatE"></span><span id="_CPPv2N5hippo23standard_pointer_format6formatE"></span><span id="hippo::standard_pointer_format::format__format_type"></span><span class="target" id="structhippo_1_1standard__pointer__format_1a3ba2aefcd844912bf5d33ec3fc0f3f78"></span>format_type <code class="sig-name descname">format</code><a class="headerlink" href="#_CPPv4N5hippo23standard_pointer_format6formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The format used for printing. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv4N5hippo14address_formatE">
+<span id="_CPPv3N5hippo14address_formatE"></span><span id="_CPPv2N5hippo14address_formatE"></span><span id="hippo::address_format"></span><span class="target" id="structhippo_1_1address__format"></span><em class="property">struct </em><code class="sig-name descname">address_format</code><a class="headerlink" href="#_CPPv4N5hippo14address_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format option for printing pointers as addresses (rather than printing the dereferenced pointer) </p>
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv4I0EN5hippo19dynamic_type_formatE">
+<span id="_CPPv3I0EN5hippo19dynamic_type_formatE"></span><span id="_CPPv2I0EN5hippo19dynamic_type_formatE"></span><span class="target" id="structhippo_1_1dynamic__type__format"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><em class="property">struct </em><code class="sig-name descname">dynamic_type_format</code><a class="headerlink" href="#_CPPv4I0EN5hippo19dynamic_type_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format option for printing polymorphic types. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Types</p>
+<dl class="type">
+<dt id="_CPPv4IEN5hippo19dynamic_type_formatI1TE16base_format_typeE">
+<span id="_CPPv3IEN5hippo19dynamic_type_formatI1TE16base_format_typeE"></span><span id="_CPPv2IEN5hippo19dynamic_type_formatI1TE16base_format_typeE"></span>template&lt;&gt;<br /><span class="target" id="structhippo_1_1dynamic__type__format_1ae7dfc84b25fefc80dcc0cfa135174fc7"></span><em class="property">using </em><code class="sig-name descname">base_format_type</code> = <em class="property">typename</em> hippo::printer&lt;T&gt;::format_type<a class="headerlink" href="#_CPPv4IEN5hippo19dynamic_type_formatI1TE16base_format_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format type of the base class. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv4N5hippo19dynamic_type_format8printersE">
+<span id="_CPPv3N5hippo19dynamic_type_format8printersE"></span><span id="_CPPv2N5hippo19dynamic_type_format8printersE"></span><span id="hippo::dynamic_type_format::printers__std::vector:std::shared_ptr:base_type_printer:T:::"></span><span class="target" id="structhippo_1_1dynamic__type__format_1ab1490dbf2b2fbd3654d299971af4eeeb"></span>std::vector&lt;std::shared_ptr&lt;base_type_printer&lt;T&gt;&gt;&gt; <code class="sig-name descname">printers</code><a class="headerlink" href="#_CPPv4N5hippo19dynamic_type_format8printersE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Printers for derived types, in preference order. </p>
+<p>Printers are called one by one and returns the first successful output. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N5hippo19dynamic_type_format11base_formatE">
+<span id="_CPPv3N5hippo19dynamic_type_format11base_formatE"></span><span id="_CPPv2N5hippo19dynamic_type_format11base_formatE"></span><span id="hippo::dynamic_type_format::base_format__base_format_type"></span><span class="target" id="structhippo_1_1dynamic__type__format_1aac9f8419d9510964f091d2662b4a3d15"></span>base_format_type <code class="sig-name descname">base_format</code><a class="headerlink" href="#_CPPv4N5hippo19dynamic_type_format11base_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>If none of the derived printers are successful, the base class is printed with this format. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv4I0EN5hippo17base_type_printerE">
+<span id="_CPPv3I0EN5hippo17base_type_printerE"></span><span id="_CPPv2I0EN5hippo17base_type_printerE"></span><span class="target" id="structhippo_1_1base__type__printer"></span>template&lt;typename <code class="sig-name descname">Base</code>&gt;<br /><em class="property">struct </em><code class="sig-name descname">base_type_printer</code><a class="headerlink" href="#_CPPv4I0EN5hippo17base_type_printerE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Abstract base for printers of polymorphic pointers. </p>
+<p>Subclassed by <a class="reference internal" href="#structhippo_1_1derived__type__printer"><span class="std std-ref">hippo::derived_type_printer&lt; Base, Derived &gt;</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N5hippo17base_type_printer5printEPK4BaseNSt8uint64_tERKN5hippo13configurationE">
+<span id="_CPPv3N5hippo17base_type_printer5printEPK4BaseNSt8uint64_tERKN5hippo13configurationE"></span><span id="_CPPv2N5hippo17base_type_printer5printEPK4BaseNSt8uint64_tERKN5hippo13configurationE"></span><span id="hippo::base_type_printer::print__BaseCP.std::uint64_t.hippo::configurationCR"></span><span class="target" id="structhippo_1_1base__type__printer_1a7c9f94c2da58b9bf6ac89a2ddf6ead28"></span><em class="property">virtual</em> std::optional&lt;hippo::object&gt; <code class="sig-name descname">print</code><span class="sig-paren">(</span><em class="property">const</em> Base *<em>b</em>, std::uint64_t <em>current_indent</em>, <em class="property">const</em> hippo::<a class="reference internal" href="intro.html#_CPPv4N5hippo13configurationE" title="hippo::configuration">configuration</a> &amp;<em>config</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N5hippo17base_type_printer5printEPK4BaseNSt8uint64_tERKN5hippo13configurationE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Prints <code class="docutils literal notranslate"><span class="pre">b</span></code> if possible, otherwise the return value is empty. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv4I00EN5hippo20derived_type_printerE">
+<span id="_CPPv3I00EN5hippo20derived_type_printerE"></span><span id="_CPPv2I00EN5hippo20derived_type_printerE"></span><span class="target" id="structhippo_1_1derived__type__printer"></span>template&lt;typename <code class="sig-name descname">Base</code>, typename <code class="sig-name descname">Derived</code>&gt;<br /><em class="property">struct </em><code class="sig-name descname">derived_type_printer</code> : <em class="property">public</em> hippo::base_type_printer&lt;<a class="reference internal" href="#_CPPv4I00EN5hippo20derived_type_printerE" title="hippo::derived_type_printer::Base">Base</a>&gt;<a class="headerlink" href="#_CPPv4I00EN5hippo20derived_type_printerE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Printer for a polymorphic type from a base class pointer. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Types</p>
+<dl class="type">
+<dt id="_CPPv4IEN5hippo20derived_type_printerI4Base7DerivedE12printer_typeE">
+<span id="_CPPv3IEN5hippo20derived_type_printerI4Base7DerivedE12printer_typeE"></span><span id="_CPPv2IEN5hippo20derived_type_printerI4Base7DerivedE12printer_typeE"></span>template&lt;&gt;<br /><span class="target" id="structhippo_1_1derived__type__printer_1a2fd43f578fe47ebc66ed37a79b93796c"></span><em class="property">using </em><code class="sig-name descname">printer_type</code> = hippo::printer&lt;Derived&gt;<a class="headerlink" href="#_CPPv4IEN5hippo20derived_type_printerI4Base7DerivedE12printer_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Printer specialization for <code class="docutils literal notranslate"><span class="pre">Derived</span></code> </p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv4IEN5hippo20derived_type_printerI4Base7DerivedE11format_typeE">
+<span id="_CPPv3IEN5hippo20derived_type_printerI4Base7DerivedE11format_typeE"></span><span id="_CPPv2IEN5hippo20derived_type_printerI4Base7DerivedE11format_typeE"></span>template&lt;&gt;<br /><span class="target" id="structhippo_1_1derived__type__printer_1a372b8314c2ec5c2cf12f068b764435b5"></span><em class="property">using </em><code class="sig-name descname">format_type</code> = <em class="property">typename</em> <a class="reference internal" href="#_CPPv4IEN5hippo20derived_type_printerI4Base7DerivedE12printer_typeE" title="hippo::derived_type_printer&lt;Base, Derived&gt;::printer_type">printer_type</a>::format_type<a class="headerlink" href="#_CPPv4IEN5hippo20derived_type_printerI4Base7DerivedE11format_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format type of <code class="docutils literal notranslate"><span class="pre">Derived</span></code> </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N5hippo20derived_type_printer20derived_type_printerEv">
+<span id="_CPPv3N5hippo20derived_type_printer20derived_type_printerEv"></span><span id="_CPPv2N5hippo20derived_type_printer20derived_type_printerEv"></span><span id="hippo::derived_type_printer::derived_type_printer"></span><span class="target" id="structhippo_1_1derived__type__printer_1aea0701c4240c9e68a018fa7da3b600a1"></span><code class="sig-name descname">derived_type_printer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5hippo20derived_type_printer20derived_type_printerEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a printer using the default format. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N5hippo20derived_type_printer20derived_type_printerERK11format_type">
+<span id="_CPPv3N5hippo20derived_type_printer20derived_type_printerERK11format_type"></span><span id="_CPPv2N5hippo20derived_type_printer20derived_type_printerERK11format_type"></span><span id="hippo::derived_type_printer::derived_type_printer__format_typeCR"></span><span class="target" id="structhippo_1_1derived__type__printer_1a7dd2fd39320ac947d56a20166f86608d"></span><code class="sig-name descname">derived_type_printer</code><span class="sig-paren">(</span><em class="property">const</em> format_type &amp;<em>format</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5hippo20derived_type_printer20derived_type_printerERK11format_type" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a printer using the specified format <code class="docutils literal notranslate"><span class="pre">format</span></code> </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N5hippo20derived_type_printer5printEPK4BaseNSt8uint64_tERKN5hippo13configurationE">
+<span id="_CPPv3N5hippo20derived_type_printer5printEPK4BaseNSt8uint64_tERKN5hippo13configurationE"></span><span id="_CPPv2N5hippo20derived_type_printer5printEPK4BaseNSt8uint64_tERKN5hippo13configurationE"></span><span id="hippo::derived_type_printer::print__BaseCP.std::uint64_t.hippo::configurationCR"></span><span class="target" id="structhippo_1_1derived__type__printer_1a3ec511874baa8f594b1a22ac7fb2def3"></span>std::optional&lt;hippo::object&gt; <code class="sig-name descname">print</code><span class="sig-paren">(</span><em class="property">const</em> Base *<em>b</em>, std::uint64_t <em>current_indent</em>, <em class="property">const</em> hippo::<a class="reference internal" href="intro.html#_CPPv4N5hippo13configurationE" title="hippo::configuration">configuration</a> &amp;<em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5hippo20derived_type_printer5printEPK4BaseNSt8uint64_tERKN5hippo13configurationE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Prints <code class="docutils literal notranslate"><span class="pre">b</span></code> if it is a <code class="docutils literal notranslate"><span class="pre">Derived</span></code>, otherwise returns nothing. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="reflection.html" class="btn btn-neutral float-left" title="Printing user-defined types via reflection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Caleb Zulawski
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+    <br>
+    "<a href="https://thenounproject.com/term/hippo/198549/">hippo</a>" by <a href="https://thenounproject.com/edharrison89/">Ed Harrison</a> is licensed under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
