@@ -8,6 +8,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v1
     - name: Install toolchain
-      run: sudo apt-get install doxygen python3-sphinx python3-breathe python3-sphinx-rtd-theme
+      run: sudo apt-get install doxygen && pip3 install Sphinx breathe sphinx-rtd-theme
     - name: Build
       run: make -C doc
+      env:
+        PATH: $PATH:/usr/local/bin
