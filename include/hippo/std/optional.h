@@ -10,7 +10,7 @@ namespace hippo {
 //!\cond
 template <typename T> struct printer<std::optional<T>> {
   using printer_type = ::hippo::printer<T>;
-  using format_type = printer_type::format_type;
+  using format_type = typename printer_type::format_type;
   static ::hippo::object print(const std::optional<T> &o,
                                std::uint64_t current_indent,
                                const ::hippo::configuration &config,
