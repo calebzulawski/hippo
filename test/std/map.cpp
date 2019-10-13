@@ -31,7 +31,7 @@
       config.width = 100;                                                      \
       hippo::map_format<int, float> fmt;                                       \
       fmt.first.base = hippo::integer_format::base_type::hex;                  \
-      fmt.second.format = hippo::float_format::format_type::scientific;        \
+      fmt.second.notation = hippo::float_format::notation_type::scientific;    \
       fmt.second.precision = 1;                                                \
       std::vector<std::string> expected_string{                                \
           Name " [ ( key: 0x1, value: 5.0e-01 ), ( key: 0x2, value: "          \

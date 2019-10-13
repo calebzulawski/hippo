@@ -21,7 +21,7 @@ TEST_CASE("tuple") {
     config.width = 100;
     hippo::tuple_format<int, float> fmt;
     std::get<0>(fmt).base = hippo::integer_format::base_type::hex;
-    std::get<1>(fmt).format = hippo::float_format::format_type::scientific;
+    std::get<1>(fmt).notation = hippo::float_format::notation_type::scientific;
     std::get<1>(fmt).precision = 1;
     std::vector<std::string> expected_string{
         "std::tuple { 0: 0x5, 1: 5.0e-01 }"};

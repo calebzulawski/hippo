@@ -22,7 +22,7 @@ TEST_CASE("pair") {
     config.width = 100;
     hippo::pair_format<int, float> fmt;
     fmt.first.base = hippo::integer_format::base_type::hex;
-    fmt.second.format = hippo::float_format::format_type::scientific;
+    fmt.second.notation = hippo::float_format::notation_type::scientific;
     fmt.second.precision = 1;
     std::vector<std::string> expected_string{
         "std::pair { first: 0x5, second: 5.0e-01 }"};

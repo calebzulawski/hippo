@@ -2,7 +2,7 @@ Formatting
 ==========
 
 Some printable types support formatting.
-Formatting is applied with the :cpp:struct:`hippo::formatter` adapter, which itself is a printable type that applies a format to its contents.
+Formatting is applied with the :cpp:class:`hippo::formatter <template\<typename T> hippo::formatter>` adapter, which itself is a printable type that applies a format to its contents.
 
 Formatting numbers
 ------------------
@@ -16,23 +16,27 @@ The following example shows how numbers can be formatted for a user-defined type
      float baz;
    };
 
-   const static hippo::integer_format int_fmt {
-     hippo::integer_format::base_type::hex
-   };
+   static hippo::integer_format hex() {
+     hippo::integer_format fmt;
+     fmt.base = hippo::integer_format::base_type::hex;
+     return fmt;
+   }
 
-   const static hippo::float_format float_fmt {
-     hippo::float_format::format_type::scientific
+   static hippo::float_format scientific() {
+     hippo::float_format fmt;
+     fmt.format = hippo::float_format::notation_type::scientific;
+     return fmt;
    };
 
    HIPPO_CLASS_BEGIN(Foo)
-     HIPPO_CLASS_MEMBER_EXPR(Foo, hippo::formatter(object.bar, int_fmt))
-     HIPPO_CLASS_MEMBER_EXPR(Foo, hippo::formatter(object.baz, float_fmt))
+     HIPPO_CLASS_MEMBER_EXPR(Foo, hippo::formatter(object.bar, hex()))
+     HIPPO_CLASS_MEMBER_EXPR(Foo, hippo::formatter(object.baz, scientific()))
    HIPPO_CLASS_END()
 
 Using formatting to print polymorphic types
 -------------------------------------------
 
-Polymorphic types can be printed by use of :cpp:struct:`hippo::derived_type_printer`:
+Polymorphic types can be printed by use of :cpp:class:`hippo::derived_type_printer <template\<typename Base, typename Derived> hippo::derived_type_printer>`:
 
 .. code-block:: cpp
 

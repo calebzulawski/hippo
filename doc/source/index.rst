@@ -16,10 +16,10 @@ For more information on a specific feature, see the pages below:
    reflection
    formatting
    std
-   View on GitHub <https://github.com/calebzulawski/hippo/>
+   advanced
 
-Indices and tables
-==================
+Can't find what you're looking for?
+===================================
 
 * :ref:`genindex`
 * :ref:`search`

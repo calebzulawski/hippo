@@ -64,7 +64,8 @@ struct configuration {
                             //!< but best-effort (defaults to 60)
 };
 
-//! The core pretty-printer type
+//! The core pretty-printer type. `T` is the type to be printed. `U` is provided
+//! for optionally making SFINAE possible.
 template <typename T, typename U = T> struct printer;
 
 namespace detail {

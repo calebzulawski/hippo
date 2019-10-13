@@ -45,7 +45,7 @@
     SECTION("format") {                                                        \
       config.width = 100;                                                      \
       hippo::float_format fmt;                                                 \
-      fmt.format = hippo::float_format::format_type::scientific;               \
+      fmt.notation = hippo::float_format::notation_type::scientific;           \
       fmt.precision = 1;                                                       \
       std::vector<std::string> expected_string{                                \
           {"std::chrono::duration containing [ 1.2e+02 " Unit " ]"}};          \

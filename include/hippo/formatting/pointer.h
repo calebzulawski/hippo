@@ -49,7 +49,8 @@ private:
   format_type format;
 };
 
-//! Format option for printing polymorphic types
+//! Format option for printing polymorphic types. A non-null pointer is checked
+//! against the registered types, dereferenced, and printed.
 template <typename T> struct dynamic_type_format {
   using base_format_type =
       typename ::hippo::printer<T>::format_type; //!< Format type of the base
@@ -63,7 +64,8 @@ template <typename T> struct dynamic_type_format {
                           //!< the base class is printed with this format.
 };
 
-//! Format option for non-polymorphic pointers
+//! Format option for non-polymorphic pointers. A non-null pointer is
+//! dereferenced and printed.
 template <typename T> struct standard_pointer_format {
   using format_type =
       typename ::hippo::printer<T>::format_type; //!< Format type of `T`
@@ -79,8 +81,8 @@ template <typename T>
 using pointer_format = std::variant<standard_pointer_format<T>, address_format,
                                     dynamic_type_format<T>>;
 
-//! Applies a format `fmt` to a pointer `value` using the `current_indent`
-//! indentation level and configuration `config`.
+//! Apply format `fmt` to pointer `value` using the `current_indent` indentation
+//! level and configuration `config`.
 template <typename T>
 ::hippo::object apply_format(const T *value, std::uint64_t current_indent,
                              const ::hippo::configuration &config,

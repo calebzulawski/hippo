@@ -14,7 +14,7 @@ TEST_CASE("complex") {
     }
     SECTION("formatted") {
       hippo::float_format fmt;
-      fmt.format = hippo::float_format::format_type::scientific;
+      fmt.notation = hippo::float_format::notation_type::scientific;
       fmt.precision = 1;
       std::vector<std::string> expected_string{"1.2e+00 - 3.4e+01i"};
       REQUIRE(hippo::print(hippo::formatter(c, fmt), config) ==

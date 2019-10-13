@@ -13,13 +13,14 @@ namespace hippo {
 //! Format for floating-point values
 struct float_format {
   //! Notation format description
-  enum class format_type {
+  enum class notation_type {
     standard,   //!< Format with `std::defaultfloat`
     fixed,      //!< Format with `std::fixed`
     scientific, //!< Format with `std::scientific`
   };
 
-  format_type format = format_type::standard; //!< Notation format
+  notation_type notation =
+      notation_type::standard; //!< Notation format, defaults to `standard`
   std::optional<std::size_t> precision; //!< Precision for `std::setprecision`
 };
 
@@ -28,14 +29,14 @@ template <typename T>
 std::enable_if_t<std::is_floating_point_v<T>, std::string>
 apply_format(T value, const float_format &fmt) {
   std::ostringstream ss;
-  switch (fmt.format) {
-  case float_format::format_type::standard:
+  switch (fmt.notation) {
+  case float_format::notation_type::standard:
     ss << std::defaultfloat;
     break;
-  case float_format::format_type::fixed:
+  case float_format::notation_type::fixed:
     ss << std::fixed;
     break;
-  case float_format::format_type::scientific:
+  case float_format::notation_type::scientific:
     ss << std::scientific;
     break;
   }
