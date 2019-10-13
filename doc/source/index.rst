@@ -1,11 +1,11 @@
 =======
  Hippo
 =======
--------------------------------------------------
- Hierarchical Information Pretty-Printed Objects
--------------------------------------------------
+----------------------------------------------------
+ Hierarchical Information as Pretty-Printed Objects
+----------------------------------------------------
 
-Hippo is a header-only library that provides facilities for pretty-printing user-defined types.
+Hippo is a header-only library for C++17 that provides facilities for pretty-printing user-defined types.
 
 For more information on a specific feature, see the pages below:
 
@@ -16,6 +16,7 @@ For more information on a specific feature, see the pages below:
    reflection
    formatting
    std
+   View on GitHub <https://github.com/calebzulawski/hippo/>
 
 Indices and tables
 ==================
