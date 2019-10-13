@@ -80,6 +80,9 @@
 
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
+<a class="fa fa-github" href="https://github.com/calebzulawski/hippo"> View on GitHub</a>
+<br>
+
             
             
               
@@ -101,11 +104,12 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="formatting.html">Formatting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="std.html">Out-of-the-box type support</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/calebzulawski/hippo/">View on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced usage</a></li>
 </ul>
 
             
           
+
         </div>
       </div>
     </nav>
@@ -166,9 +170,7 @@
             
   <div class="section" id="printing-user-defined-types-via-reflection">
 <span id="reflection"></span><h1>Printing user-defined types via reflection<a class="headerlink" href="#printing-user-defined-types-via-reflection" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;hippo/hippo.h&quot;</span><span class="cp"></span>
-</pre></div>
-</div>
+<p>A key feature of Hippo is the ease of printing user-defined types.</p>
 <div class="section" id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <p>Hippo provides utilities for printing user-defined types. Consider the following types:</p>
@@ -182,7 +184,7 @@
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>To print these types, we reflect the type using <a class="reference internal" href="#c.HIPPO_CLASS_BEGIN" title="HIPPO_CLASS_BEGIN"><code class="xref c c-macro docutils literal notranslate"><span class="pre">HIPPO_CLASS_BEGIN</span></code></a>, <a class="reference internal" href="#c.HIPPO_MEMBER" title="HIPPO_MEMBER"><code class="xref c c-macro docutils literal notranslate"><span class="pre">HIPPO_MEMBER</span></code></a>, and <a class="reference internal" href="#c.HIPPO_CLASS_END" title="HIPPO_CLASS_END"><code class="xref c c-macro docutils literal notranslate"><span class="pre">HIPPO_CLASS_END</span></code></a>:</p>
+<p>To print these types, we reflect them using <a class="reference internal" href="#c.HIPPO_CLASS_BEGIN" title="HIPPO_CLASS_BEGIN"><code class="xref c c-macro docutils literal notranslate"><span class="pre">HIPPO_CLASS_BEGIN</span></code></a>, <a class="reference internal" href="#c.HIPPO_MEMBER" title="HIPPO_MEMBER"><code class="xref c c-macro docutils literal notranslate"><span class="pre">HIPPO_MEMBER</span></code></a>, and <a class="reference internal" href="#c.HIPPO_CLASS_END" title="HIPPO_CLASS_END"><code class="xref c c-macro docutils literal notranslate"><span class="pre">HIPPO_CLASS_END</span></code></a>:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;hippo/hippo.h&quot;       // reflection macros</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;hippo/std/vector.h&quot;  // std::vector printer</span><span class="cp"></span>
 

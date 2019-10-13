@@ -37,6 +37,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Advanced usage" href="advanced.html" />
     <link rel="prev" title="Formatting" href="formatting.html" /> 
 </head>
 
@@ -79,6 +80,9 @@
 
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
+<a class="fa fa-github" href="https://github.com/calebzulawski/hippo"> View on GitHub</a>
+<br>
+
             
             
               
@@ -103,11 +107,12 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/calebzulawski/hippo/">View on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced usage</a></li>
 </ul>
 
             
           
+
         </div>
       </div>
     </nav>
@@ -168,7 +173,7 @@
             
   <div class="section" id="out-of-the-box-type-support">
 <h1>Out-of-the-box type support<a class="headerlink" href="#out-of-the-box-type-support" title="Permalink to this headline">¶</a></h1>
-<p>As discussed in <a class="reference internal" href="reflection.html#reflection"><span class="std std-ref">Printing user-defined types via reflection</span></a>, <code class="docutils literal notranslate"><span class="pre">struct</span></code>, <code class="docutils literal notranslate"><span class="pre">class`,</span> <span class="pre">``enum</span></code>, and <code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">class</span></code> are all supported via macros.</p>
+<p>As discussed in <a class="reference internal" href="reflection.html#reflection"><span class="std std-ref">Printing user-defined types via reflection</span></a>, <code class="docutils literal notranslate"><span class="pre">struct</span></code>, <code class="docutils literal notranslate"><span class="pre">class</span></code>, <code class="docutils literal notranslate"><span class="pre">enum</span></code>, and <code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">class</span></code> are all supported via macros.</p>
 <p>In addition to user defined types, most types provided by the language are automatically supported.
 All builtin types are supported, as well as many from the standard library.</p>
 <div class="section" id="supported-standard-library-types">
@@ -191,11 +196,11 @@ All builtin types are supported, as well as many from the standard library.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">std::map</span></code> and <code class="docutils literal notranslate"><span class="pre">std::multimap</span></code> via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/map.h&quot;</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">std::unordered_map</span></code> and <code class="docutils literal notranslate"><span class="pre">std::unordered_multimap</span></code> via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/unordered_map.h&quot;</span></code></p></li>
 </ul>
-<p>All containers can be formatted with the format configuration of the inner type.
+<p>All containers can be formatted with the format configuration of the inner type(s).
 Map types can be formatted with:</p>
 <dl class="type">
 <dt id="_CPPv4N5hippo10map_formatE">
-<span id="_CPPv3N5hippo10map_formatE"></span><span id="_CPPv2N5hippo10map_formatE"></span><span class="target" id="containers_8h_1a924006cc48c755c236f372475b5595f9"></span><em class="property">using </em><code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">map_format</code> = std::pair&lt;<em class="property">typename</em> hippo::printer&lt;Key&gt;::format_type, <em class="property">typename</em> hippo::printer&lt;Value&gt;::format_type&gt;<a class="headerlink" href="#_CPPv4N5hippo10map_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N5hippo10map_formatE"></span><span id="_CPPv2N5hippo10map_formatE"></span><span class="target" id="containers_8h_1a924006cc48c755c236f372475b5595f9"></span><em class="property">using </em><code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">map_format</code> = std::pair&lt;<em class="property">typename</em> hippo::<a class="reference internal" href="advanced.html#_CPPv4I00EN5hippo7printerE" title="hippo::printer">printer</a>&lt;Key&gt;::format_type, <em class="property">typename</em> hippo::<a class="reference internal" href="advanced.html#_CPPv4I00EN5hippo7printerE" title="hippo::printer">printer</a>&lt;Value&gt;::format_type&gt;<a class="headerlink" href="#_CPPv4N5hippo10map_formatE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Format for map types. </p>
 </dd></dl>
 
@@ -206,29 +211,29 @@ Map types can be formatted with:</p>
 <p>They can be formatted with:</p>
 <dl class="type">
 <dt id="_CPPv4N5hippo11pair_formatE">
-<span id="_CPPv3N5hippo11pair_formatE"></span><span id="_CPPv2N5hippo11pair_formatE"></span><span class="target" id="utility_8h_1a596bee38a443336dd57c98900f1a06a5"></span><em class="property">using </em><code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">pair_format</code> = std::pair&lt;<em class="property">typename</em> hippo::printer&lt;First&gt;::format_type, <em class="property">typename</em> hippo::printer&lt;Second&gt;::format_type&gt;<a class="headerlink" href="#_CPPv4N5hippo11pair_formatE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Format configuration for <code class="docutils literal notranslate"><span class="pre">std::pair</span></code> </p>
+<span id="_CPPv3N5hippo11pair_formatE"></span><span id="_CPPv2N5hippo11pair_formatE"></span><span class="target" id="utility_8h_1a596bee38a443336dd57c98900f1a06a5"></span><em class="property">using </em><code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">pair_format</code> = std::pair&lt;<em class="property">typename</em> hippo::<a class="reference internal" href="advanced.html#_CPPv4I00EN5hippo7printerE" title="hippo::printer">printer</a>&lt;First&gt;::format_type, <em class="property">typename</em> hippo::<a class="reference internal" href="advanced.html#_CPPv4I00EN5hippo7printerE" title="hippo::printer">printer</a>&lt;Second&gt;::format_type&gt;<a class="headerlink" href="#_CPPv4N5hippo11pair_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format for <code class="docutils literal notranslate"><span class="pre">std::pair</span></code> </p>
 </dd></dl>
 
 <dl class="type">
 <dt id="_CPPv4N5hippo12tuple_formatE">
-<span id="_CPPv3N5hippo12tuple_formatE"></span><span id="_CPPv2N5hippo12tuple_formatE"></span><span class="target" id="tuple_8h_1a15df82b03aae307bcdf336a731029b9c"></span><em class="property">using </em><code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">tuple_format</code> = std::tuple&lt;<em class="property">typename</em> hippo::printer&lt;T&gt;::format_type...&gt;<a class="headerlink" href="#_CPPv4N5hippo12tuple_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N5hippo12tuple_formatE"></span><span id="_CPPv2N5hippo12tuple_formatE"></span><span class="target" id="tuple_8h_1a15df82b03aae307bcdf336a731029b9c"></span><em class="property">using </em><code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">tuple_format</code> = std::tuple&lt;<em class="property">typename</em> hippo::<a class="reference internal" href="advanced.html#_CPPv4I00EN5hippo7printerE" title="hippo::printer">printer</a>&lt;T&gt;::format_type...&gt;<a class="headerlink" href="#_CPPv4N5hippo12tuple_formatE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Format for <code class="docutils literal notranslate"><span class="pre">std::tuple</span></code> </p>
 </dd></dl>
 
 </div>
 <div class="section" id="smart-pointers">
 <h3>Smart pointers<a class="headerlink" href="#smart-pointers" title="Permalink to this headline">¶</a></h3>
-<p>In addition to plain pointers, <code class="docutils literal notranslate"><span class="pre">std::unique_ptr</span></code>, <code class="docutils literal notranslate"><span class="pre">std::shared_ptr</span></code>, and <code class="docutils literal notranslate"><span class="pre">std::weak_ptr</span></code> are supported via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/memory.h&quot;</span></code>
+<p>In addition to plain pointers, <code class="docutils literal notranslate"><span class="pre">std::unique_ptr</span></code>, <code class="docutils literal notranslate"><span class="pre">std::shared_ptr</span></code>, and <code class="docutils literal notranslate"><span class="pre">std::weak_ptr</span></code> are supported via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/memory.h&quot;</span></code>.
 These types are all formattable by <a class="reference internal" href="formatting.html#_CPPv4N5hippo14pointer_formatE" title="hippo::pointer_format"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">hippo::pointer_format</span></code></a>.</p>
 </div>
 <div class="section" id="sum-types">
 <h3>Sum types<a class="headerlink" href="#sum-types" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">std::optional</span></code> is supported via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/optional.h</span></code> and is formattable with the inner type’s format configuration.
-<code class="docutils literal notranslate"><span class="pre">std::variant</span></code> is supported via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/variant.h:</span></code> and is formattable with:</p>
+<p><code class="docutils literal notranslate"><span class="pre">std::optional</span></code> is supported via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/optional.h&quot;</span></code> and is formattable with the inner type’s format configuration.
+<code class="docutils literal notranslate"><span class="pre">std::variant</span></code> is supported via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/variant.h&quot;</span></code> and is formattable with:</p>
 <dl class="type">
 <dt id="_CPPv4N5hippo14variant_formatE">
-<span id="_CPPv3N5hippo14variant_formatE"></span><span id="_CPPv2N5hippo14variant_formatE"></span><span class="target" id="variant_8h_1a3ae16294d262c6b2ff56a1ef79a249b2"></span><em class="property">using </em><code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">variant_format</code> = std::tuple&lt;<em class="property">typename</em> hippo::printer&lt;T&gt;::format_type...&gt;<a class="headerlink" href="#_CPPv4N5hippo14variant_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N5hippo14variant_formatE"></span><span id="_CPPv2N5hippo14variant_formatE"></span><span class="target" id="variant_8h_1a3ae16294d262c6b2ff56a1ef79a249b2"></span><em class="property">using </em><code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">variant_format</code> = std::tuple&lt;<em class="property">typename</em> hippo::<a class="reference internal" href="advanced.html#_CPPv4I00EN5hippo7printerE" title="hippo::printer">printer</a>&lt;T&gt;::format_type...&gt;<a class="headerlink" href="#_CPPv4N5hippo14variant_formatE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -258,6 +263,8 @@ These types are all formattable by <a class="reference internal" href="formattin
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="advanced.html" class="btn btn-neutral float-right" title="Advanced usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="formatting.html" class="btn btn-neutral float-left" title="Formatting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

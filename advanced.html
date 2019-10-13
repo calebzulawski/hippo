@@ -1,0 +1,395 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Advanced usage &mdash; Hippo 0.1.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Out-of-the-box type support" href="std.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo-white.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+<a class="fa fa-github" href="https://github.com/calebzulawski/hippo"> View on GitHub</a>
+<br>
+
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reflection.html">Printing user-defined types via reflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formatting.html">Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="std.html">Out-of-the-box type support</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#representing-of-lines-of-text">Representing of lines of text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-a-printer">Defining a printer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#convenient-utilities">Convenient utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#manipulating-lines">Manipulating lines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#formatting-values">Formatting values</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Hippo</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Advanced usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="advanced-usage">
+<h1>Advanced usage<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">¶</a></h1>
+<p>Sometimes it is necessary to access the internal workings to create a more complicated printer.</p>
+<div class="section" id="representing-of-lines-of-text">
+<h2>Representing of lines of text<a class="headerlink" href="#representing-of-lines-of-text" title="Permalink to this headline">¶</a></h2>
+<p>Before we get into printing types, we must understand how outputs are represented.
+In Hippo, a line of text is represented by <a class="reference internal" href="#_CPPv4N5hippo4lineE" title="hippo::line"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">hippo::line</span></code></a>, which tracks the indentation level of the line separately from the contents.</p>
+<dl class="class">
+<dt id="_CPPv4N5hippo4lineE">
+<span id="_CPPv3N5hippo4lineE"></span><span id="_CPPv2N5hippo4lineE"></span><span id="hippo::line"></span><span class="target" id="structhippo_1_1line"></span><em class="property">struct </em><code class="sig-name descname">line</code><a class="headerlink" href="#_CPPv4N5hippo4lineE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Describes a printed line of text. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N5hippo4line4lineENSt8uint64_tE">
+<span id="_CPPv3N5hippo4line4lineENSt8uint64_tE"></span><span id="_CPPv2N5hippo4line4lineENSt8uint64_tE"></span><span id="hippo::line::line__std::uint64_t"></span><span class="target" id="structhippo_1_1line_1a0ab1c814a329f744216a9505a6c5f871"></span><code class="sig-name descname">line</code><span class="sig-paren">(</span>std::uint64_t <em>indent</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5hippo4line4lineENSt8uint64_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct an empty line with the given indentation level. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N5hippo4line4lineENSt8uint64_tENSt6stringE">
+<span id="_CPPv3N5hippo4line4lineENSt8uint64_tENSt6stringE"></span><span id="_CPPv2N5hippo4line4lineENSt8uint64_tENSt6stringE"></span><span id="hippo::line::line__std::uint64_t.ss"></span><span class="target" id="structhippo_1_1line_1a69096c1bb6d146ad39e2dca71114faf7"></span><code class="sig-name descname">line</code><span class="sig-paren">(</span>std::uint64_t <em>indent</em>, std::string <em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5hippo4line4lineENSt8uint64_tENSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a line with the given indentation level and string. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv4N5hippo4line6indentE">
+<span id="_CPPv3N5hippo4line6indentE"></span><span id="_CPPv2N5hippo4line6indentE"></span><span id="hippo::line::indent__std::uint64_t"></span><span class="target" id="structhippo_1_1line_1a41188ef3492e7e78b50b65469951363c"></span>std::uint64_t <code class="sig-name descname">indent</code><a class="headerlink" href="#_CPPv4N5hippo4line6indentE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The indentation level of the line. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N5hippo4line6stringE">
+<span id="_CPPv3N5hippo4line6stringE"></span><span id="_CPPv2N5hippo4line6stringE"></span><span id="hippo::line::string__ss"></span><span class="target" id="structhippo_1_1line_1aba44c14e759aed21cc7c595302e17609"></span>std::string <code class="sig-name descname">string</code><a class="headerlink" href="#_CPPv4N5hippo4line6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The contents of the line. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<p>When an object is printed, the generated lines of text are then collected into a <a class="reference internal" href="#_CPPv4N5hippo6objectE" title="hippo::object"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">hippo::object</span></code></a>.
+Any lines that are shorter than <a class="reference internal" href="intro.html#_CPPv4N5hippo13configuration5widthE" title="hippo::configuration::width"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">hippo::configuration::width</span></code></a> are condensed into a single line if possible.
+Multiple <a class="reference internal" href="#_CPPv4N5hippo6objectE" title="hippo::object"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">hippo::object</span></code></a> may be condensed as well, but only if all of the objects are a single line.</p>
+<dl class="type">
+<dt id="_CPPv4N5hippo6objectE">
+<span id="_CPPv3N5hippo6objectE"></span><span id="_CPPv2N5hippo6objectE"></span><span class="target" id="base_8h_1a198f7afe2601b01d2bbd110f375f230b"></span><em class="property">using </em><code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">object</code> = std::variant&lt;hippo::<a class="reference internal" href="#_CPPv4N5hippo4lineE" title="hippo::line">line</a>, std::list&lt;hippo::<a class="reference internal" href="#_CPPv4N5hippo4lineE" title="hippo::line">line</a>&gt;&gt;<a class="headerlink" href="#_CPPv4N5hippo6objectE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Describes the printed output of any object, either as a single or multiple lines. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N5hippo8condenseERKNSt4listIN5hippo4lineEEERKN5hippo13configurationE">
+<span id="_CPPv3N5hippo8condenseERKNSt4listIN5hippo4lineEEERKN5hippo13configurationE"></span><span id="_CPPv2N5hippo8condenseERKNSt4listIN5hippo4lineEEERKN5hippo13configurationE"></span><span id="hippo::condense__std::list:hippo::line:CR.hippo::configurationCR"></span><span class="target" id="base_8h_1a240a48393f611d79a94c8058d9e54395"></span><em class="property">inline</em> hippo::<a class="reference internal" href="#_CPPv4N5hippo6objectE" title="hippo::object">object</a> <code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">condense</code><span class="sig-paren">(</span><em class="property">const</em> std::list&lt;hippo::<a class="reference internal" href="#_CPPv4N5hippo4lineE" title="hippo::line">line</a>&gt; &amp;<em>lines</em>, <em class="property">const</em> hippo::<a class="reference internal" href="intro.html#_CPPv4N5hippo13configurationE" title="hippo::configuration">configuration</a> &amp;<em>config</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Condense a collection of <code class="docutils literal notranslate"><span class="pre">line</span></code>s into a single <code class="docutils literal notranslate"><span class="pre">object</span></code>. Multiple lines will be condensed into one if the indented result is less than the configured output width. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N5hippo8condenseERKNSt4listIN5hippo6objectEEERKN5hippo13configurationE">
+<span id="_CPPv3N5hippo8condenseERKNSt4listIN5hippo6objectEEERKN5hippo13configurationE"></span><span id="_CPPv2N5hippo8condenseERKNSt4listIN5hippo6objectEEERKN5hippo13configurationE"></span><span id="hippo::condense__std::list:hippo::object:CR.hippo::configurationCR"></span><span class="target" id="base_8h_1a4cdd1f46e53450a841f9f5313b449efb"></span><em class="property">inline</em> hippo::<a class="reference internal" href="#_CPPv4N5hippo6objectE" title="hippo::object">object</a> <code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">condense</code><span class="sig-paren">(</span><em class="property">const</em> std::list&lt;hippo::<a class="reference internal" href="#_CPPv4N5hippo6objectE" title="hippo::object">object</a>&gt; &amp;<em>objects</em>, <em class="property">const</em> hippo::<a class="reference internal" href="intro.html#_CPPv4N5hippo13configurationE" title="hippo::configuration">configuration</a> &amp;<em>config</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Condense a collection of <code class="docutils literal notranslate"><span class="pre">object</span></code>s into a single <code class="docutils literal notranslate"><span class="pre">object</span></code>. If any of the input <code class="docutils literal notranslate"><span class="pre">object</span></code>s are multiline, the output is not condensed, otherwise the lines will condensed if the indented result is less than the configured output width. </p>
+</dd></dl>
+
+</div>
+<div class="section" id="defining-a-printer">
+<h2>Defining a printer<a class="headerlink" href="#defining-a-printer" title="Permalink to this headline">¶</a></h2>
+<p>Printers are added for a type by specializing the <a class="reference internal" href="#_CPPv4I00EN5hippo7printerE" title="hippo::printer"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">hippo::printer</span></code></a> struct.
+This class is declared as follows:</p>
+<dl class="class">
+<dt id="_CPPv4I00EN5hippo7printerE">
+<span id="_CPPv3I00EN5hippo7printerE"></span><span id="_CPPv2I00EN5hippo7printerE"></span><span class="target" id="structhippo_1_1printer"></span>template&lt;typename <code class="sig-name descname">T</code>, typename <code class="sig-name descname">U</code> = <a class="reference internal" href="#_CPPv4I00EN5hippo7printerE" title="hippo::printer::T">T</a>&gt;<br /><em class="property">struct </em><code class="sig-name descname">printer</code><a class="headerlink" href="#_CPPv4I00EN5hippo7printerE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The core pretty-printer type. <code class="docutils literal notranslate"><span class="pre">T</span></code> is the type to be printed. <code class="docutils literal notranslate"><span class="pre">U</span></code> is provided for optionally making SFINAE possible. </p>
+</dd></dl>
+
+<p>Specializations must fulfill the following interface:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;&gt;</span> <span class="n">hippo</span><span class="o">::</span><span class="n">printer</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">using</span> <span class="n">format_type</span> <span class="o">=</span> <span class="cm">/* any default-constructible and copy-constructible type */</span>
+  <span class="k">static</span> <span class="o">::</span><span class="n">hippo</span><span class="o">::</span><span class="n">object</span> <span class="n">print</span><span class="p">(</span><span class="k">const</span> <span class="n">Foo</span> <span class="o">&amp;</span><span class="n">f</span><span class="p">,</span>
+                               <span class="n">std</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">current_indent</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="o">::</span><span class="n">hippo</span><span class="o">::</span><span class="n">configuration</span> <span class="o">&amp;</span><span class="n">config</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="n">format_type</span> <span class="o">&amp;</span><span class="n">format</span> <span class="o">=</span> <span class="n">format_type</span><span class="p">());</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="convenient-utilities">
+<h2>Convenient utilities<a class="headerlink" href="#convenient-utilities" title="Permalink to this headline">¶</a></h2>
+<p>The following operations are so common when creating printers that Hippo provides them.</p>
+<div class="section" id="manipulating-lines">
+<h3>Manipulating lines<a class="headerlink" href="#manipulating-lines" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="_CPPv4N5hippo15prepend_visitorE">
+<span id="_CPPv3N5hippo15prepend_visitorE"></span><span id="_CPPv2N5hippo15prepend_visitorE"></span><span id="hippo::prepend_visitor"></span><span class="target" id="structhippo_1_1prepend__visitor"></span><em class="property">struct </em><code class="sig-name descname">prepend_visitor</code><a class="headerlink" href="#_CPPv4N5hippo15prepend_visitorE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Visitor over <code class="docutils literal notranslate"><span class="pre">object</span></code>s that prepends a string to the first line. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N5hippo15prepend_visitorclERN5hippo4lineE">
+<span id="_CPPv3N5hippo15prepend_visitorclERN5hippo4lineE"></span><span id="_CPPv2N5hippo15prepend_visitorclERN5hippo4lineE"></span><span id="hippo::prepend_visitor::call-operator__hippo::lineR"></span><span class="target" id="structhippo_1_1prepend__visitor_1a2ac841753745572c7b7c2163c3a4158c"></span>void <code class="sig-name descname">operator()</code><span class="sig-paren">(</span>hippo::<a class="reference internal" href="#_CPPv4N5hippo4lineE" title="hippo::line">line</a> &amp;<em>line</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5hippo15prepend_visitorclERN5hippo4lineE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Prepend to a single line. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N5hippo15prepend_visitorclERNSt4listIN5hippo4lineEEE">
+<span id="_CPPv3N5hippo15prepend_visitorclERNSt4listIN5hippo4lineEEE"></span><span id="_CPPv2N5hippo15prepend_visitorclERNSt4listIN5hippo4lineEEE"></span><span id="hippo::prepend_visitor::call-operator__std::list:hippo::line:R"></span><span class="target" id="structhippo_1_1prepend__visitor_1a0ea0a54c558d6df11018bcdec6a9be51"></span>void <code class="sig-name descname">operator()</code><span class="sig-paren">(</span>std::list&lt;hippo::<a class="reference internal" href="#_CPPv4N5hippo4lineE" title="hippo::line">line</a>&gt; &amp;<em>lines</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5hippo15prepend_visitorclERNSt4listIN5hippo4lineEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Prepend to the beginning of many lines. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv4N5hippo15prepend_visitor6prefixE">
+<span id="_CPPv3N5hippo15prepend_visitor6prefixE"></span><span id="_CPPv2N5hippo15prepend_visitor6prefixE"></span><span id="hippo::prepend_visitor::prefix__ss"></span><span class="target" id="structhippo_1_1prepend__visitor_1a426d93d750a6d7f0fdc4c30a43499aac"></span>std::string <code class="sig-name descname">prefix</code><a class="headerlink" href="#_CPPv4N5hippo15prepend_visitor6prefixE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The string to prepend. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv4N5hippo14append_visitorE">
+<span id="_CPPv3N5hippo14append_visitorE"></span><span id="_CPPv2N5hippo14append_visitorE"></span><span id="hippo::append_visitor"></span><span class="target" id="structhippo_1_1append__visitor"></span><em class="property">struct </em><code class="sig-name descname">append_visitor</code><a class="headerlink" href="#_CPPv4N5hippo14append_visitorE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Visitor over <code class="docutils literal notranslate"><span class="pre">object</span></code>s that appends a string to the last line. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N5hippo14append_visitorclERN5hippo4lineE">
+<span id="_CPPv3N5hippo14append_visitorclERN5hippo4lineE"></span><span id="_CPPv2N5hippo14append_visitorclERN5hippo4lineE"></span><span id="hippo::append_visitor::call-operator__hippo::lineR"></span><span class="target" id="structhippo_1_1append__visitor_1a0ee96cc3f4ce5b827c80bc58dd2741c7"></span>void <code class="sig-name descname">operator()</code><span class="sig-paren">(</span>hippo::<a class="reference internal" href="#_CPPv4N5hippo4lineE" title="hippo::line">line</a> &amp;<em>line</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5hippo14append_visitorclERN5hippo4lineE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Append to a single line. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N5hippo14append_visitorclERNSt4listIN5hippo4lineEEE">
+<span id="_CPPv3N5hippo14append_visitorclERNSt4listIN5hippo4lineEEE"></span><span id="_CPPv2N5hippo14append_visitorclERNSt4listIN5hippo4lineEEE"></span><span id="hippo::append_visitor::call-operator__std::list:hippo::line:R"></span><span class="target" id="structhippo_1_1append__visitor_1a2e3fdbaf1b8fb0aeaadb846261efcc50"></span>void <code class="sig-name descname">operator()</code><span class="sig-paren">(</span>std::list&lt;hippo::<a class="reference internal" href="#_CPPv4N5hippo4lineE" title="hippo::line">line</a>&gt; &amp;<em>lines</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5hippo14append_visitorclERNSt4listIN5hippo4lineEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Append to the end of many lines. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv4N5hippo14append_visitor6suffixE">
+<span id="_CPPv3N5hippo14append_visitor6suffixE"></span><span id="_CPPv2N5hippo14append_visitor6suffixE"></span><span id="hippo::append_visitor::suffix__ss"></span><span class="target" id="structhippo_1_1append__visitor_1a9e55ef462f77e83fd253e94ad54053f3"></span>std::string <code class="sig-name descname">suffix</code><a class="headerlink" href="#_CPPv4N5hippo14append_visitor6suffixE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The string to append. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="formatting-values">
+<h3>Formatting values<a class="headerlink" href="#formatting-values" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv4I0EN5hippo12apply_formatENSt11enable_if_tINSt19is_floating_point_vI1TEENSt6stringEEE1TRK12float_format">
+<span id="_CPPv3I0EN5hippo12apply_formatE1TRK12float_format"></span><span id="_CPPv2I0EN5hippo12apply_formatE1TRK12float_format"></span><span class="target" id="float_8h_1ad57aeab0ff9ea115124d44c7ad36cf71"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br />std::enable_if_t&lt;std::is_floating_point_v&lt;<a class="reference internal" href="#_CPPv4I0EN5hippo12apply_formatENSt11enable_if_tINSt19is_floating_point_vI1TEENSt6stringEEE1TRK12float_format" title="hippo::apply_format::T">T</a>&gt;, std::string&gt; <code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">apply_format</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN5hippo12apply_formatENSt11enable_if_tINSt19is_floating_point_vI1TEENSt6stringEEE1TRK12float_format" title="hippo::apply_format::T">T</a> <em>value</em>, <em class="property">const</em> <a class="reference internal" href="formatting.html#_CPPv4N5hippo12float_formatE" title="hippo::float_format">float_format</a> &amp;<em>fmt</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Apply format <code class="docutils literal notranslate"><span class="pre">fmt</span></code> to floating-point <code class="docutils literal notranslate"><span class="pre">value</span></code> </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0EN5hippo12apply_formatENSt11enable_if_tINSt13is_integral_vI1TEENSt6stringEEE1TRK14integer_format">
+<span id="_CPPv3I0EN5hippo12apply_formatE1TRK14integer_format"></span><span id="_CPPv2I0EN5hippo12apply_formatE1TRK14integer_format"></span><span class="target" id="integer_8h_1a7725a3f657da06251882c0c40b2de5f7"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br />std::enable_if_t&lt;std::is_integral_v&lt;<a class="reference internal" href="#_CPPv4I0EN5hippo12apply_formatENSt11enable_if_tINSt19is_floating_point_vI1TEENSt6stringEEE1TRK12float_format" title="hippo::apply_format::T">T</a>&gt;, std::string&gt; <code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">apply_format</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN5hippo12apply_formatENSt11enable_if_tINSt19is_floating_point_vI1TEENSt6stringEEE1TRK12float_format" title="hippo::apply_format::T">T</a> <em>value</em>, <em class="property">const</em> <a class="reference internal" href="formatting.html#_CPPv4N5hippo14integer_formatE" title="hippo::integer_format">integer_format</a> &amp;<em>fmt</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Apply format <code class="docutils literal notranslate"><span class="pre">fmt</span></code> to integer <code class="docutils literal notranslate"><span class="pre">value</span></code> </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0EN5hippo12apply_formatEN5hippo6objectEPK1TNSt8uint64_tERKN5hippo13configurationERK14pointer_formatI1TE">
+<span id="_CPPv3I0EN5hippo12apply_formatEPK1TNSt8uint64_tERKN5hippo13configurationERK14pointer_formatI1TE"></span><span id="_CPPv2I0EN5hippo12apply_formatEPK1TNSt8uint64_tERKN5hippo13configurationERK14pointer_formatI1TE"></span><span class="target" id="formatting_2pointer_8h_1a50d02e9a0248463c77ff90f9d8459a60"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br />hippo::<a class="reference internal" href="#_CPPv4N5hippo6objectE" title="hippo::object">object</a> <code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">apply_format</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN5hippo12apply_formatENSt11enable_if_tINSt19is_floating_point_vI1TEENSt6stringEEE1TRK12float_format" title="hippo::apply_format::T">T</a> *<em>value</em>, std::uint64_t <em>current_indent</em>, <em class="property">const</em> hippo::<a class="reference internal" href="intro.html#_CPPv4N5hippo13configurationE" title="hippo::configuration">configuration</a> &amp;<em>config</em>, <em class="property">const</em> <a class="reference internal" href="formatting.html#_CPPv4N5hippo14pointer_formatE" title="hippo::pointer_format">pointer_format</a>&lt;<a class="reference internal" href="#_CPPv4I0EN5hippo12apply_formatENSt11enable_if_tINSt19is_floating_point_vI1TEENSt6stringEEE1TRK12float_format" title="hippo::apply_format::T">T</a>&gt; &amp;<em>fmt</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Apply format <code class="docutils literal notranslate"><span class="pre">fmt</span></code> to pointer <code class="docutils literal notranslate"><span class="pre">value</span></code> using the <code class="docutils literal notranslate"><span class="pre">current_indent</span></code> indentation level and configuration <code class="docutils literal notranslate"><span class="pre">config</span></code>. </p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="std.html" class="btn btn-neutral float-left" title="Out-of-the-box type support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Caleb Zulawski
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+    <br>
+    "<a href="https://thenounproject.com/edharrison89/collection/kingdom-animalia-icons/?i=198549">hippo</a>" by <a href="http://edharrisondesign.com/">Ed Harrison</a> is licensed under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

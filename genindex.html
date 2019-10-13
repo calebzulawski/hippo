@@ -79,6 +79,9 @@
 
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
+<a class="fa fa-github" href="https://github.com/calebzulawski/hippo"> View on GitHub</a>
+<br>
+
             
             
               
@@ -89,11 +92,12 @@
 <li class="toctree-l1"><a class="reference internal" href="reflection.html">Printing user-defined types via reflection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="formatting.html">Formatting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="std.html">Out-of-the-box type support</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/calebzulawski/hippo/">View on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced usage</a></li>
 </ul>
 
             
           
+
         </div>
       </div>
     </nav>
@@ -164,9 +168,19 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="formatting.html#_CPPv4N5hippo14address_formatE">hippo::address_format (C++ class)</a>
 </li>
+      <li><a href="advanced.html#_CPPv4N5hippo14append_visitorE">hippo::append_visitor (C++ class)</a>
+</li>
+      <li><a href="advanced.html#_CPPv4N5hippo14append_visitorclERN5hippo4lineE">hippo::append_visitor::operator() (C++ function)</a>, <a href="advanced.html#_CPPv4N5hippo14append_visitorclERNSt4listIN5hippo4lineEEE">[1]</a>
+</li>
+      <li><a href="advanced.html#_CPPv4N5hippo14append_visitor6suffixE">hippo::append_visitor::suffix (C++ member)</a>
+</li>
+      <li><a href="advanced.html#_CPPv4I0EN5hippo12apply_formatEN5hippo6objectEPK1TNSt8uint64_tERKN5hippo13configurationERK14pointer_formatI1TE">hippo::apply_format (C++ function)</a>, <a href="advanced.html#_CPPv4I0EN5hippo12apply_formatENSt11enable_if_tINSt13is_integral_vI1TEENSt6stringEEE1TRK14integer_format">[1]</a>, <a href="advanced.html#_CPPv4I0EN5hippo12apply_formatENSt11enable_if_tINSt19is_floating_point_vI1TEENSt6stringEEE1TRK12float_format">[2]</a>
+</li>
       <li><a href="formatting.html#_CPPv4I0EN5hippo17base_type_printerE">hippo::base_type_printer (C++ class)</a>
 </li>
       <li><a href="formatting.html#_CPPv4N5hippo17base_type_printer5printEPK4BaseNSt8uint64_tERKN5hippo13configurationE">hippo::base_type_printer::print (C++ function)</a>
+</li>
+      <li><a href="advanced.html#_CPPv4N5hippo8condenseERKNSt4listIN5hippo4lineEEERKN5hippo13configurationE">hippo::condense (C++ function)</a>, <a href="advanced.html#_CPPv4N5hippo8condenseERKNSt4listIN5hippo6objectEEERKN5hippo13configurationE">[1]</a>
 </li>
       <li><a href="intro.html#_CPPv4N5hippo13configurationE">hippo::configuration (C++ class)</a>
 </li>
@@ -196,9 +210,9 @@
 </li>
       <li><a href="formatting.html#_CPPv4N5hippo12float_format5fixedE">hippo::float_format::fixed (C++ enumerator)</a>
 </li>
-      <li><a href="formatting.html#_CPPv4N5hippo12float_format6formatE">hippo::float_format::format (C++ member)</a>
+      <li><a href="formatting.html#_CPPv4N5hippo12float_format8notationE">hippo::float_format::notation (C++ member)</a>
 </li>
-      <li><a href="formatting.html#_CPPv4N5hippo12float_format11format_typeE">hippo::float_format::format_type (C++ enum)</a>
+      <li><a href="formatting.html#_CPPv4N5hippo12float_format13notation_typeE">hippo::float_format::notation_type (C++ enum)</a>
 </li>
       <li><a href="formatting.html#_CPPv4N5hippo12float_format9precisionE">hippo::float_format::precision (C++ member)</a>
 </li>
@@ -218,12 +232,12 @@
 </li>
       <li><a href="formatting.html#_CPPv4IEN5hippo9formatterIP1TE10value_typeE">hippo::formatter&lt;T *&gt;::value_type (C++ type)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="formatting.html#_CPPv4IEN5hippo9formatterI1TE11format_typeE">hippo::formatter&lt;T&gt;::format_type (C++ type)</a>
 </li>
       <li><a href="formatting.html#_CPPv4IEN5hippo9formatterI1TE12printer_typeE">hippo::formatter&lt;T&gt;::printer_type (C++ type)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="formatting.html#_CPPv4IEN5hippo9formatterI1TE10value_typeE">hippo::formatter&lt;T&gt;::value_type (C++ type)</a>
 </li>
       <li><a href="formatting.html#_CPPv4N5hippo14integer_formatE">hippo::integer_format (C++ class)</a>
@@ -238,17 +252,35 @@
 </li>
       <li><a href="formatting.html#_CPPv4N5hippo14integer_format3octE">hippo::integer_format::oct (C++ enumerator)</a>
 </li>
+      <li><a href="advanced.html#_CPPv4N5hippo4lineE">hippo::line (C++ class)</a>
+</li>
+      <li><a href="advanced.html#_CPPv4N5hippo4line6indentE">hippo::line::indent (C++ member)</a>
+</li>
+      <li><a href="advanced.html#_CPPv4N5hippo4line4lineENSt8uint64_tE">hippo::line::line (C++ function)</a>, <a href="advanced.html#_CPPv4N5hippo4line4lineENSt8uint64_tENSt6stringE">[1]</a>
+</li>
+      <li><a href="advanced.html#_CPPv4N5hippo4line6stringE">hippo::line::string (C++ member)</a>
+</li>
       <li><a href="std.html#_CPPv4N5hippo10map_formatE">hippo::map_format (C++ type)</a>
 </li>
       <li><a href="formatting.html#_CPPv4N5hippo9no_formatE">hippo::no_format (C++ class)</a>
+</li>
+      <li><a href="advanced.html#_CPPv4N5hippo6objectE">hippo::object (C++ type)</a>
 </li>
       <li><a href="std.html#_CPPv4N5hippo11pair_formatE">hippo::pair_format (C++ type)</a>
 </li>
       <li><a href="formatting.html#_CPPv4N5hippo14pointer_formatE">hippo::pointer_format (C++ type)</a>
 </li>
+      <li><a href="advanced.html#_CPPv4N5hippo15prepend_visitorE">hippo::prepend_visitor (C++ class)</a>
+</li>
+      <li><a href="advanced.html#_CPPv4N5hippo15prepend_visitorclERN5hippo4lineE">hippo::prepend_visitor::operator() (C++ function)</a>, <a href="advanced.html#_CPPv4N5hippo15prepend_visitorclERNSt4listIN5hippo4lineEEE">[1]</a>
+</li>
+      <li><a href="advanced.html#_CPPv4N5hippo15prepend_visitor6prefixE">hippo::prepend_visitor::prefix (C++ member)</a>
+</li>
       <li><a href="intro.html#_CPPv4I0EN5hippo5printENSt6vectorINSt6stringEEERK1TRKN5hippo13configurationE">hippo::print (C++ function)</a>
 </li>
       <li><a href="intro.html#_CPPv4I0EN5hippo8print_toERNSt7ostreamERNSt7ostreamERK1TRKN5hippo13configurationE">hippo::print_to (C++ function)</a>
+</li>
+      <li><a href="advanced.html#_CPPv4I00EN5hippo7printerE">hippo::printer (C++ class)</a>
 </li>
       <li><a href="formatting.html#_CPPv4I0EN5hippo23standard_pointer_formatE">hippo::standard_pointer_format (C++ class)</a>
 </li>

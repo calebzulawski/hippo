@@ -3,9 +3,7 @@
 Printing user-defined types via reflection
 ==========================================
 
-.. code-block::
-
-   #include "hippo/hippo.h"
+A key feature of Hippo is the ease of printing user-defined types.
 
 Classes
 -------
@@ -22,7 +20,7 @@ Hippo provides utilities for printing user-defined types. Consider the following
      std::vector<Foo> foos;
    };
 
-To print these types, we reflect the type using :c:macro:`HIPPO_CLASS_BEGIN`, :c:macro:`HIPPO_MEMBER`, and :c:macro:`HIPPO_CLASS_END`:
+To print these types, we reflect them using :c:macro:`HIPPO_CLASS_BEGIN`, :c:macro:`HIPPO_MEMBER`, and :c:macro:`HIPPO_CLASS_END`:
 
 .. code-block:: cpp
 

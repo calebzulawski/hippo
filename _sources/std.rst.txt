@@ -1,7 +1,7 @@
 Out-of-the-box type support
 ===========================
 
-As discussed in :ref:`reflection`, ``struct``, ``class`, ``enum``, and ``enum class`` are all supported via macros.
+As discussed in :ref:`reflection`, ``struct``, ``class``, ``enum``, and ``enum class`` are all supported via macros.
 
 In addition to user defined types, most types provided by the language are automatically supported.
 All builtin types are supported, as well as many from the standard library.
@@ -29,7 +29,7 @@ Support for all containers is available:
 * ``std::map`` and ``std::multimap`` via ``"hippo/std/map.h"``
 * ``std::unordered_map`` and ``std::unordered_multimap`` via ``"hippo/std/unordered_map.h"``
 
-All containers can be formatted with the format configuration of the inner type.
+All containers can be formatted with the format configuration of the inner type(s).
 Map types can be formatted with:
 
 .. doxygentypedef:: hippo::map_format
@@ -47,14 +47,14 @@ They can be formatted with:
 Smart pointers
 ^^^^^^^^^^^^^^
 
-In addition to plain pointers, ``std::unique_ptr``, ``std::shared_ptr``, and ``std::weak_ptr`` are supported via ``"hippo/std/memory.h"``
+In addition to plain pointers, ``std::unique_ptr``, ``std::shared_ptr``, and ``std::weak_ptr`` are supported via ``"hippo/std/memory.h"``.
 These types are all formattable by :cpp:type:`hippo::pointer_format`.
 
 Sum types
 ^^^^^^^^^
 
-``std::optional`` is supported via ``"hippo/std/optional.h`` and is formattable with the inner type's format configuration.
-``std::variant`` is supported via ``"hippo/std/variant.h:`` and is formattable with:
+``std::optional`` is supported via ``"hippo/std/optional.h"`` and is formattable with the inner type's format configuration.
+``std::variant`` is supported via ``"hippo/std/variant.h"`` and is formattable with:
 
 .. doxygentypedef:: hippo::variant_format
 
