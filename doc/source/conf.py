@@ -67,7 +67,7 @@ import subprocess, sys
 
 def run_doxygen(app):
     try:
-        retcode = subprocess.call("doxygen", shell=True)
+        retcode = subprocess.call("cd .. && doxygen", shell=True)
         if retcode < 0:
             sys.stderr.write("doxygen terminated by signal %s" % (-retcode))
     except OSError as e:
