@@ -19,8 +19,8 @@ template <typename Tuple, typename Format, std::size_t... I>
       [&] {
         using printer_type = ::hippo::printer<std::remove_cv_t<
             std::remove_reference_t<decltype(std::get<I>(t))>>>;
-        objects.push_back(
-            printer_type::print(std::get<I>(t), current_indent + 1, config, std::get<I>(formats));
+        objects.push_back(printer_type::print(
+            std::get<I>(t), current_indent + 1, config, std::get<I>(formats)));
         std::visit(::hippo::prepend_visitor{std::to_string(I) + ": "},
                    objects.back());
         if (I < sizeof...(I) - 1)
@@ -34,7 +34,7 @@ template <typename Tuple, typename Format, std::size_t... I>
 
 //! Format for `std::tuple`
 template <typename... T>
-using tuple_format = std::tuple<::hippo::printer<T>::format_type...>;
+using tuple_format = std::tuple<typename ::hippo::printer<T>::format_type...>;
 
 //!\cond
 template <typename... T> struct printer<std::tuple<T...>> {
@@ -42,7 +42,7 @@ template <typename... T> struct printer<std::tuple<T...>> {
   static ::hippo::object print(const std::tuple<T...> &t,
                                std::uint64_t current_indent,
                                const ::hippo::configuration &config,
-                               const format_type &format = format) {
+                               const format_type &format = format_type()) {
     return detail::tuple_print_impl(t, current_indent, config, format,
                                     std::make_index_sequence<sizeof...(T)>{});
   }

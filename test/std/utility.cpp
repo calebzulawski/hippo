@@ -20,7 +20,7 @@ TEST_CASE("pair") {
   }
   SECTION("formatted") {
     config.width = 100;
-    std::pair<hippo::integer_format, hippo::float_format> fmt;
+    hippo::pair_format<int, float> fmt;
     fmt.first.base = hippo::integer_format::base_type::hex;
     fmt.second.format = hippo::float_format::format_type::scientific;
     fmt.second.precision = 1;
