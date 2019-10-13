@@ -11,7 +11,7 @@ template <typename... T>
 struct printer<std::forward_list<T...>>
     : detail::arraylike_base<std::forward_list<T...>,
                              printer<std::forward_list<T...>>> {
-  constexpr static const char *prefix = "std::forward_list [";
+  constexpr static const char *prefix = "std::forward_list";
 };
 //!\endcond
 

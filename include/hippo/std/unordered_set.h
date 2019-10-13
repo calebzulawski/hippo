@@ -11,14 +11,14 @@ template <typename... T>
 struct printer<std::unordered_set<T...>>
     : detail::arraylike_base<std::unordered_set<T...>,
                              printer<std::unordered_set<T...>>> {
-  constexpr static const char *prefix = "std::unordered_set [";
+  constexpr static const char *prefix = "std::unordered_set";
 };
 
 template <typename... T>
 struct printer<std::unordered_multiset<T...>>
     : detail::arraylike_base<std::unordered_multiset<T...>,
                              printer<std::unordered_multiset<T...>>> {
-  constexpr static const char *prefix = "std::unordered_multiset [";
+  constexpr static const char *prefix = "std::unordered_multiset";
 };
 //!\endcond
 

@@ -10,7 +10,7 @@ namespace hippo {
 template <typename... T>
 struct printer<std::list<T...>>
     : detail::arraylike_base<std::list<T...>, printer<std::list<T...>>> {
-  constexpr static const char *prefix = "std::list [";
+  constexpr static const char *prefix = "std::list";
 };
 //!\endcond
 

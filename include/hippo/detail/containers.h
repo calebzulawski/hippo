@@ -14,17 +14,25 @@ template <typename Container, typename Base> struct arraylike_base {
                                const ::hippo::configuration &config,
                                const format_type &format = format_type()) {
     std::list<::hippo::object> objects;
-    objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
-                         Base::prefix);
-    auto size = std::size(c);
-    for (const auto &element : c) {
-      objects.push_back(
-          printer_type::print(element, current_indent + 1, config, format));
-      if (--size != 0)
-        std::visit(::hippo::append_visitor{","}, objects.back());
+    if (c.empty()) {
+      objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
+                           std::string(Base::prefix) + " [empty]");
+    } else {
+      objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
+                           std::string(Base::prefix) + " [");
+      if (c.begin() != c.end()) {
+        objects.push_back(printer_type::print(*c.begin(), current_indent + 1,
+                                              config, format));
+        auto end = c.end();
+        for (auto it = std::next(c.begin()); it != end; ++it) {
+          std::visit(::hippo::append_visitor{","}, objects.back());
+          objects.push_back(
+              printer_type::print(*it, current_indent + 1, config, format));
+        }
+      }
+      objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
+                           "]");
     }
-    objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
-                         "]");
     return condense(objects, config);
   }
 };

@@ -3,4 +3,4 @@
 #include "hippo/hippo.h"
 #include <vector>
 
-TEST_ARRAYLIKE("vector", std::vector)
+TEST_ARRAYLIKE("vector", "std::vector", std::vector)

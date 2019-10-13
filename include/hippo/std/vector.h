@@ -10,7 +10,7 @@ namespace hippo {
 template <typename... T>
 struct printer<std::vector<T...>>
     : detail::arraylike_base<std::vector<T...>, printer<std::vector<T...>>> {
-  constexpr static const char *prefix = "std::vector [";
+  constexpr static const char *prefix = "std::vector";
 };
 //!\endcond
 
