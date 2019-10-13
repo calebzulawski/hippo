@@ -9,115 +9,94 @@
 
 </div>
 
-## Features
-Support for:
-* Custom type printers via reflection macros (`class`/`struct` and `enum`/`enum class`)
-* Builtin types
-  * Arithmetic types (i.e. `std::is_arithmetic_v<T> == true`)
-  * C-style arrays (e.g. `int [10]`)
-  * Pointers
-* Strings (`std::string`, `const char *`)
-* Containers:
-  * `std::array`
-  * `std::vector`
-  * `std::list`, `std::forward_list`
-  * `std::deque`
-  * `std::set`, `std::multiset`, `std::unordered_set`, `std::unordered_multiset`
-  * `std::map`, `std::multimap`, `std::unordered_map`, `std::unordered_multimap`
-* Pointers, including polymorphic types (`*`, `std::unique_ptr`, `std::shared_ptr`, `std::weak_ptr`)
-* `std::complex`
-* `std::optional`, `std::variant`
-* `std::chrono::duration`
-* `std::bitset`
-* `std::atomic`
+## What is it?
+Hippo is short for Hierarchical Information as Pretty-Printed Objects.
+
+It is a header-only library for C++17 that makes it easy to display the contents of nested data structures in an intelligent and legible manner.
+
+To get started, see the [latest documentation of the master branch here](https://calebzulawski.github.io/hippo/).
+
+## Key features
+* Out-of-the-box printers for all builtin types and most standard library types
+* Printers for user-defined types created via reflection macros (`class`/`struct` and `enum`/`enum class`)
+* All types, even polymorphic types, can be printed without modifying the type
+* Configurable indentation level and output text column count
   
-## Defining a custom type printer
-Custom class types can be made printable with the reflection helper macros `HIPPO_CLASS_BEGIN`, `HIPPO_MEMBER`, `HIPPO_MEMBER_EXPR`, and `HIPPO_CLASS_END`.
-Enums can be made printable with the similar `HIPPO_ENUM_BEGIN`, `HIPPO_ENUM_VALUE`, and `HIPPO_ENUM_END` macros.
-The following is copied from `test/demo.cpp`
+## A simple example
+Custom class types can be made printable with the reflection helper macros `HIPPO_CLASS_BEGIN`, `HIPPO_MEMBER`, and `HIPPO_CLASS_END`.
+
 ```c++
 #include "hippo/hippo.h"
+#include "hippo/std/map.h"
 #include <iostream>
-#include <vector>
 
-struct A {
-  int a1;
-  float a2;
+struct Foo {
+  int a;
+  int b;
 };
 
-struct B {
-  std::vector<A> b1;
-  int b2;
+struct Bar {
+  std::map<int, Foo> foos;
 };
 
-// Make A printable
-HIPPO_CLASS_BEGIN(A)
-HIPPO_MEMBER(a1)
-HIPPO_MEMBER_EXPR(a2, int(object.a2)) // custom expressions are allowed
+// Make Foo printable
+HIPPO_CLASS_BEGIN(Foo)
+HIPPO_MEMBER(a)
+HIPPO_MEMBER(b)
 HIPPO_CLASS_END()
 
-// Make B printable
-HIPPO_CLASS_BEGIN(B)
-HIPPO_MEMBER(b1) // std::vector<A> is automatically printable because A is
-HIPPO_MEMBER(b2)
+// Make Bar printable
+HIPPO_CLASS_BEGIN(Bar)
+HIPPO_MEMBER(foos)
 HIPPO_CLASS_END()
 
 int main() {
-  B b{{{0, 1.5}, {1, 2.5}}, 3};
+  Bar bar;
+  bar.foos[1] = Foo{0, 0};
+  bar.foos[2] = Foo{1, 2};
 
-  std::cout << "Full:" << std::endl;
   hippo::configuration config;
-  config.indent = 2;
-  config.width = 0;
-  std::vector<std::string> lines = hippo::print(b, config);
-  for (const auto &line : lines)
-    std::cout << line << std::endl;
-  std::cout << std::endl;
+  config.indent = 2; // 2 spaces per indentation
 
-  std::cout << "Medium condensed:" << std::endl;
-  config.width = 50;
-  lines = hippo::print(b, config);
-  for (const auto &line : lines)
-    std::cout << line << std::endl;
-  std::cout << std::endl;
+  std::cout << "Expanded:" << std::endl;
+  config.width = 0; // keep output as narrow as possible
+  hippo::print_to(std::cout, bar, config);
 
-  std::cout << "Fully condensed:" << std::endl;
-  config.width = 100;
-  lines = hippo::print(b, config);
-  for (const auto &line : lines)
-    std::cout << line << std::endl;
+  std::cout << "Condensed:" << std::endl;
+  config.width = 80; // try to keep output under 80 chars
+  hippo::print_to(std::cout, bar, config);
   return 0;
 }
 ```
 
 When run, this program produces:
 ```
-Full:
-B {
-  b1: std::vector [
-    A {
-      a1: 0,
-      a2: 1
-    },
-    A {
-      a1: 1,
-      a2: 2
-    }
-  ],
-  b2: 3
+Expanded:
+Bar {
+  foos: std::map [
+    (
+      key: 1,
+      value: Foo {
+        a: 0,
+        b: 0
+      }
+    ),
+    (
+      key: 2,
+      value: Foo {
+        a: 1,
+        b: 2
+      }
+    )
+  ]
 }
-
-Medium condensed:
-B {
-  b1: std::vector [
-    A { a1: 0, a2: 1 },
-    A { a1: 1, a2: 2 }
-  ],
-  b2: 3
+Condensed:
+Bar {
+  foos: std::map [
+    ( key: 1, value: Foo { a: 0, b: 0 } ),
+    ( key: 2, value: Foo { a: 1, b: 2 } )
+  ]
 }
-
-Fully condensed:
-B { b1: std::vector [ A { a1: 0, a2: 1 }, A { a1: 1, a2: 2 } ], b2: 3 }
 ```
 
 ## Logo
