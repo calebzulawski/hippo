@@ -15,6 +15,7 @@ For more information on a specific feature, see the pages below:
    intro
    reflection
    formatting
+   std
 
 Indices and tables
 ==================

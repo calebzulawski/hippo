@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Out-of-the-box type support &mdash; Hippo 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Formatting" href="formatting.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo-white.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reflection.html">Printing user-defined types via reflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formatting.html">Formatting</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Out-of-the-box type support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#supported-standard-library-types">Supported standard library types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#strings">Strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#containers">Containers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tuples">Tuples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#smart-pointers">Smart pointers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sum-types">Sum types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chrono">Chrono</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#complex">Complex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#atomic">Atomic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bitset">Bitset</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Hippo</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Out-of-the-box type support</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="out-of-the-box-type-support">
+<h1>Out-of-the-box type support<a class="headerlink" href="#out-of-the-box-type-support" title="Permalink to this headline">¶</a></h1>
+<p>As discussed in <a class="reference internal" href="reflection.html#reflection"><span class="std std-ref">Printing user-defined types via reflection</span></a>, <code class="docutils literal notranslate"><span class="pre">struct</span></code>, <code class="docutils literal notranslate"><span class="pre">class`,</span> <span class="pre">``enum</span></code>, and <code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">class</span></code> are all supported via macros.</p>
+<p>In addition to user defined types, most types provided by the language are automatically supported.
+All builtin types are supported, as well as many from the standard library.</p>
+<div class="section" id="supported-standard-library-types">
+<h2>Supported standard library types<a class="headerlink" href="#supported-standard-library-types" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="strings">
+<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
+<p>In addition to <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span></code>, Hippo supports <code class="docutils literal notranslate"><span class="pre">std::string</span></code> via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/string.h&quot;</span></code>.</p>
+</div>
+<div class="section" id="containers">
+<h3>Containers<a class="headerlink" href="#containers" title="Permalink to this headline">¶</a></h3>
+<p>Support for all containers is available:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">std::array</span></code> via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/array.h&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::vector</span></code> via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/vector.h&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::list</span></code> via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/list.h&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::forward_list</span></code> via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/forward_list.h&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::deque</span></code> via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/deque.h&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::set</span></code> and <code class="docutils literal notranslate"><span class="pre">std::multiset</span></code> via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/set.h&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::unordered_set</span></code> and <code class="docutils literal notranslate"><span class="pre">std::unordered_multiset</span></code> via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/unordered_set.h&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::map</span></code> and <code class="docutils literal notranslate"><span class="pre">std::multimap</span></code> via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/map.h&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::unordered_map</span></code> and <code class="docutils literal notranslate"><span class="pre">std::unordered_multimap</span></code> via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/unordered_map.h&quot;</span></code></p></li>
+</ul>
+<p>All containers can be formatted with the format configuration of the inner type.
+Map types can be formatted with:</p>
+<dl class="type">
+<dt id="_CPPv4N5hippo10map_formatE">
+<span id="_CPPv3N5hippo10map_formatE"></span><span id="_CPPv2N5hippo10map_formatE"></span><span class="target" id="containers_8h_1a924006cc48c755c236f372475b5595f9"></span><em class="property">using </em><code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">map_format</code> = std::pair&lt;<em class="property">typename</em> hippo::printer&lt;Key&gt;::format_type, <em class="property">typename</em> hippo::printer&lt;Value&gt;::format_type&gt;<a class="headerlink" href="#_CPPv4N5hippo10map_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format for map types. </p>
+</dd></dl>
+
+</div>
+<div class="section" id="tuples">
+<h3>Tuples<a class="headerlink" href="#tuples" title="Permalink to this headline">¶</a></h3>
+<p>Both <code class="docutils literal notranslate"><span class="pre">std::pair</span></code> and <code class="docutils literal notranslate"><span class="pre">std::tuple</span></code> are supported, by <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/utility.h&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/tuple.h&quot;</span></code>, respectively.</p>
+<p>They can be formatted with:</p>
+<dl class="type">
+<dt id="_CPPv4N5hippo11pair_formatE">
+<span id="_CPPv3N5hippo11pair_formatE"></span><span id="_CPPv2N5hippo11pair_formatE"></span><span class="target" id="utility_8h_1a596bee38a443336dd57c98900f1a06a5"></span><em class="property">using </em><code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">pair_format</code> = std::pair&lt;<em class="property">typename</em> hippo::printer&lt;First&gt;::format_type, <em class="property">typename</em> hippo::printer&lt;Second&gt;::format_type&gt;<a class="headerlink" href="#_CPPv4N5hippo11pair_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format configuration for <code class="docutils literal notranslate"><span class="pre">std::pair</span></code> </p>
+</dd></dl>
+
+<dl class="type">
+<dt id="_CPPv4N5hippo12tuple_formatE">
+<span id="_CPPv3N5hippo12tuple_formatE"></span><span id="_CPPv2N5hippo12tuple_formatE"></span><span class="target" id="tuple_8h_1a15df82b03aae307bcdf336a731029b9c"></span><em class="property">using </em><code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">tuple_format</code> = std::tuple&lt;<em class="property">typename</em> hippo::printer&lt;T&gt;::format_type...&gt;<a class="headerlink" href="#_CPPv4N5hippo12tuple_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Format for <code class="docutils literal notranslate"><span class="pre">std::tuple</span></code> </p>
+</dd></dl>
+
+</div>
+<div class="section" id="smart-pointers">
+<h3>Smart pointers<a class="headerlink" href="#smart-pointers" title="Permalink to this headline">¶</a></h3>
+<p>In addition to plain pointers, <code class="docutils literal notranslate"><span class="pre">std::unique_ptr</span></code>, <code class="docutils literal notranslate"><span class="pre">std::shared_ptr</span></code>, and <code class="docutils literal notranslate"><span class="pre">std::weak_ptr</span></code> are supported via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/memory.h&quot;</span></code>
+These types are all formattable by <a class="reference internal" href="formatting.html#_CPPv4N5hippo14pointer_formatE" title="hippo::pointer_format"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">hippo::pointer_format</span></code></a>.</p>
+</div>
+<div class="section" id="sum-types">
+<h3>Sum types<a class="headerlink" href="#sum-types" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">std::optional</span></code> is supported via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/optional.h</span></code> and is formattable with the inner type’s format configuration.
+<code class="docutils literal notranslate"><span class="pre">std::variant</span></code> is supported via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/variant.h:</span></code> and is formattable with:</p>
+<dl class="type">
+<dt id="_CPPv4N5hippo14variant_formatE">
+<span id="_CPPv3N5hippo14variant_formatE"></span><span id="_CPPv2N5hippo14variant_formatE"></span><span class="target" id="variant_8h_1a3ae16294d262c6b2ff56a1ef79a249b2"></span><em class="property">using </em><code class="sig-prename descclassname">hippo<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">variant_format</code> = std::tuple&lt;<em class="property">typename</em> hippo::printer&lt;T&gt;::format_type...&gt;<a class="headerlink" href="#_CPPv4N5hippo14variant_formatE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="chrono">
+<h3>Chrono<a class="headerlink" href="#chrono" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">std::chrono::duration</span></code> is supported via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/chrono.h&quot;</span></code> and is formattable with the inner type’s format configuration.</p>
+</div>
+<div class="section" id="complex">
+<h3>Complex<a class="headerlink" href="#complex" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">std::complex</span></code> is supported via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/complex.h&quot;</span></code> and is formattable with the inner type’s format configuration.</p>
+</div>
+<div class="section" id="atomic">
+<h3>Atomic<a class="headerlink" href="#atomic" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">std::atomic</span></code> is supported via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/atomic.h&quot;</span></code> and is formattable with the inner type’s format configuration.</p>
+</div>
+<div class="section" id="bitset">
+<h3>Bitset<a class="headerlink" href="#bitset" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">std::bitset</span></code> is supported via <code class="docutils literal notranslate"><span class="pre">&quot;hippo/std/bitset.h&quot;</span></code> and is not formattable.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="formatting.html" class="btn btn-neutral float-left" title="Formatting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Caleb Zulawski
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+    <br>
+    "<a href="https://thenounproject.com/edharrison89/collection/kingdom-animalia-icons/?i=198549">hippo</a>" by <a href="http://edharrisondesign.com/">Ed Harrison</a> is licensed under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
