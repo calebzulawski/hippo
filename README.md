@@ -14,7 +14,7 @@ Hippo is short for Hierarchical Information as Pretty-Printed Objects.
 
 It is a header-only library for C++17 that makes it easy to display the contents of nested data structures in an intelligent and legible manner.
 
-To get started, see the [latest documentation of the master branch here](https://calebzulawski.github.io/hippo/).
+To get started, take a look at the [released documentation on Read the Docs](https://hippo-cpp.readthedocs.io), or view the [latest documentation of the master branch here](https://calebzulawski.github.io/hippo/).
 
 ## Key features
 * Out-of-the-box printers for all builtin types and most standard library types
