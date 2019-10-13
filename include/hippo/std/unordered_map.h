@@ -11,14 +11,14 @@ template <typename... T>
 struct printer<std::unordered_map<T...>>
     : detail::maplike_base<std::unordered_map<T...>,
                            printer<std::unordered_map<T...>>> {
-  constexpr static const char *prefix = "std::unordered_map [";
+  constexpr static const char *prefix = "std::unordered_map";
 };
 
 template <typename... T>
 struct printer<std::unordered_multimap<T...>>
     : detail::maplike_base<std::unordered_multimap<T...>,
                            printer<std::unordered_multimap<T...>>> {
-  constexpr static const char *prefix = "std::unordered_multimap [";
+  constexpr static const char *prefix = "std::unordered_multimap";
 };
 //!\endcond
 
