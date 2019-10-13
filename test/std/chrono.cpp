@@ -16,6 +16,15 @@
           {"std::chrono::duration containing [ 100 " Unit " ]"}};              \
       REQUIRE(hippo::print(d, config) == expected_string);                     \
     }                                                                          \
+    SECTION("formatted") {                                                     \
+      config.width = 100;                                                      \
+      hippo::integer_format fmt;                                               \
+      fmt.base = hippo::integer_format::base_type::hex;                        \
+      std::vector<std::string> expected_string{                                \
+          {"std::chrono::duration containing [ 0x64 " Unit " ]"}};             \
+      REQUIRE(hippo::print(hippo::formatter(d, fmt), config) ==                \
+              expected_string);                                                \
+    }                                                                          \
   }
 
 #define HELPER_FLOAT(Type, Unit)                                               \
@@ -32,6 +41,16 @@
       std::vector<std::string> expected_string{                                \
           {"std::chrono::duration containing [ 123.4 " Unit " ]"}};            \
       REQUIRE(hippo::print(d, config) == expected_string);                     \
+    }                                                                          \
+    SECTION("format") {                                                        \
+      config.width = 100;                                                      \
+      hippo::float_format fmt;                                                 \
+      fmt.format = hippo::float_format::format_type::scientific;               \
+      fmt.precision = 1;                                                       \
+      std::vector<std::string> expected_string{                                \
+          {"std::chrono::duration containing [ 1.2e+02 " Unit " ]"}};          \
+      REQUIRE(hippo::print(hippo::formatter(d, fmt), config) ==                \
+              expected_string);                                                \
     }                                                                          \
   }
 

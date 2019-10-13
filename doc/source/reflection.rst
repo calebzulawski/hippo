@@ -1,3 +1,5 @@
+.. _reflection:
+
 Printing user-defined types via reflection
 ==========================================
 
