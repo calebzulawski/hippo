@@ -6,7 +6,7 @@
 TEST_CASE("unordered_set") {
   hippo::configuration config;
   config.indent = 2;
-  std::unordered_set val{1};
+  std::unordered_set<int> val{1};
   SECTION("empty") {
     val.clear();
     std::vector<std::string> expected_string{"std::unordered_set [empty]"};
