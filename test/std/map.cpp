@@ -47,3 +47,20 @@ using multimap_type = std::multimap<int, float>;
 
 MAKE_TEST("map", "std::map", map_type)
 MAKE_TEST("multimap", "std::multimap", multimap_type)
+
+// Keys are const, so make sure this works
+enum class MapFoo { Bar };
+
+HIPPO_ENUM_BEGIN(MapFoo)
+HIPPO_ENUM_VALUE(MapFoo::Bar)
+HIPPO_ENUM_END()
+
+TEST_CASE("map with enum key") {
+  std::map<MapFoo, MapFoo> m;
+  m[MapFoo::Bar] = MapFoo::Bar;
+  hippo::configuration config;
+  config.width = 100;
+  std::vector<std::string> expected{
+      "std::map [ ( key: enum MapFoo [Bar], value: enum MapFoo [Bar] ) ]"};
+  REQUIRE(hippo::print(m, config) == expected);
+}

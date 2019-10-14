@@ -68,6 +68,15 @@ struct configuration {
 //! for optionally making SFINAE possible.
 template <typename T, typename U = T> struct printer;
 
+//! Specialization for printing const types
+template <typename T> struct printer<const T> : hippo::printer<T> {};
+
+//! Specialization for printing volatile types
+template <typename T> struct printer<volatile T> : hippo::printer<T> {};
+
+//! Specialization for printing const volatile types
+template <typename T> struct printer<const volatile T> : hippo::printer<T> {};
+
 namespace detail {
 struct print_visitor {
   std::vector<std::string> operator()(const ::hippo::line &line) {

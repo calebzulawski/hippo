@@ -10,7 +10,7 @@ namespace hippo {
 template <typename T, std::size_t N>
 struct printer<T[N]> : detail::arraylike_base<T[N], printer<T[N]>> {
   //!@cond
-  constexpr static const char *prefix = "native array [";
+  constexpr static const char *prefix = "native array";
   //!@endcond
 };
 
