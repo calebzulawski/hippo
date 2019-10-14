@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2019-10-14
+### Fixed
+- Add workaround for [an old GCC bug](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=47226) in `std::variant` and `std::tuple` printers
+
 ## [0.2.0] - 2019-10-13
 ### Add
 - This change log
@@ -36,7 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial implementation of pretty printers
 
-[unreleased]: https://github.com/calebzulawski/hippo/compare/0.2.0...master
+[unreleased]: https://github.com/calebzulawski/hippo/compare/0.2.1...master
+[0.2.1]: https://github.com/calebzulawski/hippo/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/calebzulawski/hippo/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/calebzulawski/hippo/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/calebzulawski/hippo/releases/tag/0.1.0
