@@ -3,8 +3,8 @@
 
 struct Foo {};
 
-HIPPO_CLASS_BEGIN(Foo);
-HIPPO_CLASS_END();
+HIPPO_CLASS_BEGIN(Foo)
+HIPPO_CLASS_END()
 
 TEST_CASE("const volatile type") {
   hippo::configuration config;
