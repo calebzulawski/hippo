@@ -3,12 +3,15 @@
 
 #include "../../formatting/pointer.h"
 #include "../base.h"
+#include "../strings.h"
 #include <type_traits>
 
 namespace hippo {
 
 //!\cond
-template <typename T> struct printer<T *> {
+template <typename T>
+struct printer<
+    T *, std::enable_if_t<!std::is_same_v<std::remove_cv_t<T>, char>, T *>> {
   using value_type = std::remove_const_t<T>;
   using format_type = ::hippo::pointer_format<value_type>;
   static ::hippo::object print(const value_type *o,
@@ -29,6 +32,14 @@ template <typename T> struct printer<T *> {
                              "pointer [nullptr]"};
     }
   }
+};
+
+template <typename T>
+struct printer<T *,
+               std::enable_if_t<std::is_same_v<std::remove_cv_t<T>, char>, T *>>
+    : hippo::detail::stringlike<const char *, printer<T *>> {
+  using format_type = ::hippo::no_format;
+  constexpr static const char *prefix = "char array";
 };
 //!\endcond
 
