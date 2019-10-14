@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.3] - 2019-10-14
+### Fixed
+- Fixed broken implementation of `bool` (again)
+
 ## [0.2.2] - 2019-10-14
 ### Fixed
 - Fixed broken implementations of `bool` and native arrays
@@ -45,7 +49,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial implementation of pretty printers
 
-[unreleased]: https://github.com/calebzulawski/hippo/compare/0.2.2...master
+[unreleased]: https://github.com/calebzulawski/hippo/compare/0.2.3...master
+[0.2.3]: https://github.com/calebzulawski/hippo/compare/0.2.2...0.2.3
 [0.2.2]: https://github.com/calebzulawski/hippo/compare/0.2.1...0.2.2
 [0.2.1]: https://github.com/calebzulawski/hippo/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/calebzulawski/hippo/compare/0.1.1...0.2.0

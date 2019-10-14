@@ -19,7 +19,7 @@ copyright = '2019, Caleb Zulawski'
 author = 'Caleb Zulawski'
 
 # The full version, including alpha/beta/rc tags
-release = '0.2.2'
+release = '0.2.3'
 
 
 # -- General configuration ---------------------------------------------------
