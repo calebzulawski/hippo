@@ -17,15 +17,14 @@ variant_print_impl(const Variant &v, std::uint64_t current_indent,
   std::list<::hippo::object> objects;
   objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
                        "std::variant containing [");
-  (
-      [&] {
-        using printer_type = ::hippo::printer<std::remove_cv_t<
-            std::remove_reference_t<decltype(std::get<I>(v))>>>;
-        if (v.index() == I)
-          objects.push_back(printer_type::print(
-              std::get<I>(v), current_indent + 1, config, std::get<I>(format)));
-      }(),
-      ...);
+  auto print_if = [&](auto val, auto fmt) {
+    using printer_type = ::hippo::printer<
+        std::remove_cv_t<std::remove_reference_t<decltype(*val)>>>;
+    if (val)
+      objects.push_back(
+          printer_type::print(*val, current_indent + 1, config, fmt));
+  };
+  (print_if(std::get_if<I>(&v), std::get<I>(format)), ...);
   objects.emplace_back(std::in_place_type<::hippo::line>, current_indent, "]");
   return ::hippo::condense(objects, config);
 }

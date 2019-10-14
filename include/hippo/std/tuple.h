@@ -15,18 +15,17 @@ template <typename Tuple, typename Format, std::size_t... I>
   std::list<::hippo::object> objects;
   objects.emplace_back(std::in_place_type<::hippo::line>, current_indent,
                        "std::tuple {");
-  (
-      [&] {
-        using printer_type = ::hippo::printer<std::remove_cv_t<
-            std::remove_reference_t<decltype(std::get<I>(t))>>>;
-        objects.push_back(printer_type::print(
-            std::get<I>(t), current_indent + 1, config, std::get<I>(formats)));
-        std::visit(::hippo::prepend_visitor{std::to_string(I) + ": "},
-                   objects.back());
-        if (I < sizeof...(I) - 1)
-          std::visit(::hippo::append_visitor{","}, objects.back());
-      }(),
-      ...);
+  auto print = [&](auto index, auto val, auto fmt) {
+    using printer_type = ::hippo::printer<
+        std::remove_cv_t<std::remove_reference_t<decltype(val)>>>;
+    objects.push_back(
+        printer_type::print(val, current_indent + 1, config, fmt));
+    std::visit(::hippo::prepend_visitor{std::to_string(index) + ": "},
+               objects.back());
+    if (index < sizeof...(I) - 1)
+      std::visit(::hippo::append_visitor{","}, objects.back());
+  };
+  (print(I, std::get<I>(t), std::get<I>(formats)), ...);
   objects.emplace_back(std::in_place_type<::hippo::line>, current_indent, "}");
   return ::hippo::condense(objects, config);
 }
